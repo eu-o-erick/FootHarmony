@@ -47,17 +47,25 @@ export default function ProductCart({item}: {item: any}) {
 
         <VariantIcon variations={variations} variationIndex={variationIndex} setVariationIndex={setVariationIndex} className='scale-95' />
       
-        <div className="flex items-center">
-          <button className="w-4 h-4 flex-center rounded-s-sm border border-gray-300" onClick={handlerDecrease}>
-            <Minus />
-          </button>
+        <div className="flex gap-5 items-center">
 
-          <span className="w-5 h-4 text-center font-bold text-xs bg-gray-300">{many}</span>
+          <div className=""></div>
+
+
+          <div className="flex items-center">
+            <button className="w-4 h-4 flex-center rounded-s-sm border border-gray-300" onClick={handlerDecrease}>
+              <Minus />
+            </button>
+
+            <span className="w-5 h-4 text-center font-bold text-xs bg-gray-300">{many}</span>
           
-          <button className="w-4 h-4 flex-center rounded-e-sm border border-gray-300" onClick={handlerIncrease}>
-            <Plus />
-          </button>
+            <button className="w-4 h-4 flex-center rounded-e-sm border border-gray-300" onClick={handlerIncrease}>
+              <Plus />
+            </button>
+          </div>
         </div>
+
+        {/* <span className="text-xs -mt-2 opacity-70">{item.variations[variationIndex].stock[0].amount} left</span> */}
 
       </div>
 

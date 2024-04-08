@@ -12,12 +12,30 @@ const SHOES = [
         colors: ['gray'],
         img: '/shoes/D_NQ_NP_929581-MLA51356222200_082022-O.webp',
         price: 130,
-        price_offer: null
+        price_offer: null,
+        stock: [
+          {
+            size: '6',
+            amount: 9
+          },{
+            size: '6.5',
+            amount: 4
+          },
+        ]
       },{
         colors: ['lime', 'gray'],
         img: '/shoes/D_NQ_NP_694209-MLA51356202561_082022-O.webp',
         price: 120,
-        price_offer: null
+        price_offer: null,
+        stock: [
+          {
+            size: '6',
+            amount: 9
+          },{
+            size: '6.5',
+            amount: 4
+          },
+        ]
       },{
         colors: ['white'],
         img: '/shoes/D_NQ_NP_694209-MLA51356202561_082022-O.webp',
@@ -33,7 +51,16 @@ const SHOES = [
         colors: ['lime', 'gray'],
         img: '/shoes/D_NQ_NP_694209-MLA51356202561_082022-O.webp',
         price: 130,
-        price_offer: 109
+        price_offer: 109,
+        stock: [
+          {
+            size: '6',
+            amount: 9
+          },{
+            size: '6.5',
+            amount: 4
+          },
+        ]
       },
     ]
   }

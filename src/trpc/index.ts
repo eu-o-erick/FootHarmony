@@ -1,10 +1,10 @@
+import { paymenteRouter } from "./payment-router";
 import { publicProcedure, router } from "./trpc";
 
 
 export const appRouter = router({
-  anyApiRoute: publicProcedure.query(() => {
-    return 'and you give'
-  })
+  payment: paymenteRouter,
+  
 });
 
 

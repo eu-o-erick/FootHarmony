@@ -3,6 +3,20 @@
 @tailwind utilities;
  
 @layer base {
+
+  .absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;

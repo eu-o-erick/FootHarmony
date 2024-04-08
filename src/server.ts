@@ -7,20 +7,40 @@ import { appRouter } from './trpc';
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
 
-
 const createContext = ({ req, res }: trpcExpress.CreateExpressContextOptions) => ({ req, res });
 
+// export type ExpressContext = inferAsyncReturnType<typeof createContext>;
+// export type WebhookRequest = IncomingMessage & {rawBody: Buffer}
+
 (async () => {
+
+  // const webhookMiddleware = bodyParser.json({
+  //   verify: (req: WebhookRequest, _, buffer) => {
+  //     req.rawBody = buffer;
+  //   },
+  // });
+  // app.post('/api/webhooks/stripe', webhookMiddleware, stripeWebhookHandler );
 
   const payload = await getPayloadClient({
     initOptions: {
       express: app,
       onInit: async (cms) => {
-        cms.logger.info(`Admin URL ${cms.getAdminURL()}`)
+        cms.logger.info(`Admin URL ${cms.getAdminURL()}`);
       }
     }
-  })
+  });
 
+  // if (process.env.NEXT_BUILD) {
+  //   app.listen(PORT, async () => {
+  //     payload.logger.info(
+  //       'Next.js is building for production'
+  //     )
+  //     // @ts-expect-error
+  //     await nextBuild(path.join(__dirname, '../'))
+  //     process.exit()
+  //   });
+  //   return;
+  // };
 
   app.use('/api/trpc', trpcExpress.createExpressMiddleware({
     router: appRouter,
@@ -33,8 +53,7 @@ const createContext = ({ req, res }: trpcExpress.CreateExpressContextOptions) =>
     payload.logger.info('Next .js started');
 
     app.listen(PORT, async () => {
-      payload.logger.info(`Next.js App URL: ${process.env.NEXT_PUBLIC_SERVER_URL}`)
-    })
-  })
-
+      payload.logger.info(`Next.js App URL: ${process.env.NEXT_PUBLIC_SERVER_URL}`);
+    });
+  });
 })();

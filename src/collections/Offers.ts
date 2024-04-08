@@ -1,63 +1,8 @@
-import { Offer } from "@/payload-types";
-import payload from "payload";
-import { AfterChangeHook, CollectionConfig } from "payload/dist/collections/config/types";
-
-const updateProducts: AfterChangeHook = async (args) => {
-  const doc = args.doc as Offer;
-
-  if(args.operation === 'create'){
-
-    const items = doc.items;
-
-    if(items?.length) {
-
-      const promises = items.map( async (item: any) => {
-
-        return new Promise( async (resolve, reject) => {
-
-          const ids = await payload.findByID({
-            collection: item.item_type,
-            id: item[item.item_type],
-          })
-          .then( data => (data.offers as any[] )?.map( offer => offer.id ) )
-          .then( ids => [...ids, doc.id] )
-
-          await payload.update({
-            collection: item.item_type,
-            id: item[item.item_type],
-            data: {
-              offers: ids,
-            },
-          });
-
-
-          resolve({})
-        })
-
-      })
-
-      await Promise.all(promises);
-
-      console.log('acabo')
-
-    }
-
-  } else if(args.operation === 'update'){
-
-    const previousDoc = args.previousDoc.items;
-    const doc = args.doc.items;
-
-    const itemsRemoved = previousDoc.filter( (item: any) => !doc.find( (currentItem: any) => currentItem.id === item.id) );
-    
-    const itemsAdded = doc.filter( (item: any) => !previousDoc.find( (previousItem: any) => previousItem.id === item.id) );
-
-    console.log('itemsRemoved:', itemsRemoved);
-    console.log('itemsAdded:', itemsAdded);
-
-
-  }
-}
-
+import { CollectionConfig } from "payload/dist/collections/config/types";
+import { updateRelationTo } from "./hooks/offers/after_change";
+import { updateProducts } from "./hooks/offers/before_change";
+import { deleteOffer } from "./hooks/offers/after_delete";
+import { filterOptionsOffer as filterOptions } from "../lib/utils";
 
 export const Offers: CollectionConfig = {
   slug: 'offer',
@@ -66,12 +11,14 @@ export const Offers: CollectionConfig = {
   },
   access: {
     create: ({req}) => req.user,
-    read: ({req}) => req.user,
-    update: ({req}) => req.user.email === 'aaa@aaa.com',
+    read: () => true,
+    update: ({req}) => req.user,
     delete: ({req}) => req.user,
   },
   hooks: {
-    afterChange: [updateProducts]
+    beforeChange: [updateProducts],
+    afterChange: [updateRelationTo],
+    afterDelete: [deleteOffer]
   },
   fields: [
 
@@ -80,14 +27,14 @@ export const Offers: CollectionConfig = {
       name: 'name',
       label: 'Name',
       type: 'text',
-      // required: true
+      required: true
     },
     // page title
     {
       name: 'page_title',
       label: 'Page Title',
       type: 'text',
-      // required: true
+      required: true
     },
 
     // msg
@@ -129,7 +76,7 @@ export const Offers: CollectionConfig = {
         }
       ]
     },
-    // banner
+    // banner products
     {
       name: 'banner',
       label: 'Banner',
@@ -140,7 +87,14 @@ export const Offers: CollectionConfig = {
         condition: (data) => data.type_banner === 'new_banner'
       }
     },
-
+    // detai banner page product
+    {
+      name: 'detail_banner',
+      label: 'Detail Banner (1920x150)',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+    },
     // items
     {
       name: 'items',
@@ -176,8 +130,10 @@ export const Offers: CollectionConfig = {
           relationTo: 'product',
           required: true,
           admin: {
-            condition: (data, siblingData) => siblingData.item_type === 'product'
-          }
+            condition: (data, siblingData) => siblingData.item_type === 'product',
+          },
+          filterOptions,
+          validate: () => true
         },
 
         // select variation
@@ -189,7 +145,9 @@ export const Offers: CollectionConfig = {
           required: true,
           admin: {
             condition: (data, siblingData) => siblingData.item_type === 'variation'
-          }
+          },
+          filterOptions,
+          validate: () => true
         },
 
         // type discount
@@ -275,134 +233,6 @@ export const Offers: CollectionConfig = {
       ],
     },
 
-    // collections
-    {
-      name: 'collections',
-      label: 'Collections',
-      type: 'array',
-      required: false,
-      fields: [
-
-        {
-          name: 'type',
-          label: 'Type',
-          type: 'radio',
-          defaultValue: 'brand',
-          required: true,
-          options: [
-            {
-              value: 'brand',
-              label: 'Brand'
-            },
-            {
-              value: 'category',
-              label: 'Category'
-            },
-          ]
-        },
-        {
-          name: 'brand',
-          label: 'Brand',
-          type: 'relationship',
-          relationTo: 'brand',
-          required: true,
-          admin: {
-            condition: (data, siblingData) => siblingData.type === 'brand'
-          }
-        },
-        {
-          name: 'category',
-          label: 'Category',
-          type: 'relationship',
-          relationTo: 'category',
-          required: true,
-          admin: {
-            condition: (data, siblingData) => siblingData.type === 'category'
-          }
-        },
-
-        {
-          name: 'discount',
-          label: 'Discount (same discount for all products in this collection)',
-          type: 'select',
-          defaultValue: 'none',
-          options: [
-            {
-              value: 'none',
-              label: 'None',
-            },{
-              value: 'percentage',
-              label: 'Percentage',
-            },{
-              value: 'value_off',
-              label: 'Value Off',
-            },{
-              value: 'delivery_free',
-              label: 'Delivery Free',
-            },
-          ],
-          required: true,
-        },
-
-        {
-          name: 'percentage_value',
-          label: 'Percentage',
-          type: 'number',
-          admin: {
-            condition: (data, siblingData) => siblingData.discount === 'percentage',
-          },
-          required: true,
-        },
-
-        {
-          name: 'value_off',
-          label: 'Value',
-          type: 'number',
-          admin: {
-            condition: (data, siblingData) => siblingData.discount === 'value_off',
-          },
-          required: true,
-        },
-
-        {
-          name: 'limit',
-          type: 'group',
-          interfaceName: 'Limit',
-          fields: [
-            {
-              name: 'type',
-              type: 'radio',
-              label: 'Type',
-              defaultValue: 'none',
-              required: true,
-              options: [
-                {
-                  value: 'for_each',
-                  label: 'For Each',
-                },{
-                  value: 'for_all',
-                  label: 'For All',
-                },{
-                  value: 'none',
-                  label: 'No Limit',
-                }
-              ]
-            },
-            {
-              name: 'number',
-              type: 'number',
-              defaultValue: 10,
-              label: 'Sales Limit',
-              required: true,
-              admin: {
-                condition: (data, siblingData) => siblingData.type !== 'none'
-              } 
-            },
-          ],
-        }
-      ],
-    },
-
     // sold
     {
       name: 'sold',
@@ -439,7 +269,7 @@ export const Offers: CollectionConfig = {
       name: 'expiration',
       label: 'Expiration',
       type: 'date',
-      // required: true
+      required: true
     },
 
   ]

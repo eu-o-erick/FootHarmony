@@ -1,10 +1,10 @@
 import { CollectionConfig } from "payload/types";
 
 export const Carousel: CollectionConfig = {
-  slug: 'CarouselElement',
+  slug: 'carousel',
   access: {
     create: ({req}) => req.user,
-    read: ({req}) => req.user,
+    read: () => true,
     update: ({req}) => req.user,
     delete: ({req}) => req.user,
   },

@@ -1,74 +1,29 @@
 import { sizes } from '../../constants/sizes';
 import { colors } from '../../constants/colors';
-import { stripe } from '../../lib/stripe';
 import { CollectionConfig } from 'payload/types';
+import { handlerBeforeChange } from '../hooks/variations/before_change';
+import { removeOfOffer, removeOfProduct } from '../hooks/variations/after_delete';
 
 
+// quando removida remover a foto tmbm
 export const Variations: CollectionConfig = {
   slug: 'variation',
   admin: {
     useAsTitle: 'name',
   },
-  hooks: {
-    beforeChange: [
-      async (args) => {
-
-        const data = args.data;
-
-        if (args.operation === 'create' && data.standard_price) {
-
-          const createdProduct = await stripe.products.create({
-            name: data.name,
-            default_price_data: {
-              currency: 'USD',
-              unit_amount: Math.round(data.standard_price * 100),
-            },
-          });
-
-          const updated = {
-            ...data,
-            stripeId: createdProduct.id,
-            priceId: createdProduct.default_price as string,
-          };
-
-          return updated;
-
-        } else if (args.operation === 'update') {
-
-          let updated = {
-            ...data,
-            stripeId: '',
-            priceId: '',
-          };
-
-
-          if(data.standard_price) {
-
-            const updatedProduct = await stripe.products.update(data.stripeId!, {
-              name: data.name,
-              default_price: data.priceId!,
-            })
-  
-            updated = {
-              ...data,
-              stripeId: updatedProduct.id,
-              priceId: updatedProduct.default_price as string,
-            }
-          }
-
-          return updated
-        }
-      },
-    ],
-  },
   access: {
     create: ({req}) => req.user,
-    read: ({req}) => req.user,
+    read: () => true,
     update: ({req}) => req.user,
     delete: ({req}) => req.user,
   },
+  hooks: {
+    beforeChange: [handlerBeforeChange],
+    afterDelete: [removeOfOffer, removeOfProduct],
+  },
   fields: [
-    
+
+    // name
     {
       name: 'name',
       label: 'Name (used only for identification in offers)',
@@ -76,19 +31,21 @@ export const Variations: CollectionConfig = {
       required: true,
     },
 
+    // colors
     {
       label: 'Colors',
       type: 'collapsible',
       fields: [
+        // primary
         {
           name: 'primary_color',
           label: 'Primary Color',
           type: 'select',
-          defaultValue: 'white',
+          defaultValue: 'White',
           required: true,
           options: colors.map( color => color.label )
         },
-
+        // secondary
         {
           name: 'secondary_color',
           label: 'Secondary Color (optional)',
@@ -99,6 +56,7 @@ export const Variations: CollectionConfig = {
       ],
     },
 
+    // images
     {
       name: 'images',
       type: 'array',
@@ -114,6 +72,7 @@ export const Variations: CollectionConfig = {
       ],
     },
 
+    // price
     {
       name: 'standard_price',
       label: "Standard Price(The price will only apply if there's a variation in price between options; otherwise, the default price for the shoes will be applied)",
@@ -121,54 +80,71 @@ export const Variations: CollectionConfig = {
       required: false,
     },
 
+    // product
+    {
+      name: 'product',
+      type: 'relationship',
+      relationTo: 'product',
+      required: false,
+      hasMany: false,
+      admin: {
+        hidden: true
+      }
+    },
+
+    // stripeId
     {
       name: 'stripeId',
+      type: 'text',
       access: {
         create: () => false,
-        read: () => false,
         update: () => false,
       },
-      type: 'text',
       admin: {
         hidden: true,
       },
     },
+    // priceId
     {
       name: 'priceId',
+      type: 'text',
       access: {
         create: () => false,
-        read: () => false,
         update: () => false,
       },
-      type: 'text',
       admin: {
         hidden: true,
       },
     },
 
-
+    // offer
     {
       name: 'offer',
-      label: 'Offer',
       type: 'relationship',
-      required: false,
       relationTo: 'offer',
+      required: false,
       hasMany: false,
+      admin: {
+        hidden: true
+      }
     },
 
-    
+    // stock
     {
       name: 'stock',
       label: 'Stock',
       type: 'array',
       fields: [
+        // size
         {
           name: 'size',
           label: 'Size',
           type: 'select',
           options: sizes,
           required: true,
-        },{
+        },
+        // amount
+        {
           name: 'amount',
           label: 'Amount',
           type: 'number',
@@ -178,16 +154,17 @@ export const Variations: CollectionConfig = {
       required: true,
     },
 
+    // sold
     {
       name: 'sold',
       access: {
         create: () => false,
-        read: () => true,
         update: () => false,
       },
       type: 'number',
       defaultValue: 0,
       required: true,
-    },
+    }
+
   ]
-} 
+};

@@ -4,7 +4,7 @@ export const Featured: CollectionConfig = {
   slug: 'featured',
   access: {
     create: ({req}) => req.user,
-    read: ({req}) => req.user,
+    read: () => true,
     update: ({req}) => req.user,
     delete: ({req}) => req.user,
   },

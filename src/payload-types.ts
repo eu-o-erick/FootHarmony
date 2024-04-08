@@ -14,7 +14,7 @@ export interface Config {
     category: Category;
     tag: Tag;
     media: Media;
-    CarouselElement: CarouselElement;
+    carousel: Carousel;
     modal: Modal;
     message: Message;
     featured: Featured;
@@ -40,13 +40,13 @@ export interface Product {
   }[];
   genere: 'Unisex' | 'Male' | 'Female';
   standard_price: number;
-  variations: (string | Variation)[];
+  variations?: (string | Variation)[] | null;
   details: {
     brand: string | Brand;
     categories: (string | Category)[];
     tags?: (string | Tag)[] | null;
   };
-  offer_id?: (string | Offer)[] | null;
+  offer?: (string | null) | Offer;
   stripeId?: string | null;
   priceId?: string | null;
   sold: number;
@@ -80,6 +80,7 @@ export interface Variation {
     id?: string | null;
   }[];
   standard_price?: number | null;
+  product?: (string | null) | Product;
   stripeId?: string | null;
   priceId?: string | null;
   offer?: (string | null) | Offer;
@@ -163,18 +164,6 @@ export interface Offer {
         id?: string | null;
       }[]
     | null;
-  collections?:
-    | {
-        type: 'brand' | 'category';
-        brand?: (string | null) | Brand;
-        category?: (string | null) | Category;
-        discount: 'none' | 'percentage' | 'value_off' | 'delivery_free';
-        percentage_value?: number | null;
-        value_off?: number | null;
-        limit: Limit;
-        id?: string | null;
-      }[]
-    | null;
   sold: number;
   with_coupon: boolean;
   enable: boolean;
@@ -253,14 +242,6 @@ export interface Category {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Limit".
- */
-export interface Limit {
-  type: 'for_each' | 'for_all' | 'none';
-  number?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tag".
  */
 export interface Tag {
@@ -271,9 +252,9 @@ export interface Tag {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CarouselElement".
+ * via the `definition` "carousel".
  */
-export interface CarouselElement {
+export interface Carousel {
   id: string;
   image: string | Media;
   type: 'Link' | 'Modal';
@@ -361,26 +342,28 @@ export interface Address {
  */
 export interface Coupon {
   id: string;
-  name: string;
+  name: string;  // COUPON
   message?: (string | null) | Message;
   modal?: (string | null) | Modal;
-  requirements?: {
-    brands?: (string | Brand)[] | null;
-    categories?: (string | Category)[] | null;
-    value_min?: number | null;
-    value_max?: number | null;
-  };
-  products?: {
+  requirements?:
+    | {
+        brands?: (string | Brand)[] | null;
+        categories?: (string | Category)[] | null;
+        value_min?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  select_products_variations?: {
     products?: (string | Product)[] | null;
     variations?: (string | Variation)[] | null;
   };
-  code: string;
-  discount: 'percentage' | 'value' | 'delivery_free';
-  percentage_value?: number | null;
-  value_off?: number | null;
-  application_with_offer?: boolean | null;
-  enable: boolean;
-  expiration: string;
+  code: string;  // CODE
+  discount: 'percentage' | 'value' | 'delivery_free';  // COUPON
+  percentage_value?: number | null;  // COUPON
+  fixed_value?: number | null;  // COUPON
+  application_with_offer: boolean;
+  enable: boolean;  // CODE
+  expiration: string;  // CODE
   updatedAt: string;
   createdAt: string;
 }

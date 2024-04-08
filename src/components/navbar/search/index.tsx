@@ -61,7 +61,7 @@ const SHOES = [
 ]
 
 
-export default function Input() {
+export default function SearchNavbar() {
   const refInput = useRef<HTMLInputElement>(null);
 
   const [value, setValue] = useState('');

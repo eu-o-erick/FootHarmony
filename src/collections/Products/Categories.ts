@@ -7,7 +7,7 @@ export const Category: CollectionConfig = {
   },
   access: {
     create: ({req}) => req.user,
-    read: ({req}) => req.user,
+    read: () => true,
     update: ({req}) => req.user,
     delete: ({req}) => req.user,
   },
@@ -26,7 +26,6 @@ export const Category: CollectionConfig = {
       defaultValue: 0,
       access: {
         create: () => false,
-        read: () => true,
         update: () => false,
       },
     }

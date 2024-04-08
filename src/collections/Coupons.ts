@@ -1,4 +1,5 @@
 import { CollectionConfig } from "payload/types";
+import { handlerBeforeChanges } from "./hooks/coupons/before_change";
 
 
 export const Coupons: CollectionConfig = {
@@ -6,14 +7,19 @@ export const Coupons: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
   },
+  hooks: {
+    beforeChange: [handlerBeforeChanges],
+  },
   fields: [
 
+    // name
     {
       name: 'name',
       label: 'Name',
       type: 'text',
       required: true,
     },
+    // message
     {
       name: 'message',
       label: 'Message',
@@ -21,6 +27,7 @@ export const Coupons: CollectionConfig = {
       relationTo: 'message',
       hasMany: false
     },
+    // modal
     {
       name: 'modal',
       label: 'Modal',
@@ -29,13 +36,14 @@ export const Coupons: CollectionConfig = {
       hasMany: false
     },
 
-
+    // requirements
     {
       name: 'requirements',
       label: 'Requirements',
-      type: 'group',
+      type: 'array',
       fields: [
 
+        // brands
         {
           name: 'brands',
           label: 'Brands',
@@ -44,6 +52,7 @@ export const Coupons: CollectionConfig = {
           hasMany: true
         },
 
+        // categories
         {
           name: 'categories',
           label: 'Categories',
@@ -52,38 +61,34 @@ export const Coupons: CollectionConfig = {
           hasMany: true
         },
 
+        // value_min
         {
           name: 'value_min',
           label: 'Price Min',
           type: 'number',
         },
-        
-        {
-          name: 'value_max',
-          label: 'Price Max',
-          type: 'number',
-        },
-
+  
       ]
     },
 
-
+    // select_products_variations
     {
-      name: 'products',
+      name: 'select_products_variations',
       label: 'Manually select products',
       type: 'group',
       fields: [
+        // products
         {
           name: 'products',
-          label: 'Applicable to Products',
+          label: 'Products (applicable to all variations)',
           type: 'relationship',
           relationTo: 'product',
           hasMany: true
         },
-
+        // variations
         {
           name: 'variations',
-          label: 'Applicable to Variations',
+          label: 'Variations',
           type: 'relationship',
           relationTo: 'variation',
           hasMany: true
@@ -91,7 +96,7 @@ export const Coupons: CollectionConfig = {
       ]
     },
 
-
+    // code
     {
       name: 'code',
       label: 'Coupon Code',
@@ -99,6 +104,7 @@ export const Coupons: CollectionConfig = {
       required: true,
     },
 
+    // discount
     {
       name: 'discount',
       label: 'Discount Type',
@@ -108,10 +114,10 @@ export const Coupons: CollectionConfig = {
       options: [
         {
           value: 'percentage',
-          label: 'Percentage'
+          label: 'Percentage discount'
         },{
           value: 'value',
-          label: 'Value Off'
+          label: 'Fixed value discount'
         },{
           value: 'delivery_free',
           label: 'Delivery Free'
@@ -119,6 +125,7 @@ export const Coupons: CollectionConfig = {
       ]
     },
     
+    // percentage_value
     {
       name: 'percentage_value',
       label: 'Percentage',
@@ -129,9 +136,10 @@ export const Coupons: CollectionConfig = {
       required: true,
     },
 
+    // fixed_value
     {
-      name: 'value_off',
-      label: 'Value',
+      name: 'fixed_value',
+      label: 'Fixed value',
       type: 'number',
       admin: {
         condition: (data) => data.discount === 'value',
@@ -139,12 +147,21 @@ export const Coupons: CollectionConfig = {
       required: true,
     },
 
+    // application_with_offer
     {
       name: 'application_with_offer',
       label: 'Application With Offer',
       type: 'checkbox',
+      required: true,
     },
+
+    // // limit usage
+    // {
+    //   name: '', 
+    //   label: ''
+    // }
     
+    // enable
     {
       name: 'enable',
       label: 'Enable',
@@ -153,6 +170,7 @@ export const Coupons: CollectionConfig = {
       required: true,
     },
 
+    // expiration
     {
       name: 'expiration',
       label: 'Expiration',

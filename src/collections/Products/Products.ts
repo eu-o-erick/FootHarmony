@@ -1,52 +1,8 @@
-import payload from "payload";
 import { CollectionConfig } from "payload/types";
-import { Product } from "@/payload-types";
 import { slateEditor } from "@payloadcms/richtext-slate";
-import { stripe } from '../../lib/stripe'
-import { BeforeChangeHook } from "payload/dist/collections/config/types";
-
-
-const handlerBeforeChange: BeforeChangeHook = async (args) => {
-
-  const data = args.data as Product;
-
-  if (args.operation === 'create') {
-
-    const createdProduct = await stripe.products.create({
-      name: data.name,
-      default_price_data: {
-        currency: 'USD',
-        unit_amount: Math.round(data.standard_price * 100),
-      },
-    });
-
-    const updated = {
-      ...data,
-      stripeId: createdProduct.id,
-      priceId: createdProduct.default_price as string,
-    };
-
-    return updated;
-
-  } else if (args.operation === 'update') {
-    console.log('atualizou o produto')
-
-    const updatedProduct = await stripe.products.update(data.stripeId!, {
-      name: data.name,
-      default_price: data.priceId!,
-    });
-
-    const updated = {
-      ...data,
-      stripeId: updatedProduct.id,
-      priceId: updatedProduct.default_price as string,
-    };
-
-    return updated;
-  }
-
-  // remover o produto das ofertas e excluir os preços
-}
+import { handlerBeforeChange } from "../hooks/products/before_change";
+import { decreaseBrands, decreaseCategories, removeOfVariations, removeOfOffer } from "../hooks/products/after_delete";
+import { relationToVariations, increaseBrands, increaseCategories } from "../hooks/products/after_change";
 
 
 export const Products: CollectionConfig = {
@@ -56,35 +12,41 @@ export const Products: CollectionConfig = {
   },
   access: {
     create: ({req}) => req.user,
-    read: ({req}) => req.user,
-    update: ({req}) => req.user.email === 'aaa@aaa.com',
+    read: () => true,
+    update: ({req}) => req.user,
     delete: ({req}) => req.user,
   },
   hooks: {
     beforeChange: [handlerBeforeChange],
+    afterChange: [relationToVariations, increaseBrands, increaseCategories],
+    afterDelete: [removeOfVariations, removeOfOffer, decreaseBrands, decreaseCategories],
   },
   fields: [
+    // name
     {
       name: 'name',
       label: 'Name',
       type: 'text',
-      // required: true,
+      required: true,
     },
     
+    // subtitle
     {
       name: 'subtitle',
       label: 'Subtitle',
       type: 'text',
-      // required: true,
+      required: true,
     },
     
+    // desc
     {
       name: 'description',
       type: 'richText',
       editor: slateEditor({}),
-      // required: true,
+      required: true,
     },
 
+    // genere
     {
       name: 'genere',
       label: 'Genere',
@@ -97,43 +59,56 @@ export const Products: CollectionConfig = {
       },
     },
 
+    // price
     {
       name: 'standard_price',
       label: 'Standard Price',
       type: 'number',
-      // required: true,
+      required: true,
     },
 
+    // variations
     {
       name: 'variations',
       label: 'Variations',
       type: 'relationship',
       relationTo: 'variation',
-      // required: true,
       hasMany: true,
+      filterOptions() { 
+        return {
+          product: {
+            exists: false
+          }
+        }
+      },
+      validate: () => true
     },
 
+    // details
     {
       name: 'details',
       label: 'Details',
       type: 'group',
       fields: [
+        // brand
         {
           name: 'brand',
           label: 'Brand',
           type: 'relationship',
           relationTo: 'brand',
-          // required: true,
+          required: true,
           hasMany: false,
         },
+        // categories
         {
           name: 'categories',
           label: 'Categories',
           type: 'relationship',
-          // required: true,
+          required: true,
           hasMany: true,
           relationTo: 'category',
         },
+        // tags
         {
           name: 'tags',
           label: 'Tags',
@@ -145,27 +120,23 @@ export const Products: CollectionConfig = {
       ],
     },
 
+    // offer
     {
-      name: 'offers',
+      name: 'offer',
       type: 'relationship',
       relationTo: 'offer',
       required: false,
-      hasMany: true,
-      access: {
-        read: () => false,
-        update: () => false,
-        create: () => false,
-      },
+      hasMany: false,
       admin: {
         hidden: true
       }
     },
 
+    // stripeId
     {
       name: 'stripeId',
       access: {
         create: () => false,
-        read: () => false,
         update: () => false,
       },
       type: 'text',
@@ -173,11 +144,11 @@ export const Products: CollectionConfig = {
         hidden: true,
       },
     },
+    // priceId
     {
       name: 'priceId',
       access: {
         create: () => false,
-        read: () => false,
         update: () => false,
       },
       type: 'text',
@@ -186,17 +157,16 @@ export const Products: CollectionConfig = {
       },
     },
 
+    // sold
     {
       name: 'sold',
       access: {
         create: () => false,
-        read: () => true,
         update: () => false,
       },
       type: 'number',
       defaultValue: 0,
       required: true,
     },
-
   ]
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import VariantIcon from "../VariantIcon"
+import VariantIcon from "../../VariantIcon"
 import { formatPrice } from "@/lib/utils"
 import { useState } from "react";
 
@@ -22,7 +22,7 @@ interface TShoes {
 export default function ListItem({shoe}: {shoe: TShoes}) {
   const { name, brand, variations } = shoe;
 
-  const [variationIndex, setVariantIndex] = useState(0);
+  const [variationIndex, setVariationIndex] = useState(0);
 
   return (
     <li className="grid grid-cols-[80px,190px,60px] gap-3 border-b-2">
@@ -37,12 +37,7 @@ export default function ListItem({shoe}: {shoe: TShoes}) {
         <h4 className="mb-2 truncate">{name}</h4>
 
         <ul className="flex gap-1">
-          { variations.map((item, i) => {
-
-            return(
-              <VariantIcon key={i} i={i} colors={item.colors} variationIndex={variationIndex} setVariantIndex={setVariantIndex} />
-            )
-          })}
+          <VariantIcon variations={shoe.variations} variationIndex={variationIndex} setVariationIndex={setVariationIndex} />
         </ul>
 
       </div>

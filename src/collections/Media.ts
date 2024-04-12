@@ -18,14 +18,6 @@ export const Media: CollectionConfig = {
   upload: {
     staticURL: '/media',
     staticDir: 'media',
-    imageSizes: [
-      {
-        name: "default",
-        width: 1024,
-        height: undefined,
-        position: "centre",
-      }
-    ],
     mimeTypes: ['image/*'],
   },
   fields: [{

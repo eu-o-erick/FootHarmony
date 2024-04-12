@@ -1,33 +1,26 @@
 'use client';
 
-import { cn } from "@/lib/utils";
-
-import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { setId } from "@/store/reducers/modal";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
 import { Media, Message, Modal } from "@/payload-types";
-import Cookies from 'js-cookie';
 
 
+interface Props {
+  messages: Message[];
+  messagesRead: string[];
+  setMessagesRead: React.Dispatch<React.SetStateAction<string[]>>;
+}
 
-export default function ListMsgs({messages}: {messages: Message[]}) {
+
+export default function ListMsgs({messages, messagesRead, setMessagesRead}: Props) {
   const dispatch = useDispatch();
-
-  const messagesRead = Cookies.get('messages_read');
 
 
   const handlerSetModalShow = (msg: Message) => {
-    const msgsRead = Cookies.get('messages_read');
 
-    if(!messagesRead) {
-      Cookies.set('messages_read', JSON.stringify([msg.id]));
-
-    } else {
-      const json: string[] = JSON.parse(messagesRead);
-
-      !json.includes(msg.id) && Cookies.set('messages_read', JSON.stringify([...json, msg.id]) );
-    };
-
+    !messagesRead.includes(msg.id) && setMessagesRead([...messagesRead, msg.id]);
 
     const id = (msg.linkTo as Modal | undefined )?.id;
 
@@ -40,7 +33,7 @@ export default function ListMsgs({messages}: {messages: Message[]}) {
     <ul className="relative flex flex-col gap-1 w-full max-h-72 mt-4 mb-6 overflow-auto">
       { messages.map((msg, i) => {
 
-        const isRead = (JSON.parse(messagesRead ?? '[]') as string[]).includes(msg.id);
+        const isRead = messagesRead.includes(msg.id);
 
         return(
           <li key={i}  className={cn("flex gap-3 bg-gray-50 p-4 rounded-md shadow-sm cursor-pointer scale-95 hover:scale-100 transition-all", {

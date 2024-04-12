@@ -6,7 +6,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { trpc } from "@/trpc/client";
 import SkeletonMessage from "./Skeleton";
 import ListMsgs from "./ListMessage";
-import Cookies from 'js-cookie';
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -16,29 +15,30 @@ export default function Messages() {
   const { status, data: messages } = trpc.messages.useQuery();
   const [hasNew, setHasNew] = useState(false);
 
-  const messagesRead = Cookies.get('messages_read');
+  const [messagesRead, setMessagesRead] = useState<string[]>([]);
+
+  useEffect(() => {
+    const msgRead = JSON.parse( localStorage.getItem('messages_read') ?? '[]') as string[];
+
+    setMessagesRead(msgRead);
+
+  }, []);
 
 
   useEffect(() => {
-    console.log('aaaaa')
-
     if(!messages) return;
 
-    const msgRead: string[] = JSON.parse(messagesRead ?? '[]');
-
-    console.log('msgRead: ', msgRead)
-
-    const state = messages.find( msg => !msgRead.includes(msg.id) );
-
-    console.log('state: ', state)
+    const state = messages.find( msg => !messagesRead.includes(msg.id) );
 
     setHasNew( state ? true : false);
 
-  }, [messages, messagesRead]);
-  useEffect(() => {
-    console.log('bbbbb')
+    const json = JSON.stringify(messagesRead);
 
-  }, []);
+    localStorage.setItem('messages_read', json)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messages, messagesRead]);
+
 
 
   return(
@@ -59,7 +59,7 @@ export default function Messages() {
           :
             messages?.length ?
               <>
-                <ListMsgs messages={messages} />
+                <ListMsgs messages={messages} messagesRead={messagesRead} setMessagesRead={setMessagesRead} />
 
                 <Separator />
 

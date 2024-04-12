@@ -150,6 +150,7 @@ export interface Offer {
   modal?: (string | null) | Message;
   type_banner: 'new_banner' | 'same_banner' | 'none';
   banner?: string | Media | null;
+  detail_banner?: string | Media | null;
   items?:
     | {
         item_type: 'product' | 'variation';
@@ -190,31 +191,19 @@ export interface Message {
  */
 export interface Modal {
   id: string;
+  name: string;
   banner: string | Media;
   content: {
     [k: string]: unknown;
   }[];
-  linkTo?:
-    | ({
-        relationTo: 'product';
-        value: string | Product;
-      } | null)
-    | ({
-        relationTo: 'variation';
-        value: string | Variation;
-      } | null)
-    | ({
-        relationTo: 'brand';
-        value: string | Brand;
-      } | null)
-    | ({
-        relationTo: 'category';
-        value: string | Category;
-      } | null)
-    | ({
-        relationTo: 'offer';
-        value: string | Offer;
-      } | null);
+  linkType: 'Product' | 'Variation' | 'Brand' | 'Category' | 'Offer' | 'None';
+  product?: (string | null) | Product;
+  variation?: (string | null) | Variation;
+  brand?: (string | null) | Brand;
+  category?: (string | null) | Category;
+  offer?: (string | null) | Offer;
+  active: boolean;
+  expiryDate?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -342,7 +331,7 @@ export interface Address {
  */
 export interface Coupon {
   id: string;
-  name: string;  // COUPON
+  name: string;
   message?: (string | null) | Message;
   modal?: (string | null) | Modal;
   requirements?:
@@ -357,13 +346,13 @@ export interface Coupon {
     products?: (string | Product)[] | null;
     variations?: (string | Variation)[] | null;
   };
-  code: string;  // CODE
-  discount: 'percentage' | 'value' | 'delivery_free';  // COUPON
-  percentage_value?: number | null;  // COUPON
-  fixed_value?: number | null;  // COUPON
+  code: string;
+  discount: 'percentage' | 'value' | 'delivery_free';
+  percentage_value?: number | null;
+  fixed_value?: number | null;
   application_with_offer: boolean;
-  enable: boolean;  // CODE
-  expiration: string;  // CODE
+  enable: boolean;
+  expiration: string;
   updatedAt: string;
   createdAt: string;
 }

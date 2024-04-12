@@ -1,68 +1,122 @@
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
-import { Mail, ShoppingCart } from "lucide-react";
-import Cart from "./Cart";
+import { ShoppingCart } from "lucide-react";
+import Cart from "./cart";
+import Messages from "./message";
+
+export interface TShoesShoppingCart{
+  information: {
+    variationIndex: number;
+    sizeIndex: number; 
+  };
+  shoe: {
+    name: string;
+    brand: string;
+    variations:{
+      colors: string[];
+      img: string;
+      price: number;
+      price_offer?: number;
+      stock:{
+        size: string
+        amount: number;
+      }[];
+    }[];
+  };
+};
 
 
-const SHOES = [
+
+const SHOES: TShoesShoppingCart[] = [
   {
-    name: 'Shoe Under Armour',
-    brand: "Under Armour",
-    variations: [
-      {
-        colors: ['gray'],
-        img: '/shoes/D_NQ_NP_929581-MLA51356222200_082022-O.webp',
-        price: 130,
-        price_offer: null,
-        stock: [
-          {
-            size: '6',
-            amount: 9
-          },{
-            size: '6.5',
-            amount: 4
-          },
-        ]
-      },{
-        colors: ['lime', 'gray'],
-        img: '/shoes/D_NQ_NP_694209-MLA51356202561_082022-O.webp',
-        price: 120,
-        price_offer: null,
-        stock: [
-          {
-            size: '6',
-            amount: 9
-          },{
-            size: '6.5',
-            amount: 4
-          },
-        ]
-      },{
-        colors: ['white'],
-        img: '/shoes/D_NQ_NP_694209-MLA51356202561_082022-O.webp',
-        price: 120,
-        price_offer: null
-      },
-    ]
+    information: {
+      variationIndex: 0,
+      sizeIndex: 0 
+    },
+    shoe: {
+      name: 'Shoe Under Armour',
+      brand: "Under Armour",
+      variations: [
+        {
+          colors: ['gray'],
+          img: '/shoes/D_NQ_NP_929581-MLA51356222200_082022-O.webp',
+          price: 130,
+          price_offer: 119,
+          stock: [
+            {
+              size: '6',
+              amount: 9
+            },{
+              size: '6.5',
+              amount: 4
+            },{
+              size: '7',
+              amount: 0
+            }
+          ]
+        },{
+          colors: ['lime', 'gray'],
+          img: '/shoes/D_NQ_NP_694209-MLA51356202561_082022-O.webp',
+          price: 120,
+          stock: [
+            {
+              size: '6',
+              amount: 9
+            },{
+              size: '6.5',
+              amount: 4
+            },{
+              size: '7',
+              amount: 0
+            }
+          ]
+        },{
+          colors: ['white'],
+          img: '/shoes/D_NQ_NP_694209-MLA51356202561_082022-O.webp',
+          price: 120,
+          stock: [
+            {
+              size: '6',
+              amount: 9
+            },{
+              size: '6.5',
+              amount: 4
+            },{
+              size: '7',
+              amount: 0
+            }
+          ]
+        },
+      ]
+    }
   },{
-    name: 'Shoe Under Armour',
-    brand: "Under Armour",
-    variations: [
-      {
-        colors: ['lime', 'gray'],
-        img: '/shoes/D_NQ_NP_694209-MLA51356202561_082022-O.webp',
-        price: 130,
-        price_offer: 109,
-        stock: [
-          {
-            size: '6',
-            amount: 9
-          },{
-            size: '6.5',
-            amount: 4
-          },
-        ]
-      },
-    ]
+    information: {
+      variationIndex: 0,
+      sizeIndex: 0 
+    },
+    shoe: {
+      name: 'Shoe Under Armour',
+      brand: "Under Armour",
+      variations: [
+        {
+          colors: ['lime', 'gray'],
+          img: '/shoes/D_NQ_NP_694209-MLA51356202561_082022-O.webp',
+          price: 130,
+          price_offer: 109,
+          stock: [
+            {
+              size: '6',
+              amount: 9
+            },{
+              size: '6.5',
+              amount: 4
+            },{
+              size: '7',
+              amount: 0
+            }
+          ]
+        },
+      ]
+    }
   }
 ]
 
@@ -72,12 +126,7 @@ export default function IconsNavbar() {
   return(
     <div className="w-44 h-14 flex items-center justify-end gap-10">
 
-      <button className="relative text-gray-800 flex items-center justify-center opacity-90 hover:scale-105 hover:opacity-100 transition-all">
-        <Mail className="w-7 h-7" />
-
-        {/* VALIDATION IF HAVE NEWS MSG */}
-        <span className="w-2 h-2 bg-red-500 rounded-full absolute top-0 right-0" />
-      </button>
+      <Messages />
 
       <Sheet>
         <SheetTrigger className="relative text-gray-800 flex items-center justify-center opacity-90 hover:scale-105 hover:opacity-100 transition-all">

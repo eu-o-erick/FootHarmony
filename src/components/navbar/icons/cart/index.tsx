@@ -4,8 +4,10 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 
+import type { TShoesShoppingCart } from '..'; 
 
-export default function Cart({shoes}: {shoes: any[]}) {
+
+export default function Cart({shoes}: {shoes: TShoesShoppingCart[]}) {
 
   
 

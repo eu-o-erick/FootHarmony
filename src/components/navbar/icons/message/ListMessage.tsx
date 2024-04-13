@@ -36,13 +36,11 @@ export default function ListMsgs({messages, messagesRead, setMessagesRead}: Prop
         const isRead = messagesRead.includes(msg.id);
 
         return(
-          <li key={i}  className={cn("flex gap-3 bg-gray-50 p-4 rounded-md shadow-sm cursor-pointer scale-95 hover:scale-100 transition-all", {
+          <li key={i}  className={cn("flex gap-3 bg-gray-50 p-4 shadow-sm cursor-pointer scale-95 hover:scale-100 transition-all", {
             'opacity-60': isRead
           })} onClick={ () => handlerSetModalShow(msg) }>
 
-            <div className="relative w-1/5 h-16">
-              <Image src={'/media/'+(msg.card as Media).filename} alt="IMAGE" fill objectFit="contain" />
-            </div>
+            <Image src={'/media/'+(msg.card as Media).filename} alt="IMAGE" width={60} height={60} />
 
             <div className="relative flex flex-col w-3/4 bg-sgreen-400">
 

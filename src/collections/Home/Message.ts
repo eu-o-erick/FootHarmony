@@ -14,6 +14,13 @@ export const Messages: CollectionConfig = {
   fields: [
 
     {
+      name: 'name',
+      label: 'Name',
+      type: 'text',
+      required: true,
+    },
+
+    {
       name: 'card',
       label: 'Card Image',
       type: 'upload',

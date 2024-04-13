@@ -31,7 +31,7 @@ export const Modal: CollectionConfig = {
 
     {
       name: 'content',
-      label: 'Content',
+      label: 'content',
       type: 'richText',
       required: true,
     },

@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SizeDropdown from "./Size";
 
-import type { TShoesShoppingCart } from '..'; 
+import type { TShoesShoppingCart } from '.'; 
 
  
 export default function ProductCart({item}: {item: TShoesShoppingCart}) {

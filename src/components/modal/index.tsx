@@ -9,8 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 
 
-
-
 export default function ModalComponent() {
 
   const dispatch = useDispatch();
@@ -33,7 +31,6 @@ export default function ModalComponent() {
   };
 
 
-
   return (
     <Dialog onOpenChange={handlerClose}>
       <DialogTrigger className="hidden" ref={refTrigger} /> 
@@ -46,7 +43,6 @@ export default function ModalComponent() {
           <div className="flex flex-col gap-3 my-8 bg-green-100">
             <Image src={`/media/${(modal.banner as Media).filename}`} width={1000} height={1000} alt="BANNER" />
 
-            <p>faefea</p>
           </div>
         }
 

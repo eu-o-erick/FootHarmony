@@ -127,16 +127,6 @@ export interface Media {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
-  sizes?: {
-    default?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -178,6 +168,7 @@ export interface Offer {
  */
 export interface Message {
   id: string;
+  name: string;
   card: string | Media;
   title: string;
   description: string;

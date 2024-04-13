@@ -32,8 +32,6 @@ export const appRouter = router({
 
     }) as Modal;
 
-    console.log('fetch: ', modal)
-
     return modal;
   }),
 

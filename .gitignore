@@ -1,4 +1,7 @@
+public/messages/
+public/modals/
 public/shoes/
+src/media/
 
 # Logs
 logs

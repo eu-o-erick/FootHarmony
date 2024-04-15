@@ -1,3 +1,5 @@
+import { Media, Product } from '@/payload-types';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment } from 'react';
 import { renderToString } from 'react-dom/server';
@@ -22,7 +24,7 @@ interface TContent {
   // type link
   linkType?: 'custom' | 'internal';
   doc?: {
-    value: string;
+    value: any;
     relationTo: string;
   };
   newTab?: boolean;
@@ -31,143 +33,189 @@ interface TContent {
   children?: TContent[],
 };
 
-const typesText = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li'];
 
 
 export default function RichTextFormater(content: any[]) {
 
   return content.map( (obj, i) => {
-    const { type, children } = obj as TContent; // default
-    const { text, bold, italic, underline, strikethrough, code } = obj as TContent; // text
-    const { relationTo, value } = obj as TContent; // media
-    const { linkType, doc, newTab, url } = obj as TContent; // link
-      
-    // 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'ul' | 'ol' | 'li' | 'link' | 'upload' | 'indent';
+    const { type } = obj as TContent; // default
 
-    if( !type || typesText.includes(type) ) {
-      return createElementText(obj, i)
+    if( !type || ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li'].includes(type) ) {
+      return createTextElement(obj, i)
+    
+    } else if( type === 'ul' || type === 'ol' ) {
+      return createListElement(obj, i);
+
+    } else if( type === 'link') {
+      return createLinkElement(obj, i);
+    
+    } else if( type === 'upload') {
+      return createMediaElement(obj, i);
+    
+    } else if( type === 'indent') {
+      return createIdentElement(obj, i);
     
     } else {
-      return <></>
+      return <Fragment key={i}></Fragment>;
     }
 
   });
 };
 
 
-function createElementText(obj: TContent, i: number) {
-  const { type, children } = obj as TContent; // default
-  const { text, bold, italic, underline, strikethrough } = obj as TContent; // text
 
-  let Element = '';
+function createTextElement(obj: TContent, i: number) {
+  const { type, children } = obj as TContent;
+  const { text, bold, italic, underline, strikethrough } = obj as TContent;
+
+  let ChildrenElements: JSX.Element[] | string = '';
+
+  if(children?.length) {
+    ChildrenElements = RichTextFormater(children);
+
+  };
 
   switch (type) {
     case 'h1':
-      Element = renderToString(<h1 className="bg-red-700">{text}</h1>);
-      break;
-    
+      return <h1 key={i} className="!font-semibold !text-3xl flex">{text}{ChildrenElements}</h1>;
+
     case 'h2':
-      Element = renderToString(<h2 className="bg-blue-700">{text}</h2>);
-      break;
-    
+      return <h2 key={i} className="!font-semibold !text-2xl flex">{text}{ChildrenElements}</h2>;
+
     case 'h3':
-      Element = renderToString(<h3 className="bg-green-700">{text}</h3>);
-      break;
-    
+      return <h3 key={i} className="!font-semibold !text-2xl flex">{text}{ChildrenElements}</h3>;
+
     case 'h4':
-      Element = renderToString(<h4 className="bg-purple-700">{text}</h4>);
-      break;
-    
+      return <h4 key={i} className="!font-semibold !text-xl flex">{text}{ChildrenElements}</h4>
+
     case 'h5':
-      Element = renderToString(<h5 className="bg-zinc-700">{text}</h5>);
-      break;
-    
+      return <h5 key={i} className="!font-semibold !text-lg flex">{text}{ChildrenElements}</h5>;
+
     case 'h6':
-      Element = renderToString(<h6 className="bg-yellow-700">{text}</h6>);
-      break;
-    
+      return <h6 key={i} className="!font-semibold !text-lg flex">{text}{ChildrenElements}</h6>
+
     case 'li':
-      Element = renderToString(<li className="bg-teal-800">{text}</li>);
-      break;
+      return <li key={i}>{text}{ChildrenElements}</li>;
 
     default:
-      const classNames = bold && 'font-bold ' + italic && 'italic ' + underline && 'underline ' + strikethrough && 'line-through';
+      const classNames = (bold ? '!font-bold ' : '') + (italic ? '!italic ' : '') + (underline ? '!underline ' : '') + (strikethrough ? '!line-through' : '');
 
-      Element = renderToString(<span className={"bg-fuchsia-400 " + classNames}>{text}</span>);
-      break;
+      // if(classNames) {
+        return <span key={i} className={'block '+classNames}>{text}{ChildrenElements}</span>;
+
+      // } else {
+        // return <Fragment key={i} className="block">{text}{ChildrenElements}</Fragment>;
+
+      // };
+  };
+};
+
+function createListElement(obj: TContent, i: number) {
+  const { type, children } = obj as TContent; // default
+
+  let ChildrenElements: JSX.Element[] | string = '';
+
+  if(children?.length) {
+    ChildrenElements = RichTextFormater(children);
+
+  };
+
+  if(type === 'ul') {
+    return <ul key={i} className='!list-disc pl-5'> {ChildrenElements} </ul>;
+
+  } else {
+    return <ol key={i} className='!list-decimal pl-5'> {ChildrenElements} </ol>;
+
+  };
+};
+
+function createLinkElement(obj: TContent, i: number) {
+  const { children, linkType, doc, newTab, url } = obj as TContent; // link
+
+  let ChildrenElements: JSX.Element[] | string = '';
+
+  if(children?.length) {
+    ChildrenElements = RichTextFormater(children);
+
   };
 
 
-  return (
-    <div key={i} dangerouslySetInnerHTML={{ __html: Element }} />
-  );
+  if(linkType === 'custom') {
+    return (
+      <a key={i} href={url} target={ newTab ? '_blank' : undefined} className='underline font-semibold text-blue-400'>{ChildrenElements}</a>
+    );
+
+  } else {
+    let link = '';
+
+    if(doc?.relationTo === 'product') {
+      link = '/products/'+doc.value.id;
+
+    } else if(doc?.relationTo === 'variation') {
+      link = `/products/${doc.value.product.id}?variation=${doc.value.id}`;
+
+    } else if(doc?.relationTo === 'brand') {
+      link = `/products?brand=${encodeURIComponent(doc.value.name)}`;
+      
+    } else if(doc?.relationTo === 'category') {
+      link = `/products?category=${encodeURIComponent(doc.value.name)}`;
+      
+    } else if(doc?.relationTo === 'offers') {
+      link = `/products?offer=${doc.value.id}`;
+      
+    } else if(doc?.relationTo === 'coupom') {
+      // callback of coupom
+      
+    };
+
+    return (
+      <Link key={i} href={link} target={ newTab ? '_blank' : undefined} className='underline font-semibold text-blue-400'>{ChildrenElements}</Link>
+    );
+  };
 };
 
+function createMediaElement(obj: TContent, i: number) {
+  const { children, value } = obj as TContent;
 
-// <Element key={i}></Element>
-// switch (type) {
-//   case 'h1':
-//     Element = renderToString(<h1 className="bg-red-700"></h1>);
-//     break;
-  
-//   case 'h2':
-//     Element = renderToString(<h2 className="bg-blue-700"></h2>);
-//     break;
-  
-//   case 'h3':
-//     Element = renderToString(<h3 className="bg-green-700"></h3>);
-//     break;
-  
-//   case 'h4':
-//     Element = renderToString(<h4 className="bg-purple-700"></h4>);
-//     break;
-  
-//   case 'h5':
-//     Element = renderToString(<h5 className="bg-zinc-700"></h5>);
-//     break;
-  
-//   case 'h6':
-//     Element = renderToString(<h6 className="bg-yellow-700"></h6>);
-//     break;
-  
-//   case 'ul':
-//     Element = renderToString(<ul className="bg-orange-500"></ul>);
-//     break;
+  let ChildrenElements: JSX.Element[] | string = '';
 
-//   case 'ol':
-//     Element = renderToString(<ol className="bg-lime-300"></ol>);
-//     break;
+  if(children?.length) {
+    ChildrenElements = RichTextFormater(children);
 
-//   case 'li':
-//     Element = renderToString(<li className="bg-teal-800"></li>);
-//     break;
+  };
 
-//   case 'link':
-//     if(linkType === 'custom') {
-//       Element = renderToString(<a href={url!} target={newTab ? '__blank' : undefined} className="bg-yellow-950"></a>);
-    
-//     } else {
-//       Element = renderToString(<a href={url!} target={newTab ? '__blank' : undefined} className="bg-yellow-950"></a>);
+  const maxWidth = 200;
 
-//     };
-//     break;
-  
-//   // case 'upload':
-//   //   Element = renderToString(<h1 className="bg-blue-300"></h1>);
-//   //   break;
-  
-//   // case 'indent':
-//   //   Element = renderToString(<h1 className="bg-pink-700"></h1>);
-//   //   break;
+  const { width, height, filename } = (value as Media);
+  const offSetHeight = maxWidth / width! / height!;
 
-//   // default:
-//   //   Element = renderToString(<p className="bg-fuchsia-400"></p>);
-//   //   break;
-// };
+  const h = offSetHeight;
+
+  const src = '/media/'+filename;
 
 
-// return (
-//   <div key={i} dangerouslySetInnerHTML={{ __html: Element }}>
-//     { children && RichTextFormater(children) }
-//   </div>
-// );
+  return(
+    <div className="relative m-5">
+      <Image key={i} src={src} width={maxWidth} height={h} alt='IMAGE' />
+      {ChildrenElements}
+    </div>
+  )
+
+};
+
+function createIdentElement(obj: TContent, i: number) {
+  const { children } = obj;
+
+  let ChildrenElements: JSX.Element[] | string = '';
+
+  if(children?.length) {
+    ChildrenElements = RichTextFormater(children);
+
+  };
+
+  return(
+    <div key={i} className="ml-4">
+      { ChildrenElements }
+    </div>
+  );
+};

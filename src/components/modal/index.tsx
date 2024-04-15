@@ -27,22 +27,22 @@ export default function ModalComponent() {
   }, [modalId]);
 
   function handlerClose(open: boolean) {
-    !open && dispatch( clearId() );
+    // !open && dispatch( clearId() );
 
   };
 
 
   return (
-    <Dialog onOpenChange={handlerClose}>
+    <Dialog onOpenChange={handlerClose} open={true}>
       <DialogTrigger className="hidden" ref={refTrigger} /> 
 
-      <DialogContent className="w-[700px] h-96 max-w-none">
+      <DialogContent className="w-[700px] h-[550px] max-w-none overflow-auto">
 
         { (!modal || status !== 'success') ?
           <p>alou</p>
         :
-          <div className="flex flex-col gap-3 my-8 bg-green-100 max-h-96 overflow-auto">
-            <Image src={`/media/${(modal.banner as Media).filename}`} width={1000} height={1000} alt="BANNER" />
+          <div className="flex flex-col gap-3 my-8 overflow-auto">
+            {/* <Image src={`/media/${(modal.banner as Media).filename}`} width={1000} height={1000} alt="BANNER" /> */}
 
             { RichTextFormater(modal.content) }
 

@@ -7,6 +7,7 @@ import { trpc } from "@/trpc/client";
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
+import RichTextFormater from "../RichText";
 
 
 export default function ModalComponent() {
@@ -40,8 +41,10 @@ export default function ModalComponent() {
         { (!modal || status !== 'success') ?
           <p>alou</p>
         :
-          <div className="flex flex-col gap-3 my-8 bg-green-100">
+          <div className="flex flex-col gap-3 my-8 bg-green-100 max-h-96 overflow-auto">
             <Image src={`/media/${(modal.banner as Media).filename}`} width={1000} height={1000} alt="BANNER" />
+
+            { RichTextFormater(modal.content) }
 
           </div>
         }

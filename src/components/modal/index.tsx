@@ -21,6 +21,14 @@ export default function ModalComponent() {
 
   const { status, data: modal } = trpc.modal.useQuery({modalId: modalId ?? '' }) ?? { status: 'loading', data: null };
 
+  // test
+  useEffect(() => {
+    if(!modal) return;
+
+
+  }, [modal]);
+
+
   useEffect(() => {
     if(!modalId) return;
 
@@ -44,9 +52,18 @@ export default function ModalComponent() {
           <SkeletonModal />
         :
           <div className="flex flex-col gap-3 my-8 overflow-auto">
-            <Image src={`/media/${(modal.banner as Media).filename}`} width={1000} height={1000} alt="BANNER" />
+            <Image src={`/media/${(modal.banner as Media).filename}`} className="shadow-md" width={1000} height={1000} alt="BANNER" />
 
             { RichTextFormater(modal.content) }
+
+            { modal.expiryDate && (
+              <p className="text-right font-semibold opacity-60 text-sm">
+                Valid until
+                <span className="ml-1 font-bold">
+                  {modal.expiryDate.split('T')[0].replaceAll('-','/')}                
+                </span>
+              </p>
+            )}
 
             <ButtonModal modal={modal} />
           </div>

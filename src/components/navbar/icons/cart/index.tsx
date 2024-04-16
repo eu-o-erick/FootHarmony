@@ -3,6 +3,7 @@ import ProductCart from "./ProductCart";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
+import ButtonUI from "@/components/ui/Button";
 
 export interface TShoesShoppingCart{
   information: {
@@ -154,9 +155,9 @@ export default function Cart() {
               }) }
             </ul>
 
-            <Link href={'/'} className="w-5/6 m-auto text-center font-light text-gray-300 p-2 shadow-lg bg-gray-900">
+            <ButtonUI link="/">
               Checkout
-            </Link>
+            </ButtonUI>
           </>
 
           :

@@ -5,6 +5,7 @@ import { setId } from "@/store/reducers/modal";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Media, Message, Modal } from "@/payload-types";
+import { useEffect, useState } from "react";
 
 
 interface Props {
@@ -16,6 +17,31 @@ interface Props {
 
 export default function ListMsgs({messages, messagesRead, setMessagesRead}: Props) {
   const dispatch = useDispatch();
+
+  const [msgValid, setMsgValid] = useState<Message[]>([]);
+
+  useEffect(() => {
+    if(!messages.length) return;
+
+    const arr = messages.filter((msg) => {
+      const getDate = new Date();
+
+      const date = (msg.linkTo as Modal | undefined)?.expiryDate?.split('T')[0].split('-') ?? [];
+
+      const dateNow = [ getDate.getFullYear(), getDate.getMonth() + 1, getDate.getDate() ];
+
+
+      console.log('date: ', date);
+      console.log('dateNow: ', dateNow);
+
+      return !date.find( (n, i) => Number(n) < dateNow[i] );
+    })
+
+    console.log(arr)
+    setMsgValid(arr)
+
+
+  }, [messages]);
 
 
   const handlerSetModalShow = (msg: Message) => {
@@ -31,12 +57,12 @@ export default function ListMsgs({messages, messagesRead, setMessagesRead}: Prop
 
   return(
     <ul className="relative flex flex-col gap-1 w-full max-h-72 mt-4 mb-6 overflow-auto">
-      { messages.map((msg, i) => {
+      { msgValid.map((msg, i) => {
 
         const isRead = messagesRead.includes(msg.id);
 
         return(
-          <li key={i}  className={cn("flex gap-3 bg-gray-50 p-4 shadow-sm cursor-pointer scale-95 hover:scale-100 transition-all", {
+          <li key={i}  className={cn("flex gap-3 p-4 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 transition-all", {
             'opacity-60': isRead
           })} onClick={ () => handlerSetModalShow(msg) }>
 

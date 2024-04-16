@@ -3,6 +3,7 @@
 import { Brand, Modal, Offer, Product, Variation } from "@/payload-types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import ButtonUI from "../ui/Button";
 
 
 export default function ButtonModal({modal}: {modal: Modal}) {
@@ -44,9 +45,9 @@ export default function ButtonModal({modal}: {modal: Modal}) {
   
   } else {
     return (
-      <Link href={url} className="w-full p-3 bg-gray-900 text-gray-200 text-center shadow-md">
+      <ButtonUI className="mb-4" link={url}>
         { buttonLabel ?? 'See '+linkType }
-      </Link>
+      </ButtonUI>
     );
   };
 };

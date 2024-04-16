@@ -13,14 +13,14 @@ export interface Config {
     brand: Brand;
     category: Category;
     tag: Tag;
-    media: Media;
+    offer: Offer;
+    coupon: Coupon;
     carousel: Carousel;
     modal: Modal;
     message: Message;
     featured: Featured;
+    media: Media;
     order: Order;
-    offer: Offer;
-    coupon: Coupon;
     users: User;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -233,6 +233,37 @@ export interface Tag {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "coupon".
+ */
+export interface Coupon {
+  id: string;
+  name: string;
+  message?: (string | null) | Message;
+  modal?: (string | null) | Modal;
+  requirements?:
+    | {
+        brands?: (string | Brand)[] | null;
+        categories?: (string | Category)[] | null;
+        value_min?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  select_products_variations?: {
+    products?: (string | Product)[] | null;
+    variations?: (string | Variation)[] | null;
+  };
+  code: string;
+  discount: 'percentage' | 'value' | 'delivery_free';
+  percentage_value?: number | null;
+  fixed_value?: number | null;
+  application_with_offer: boolean;
+  enable: boolean;
+  expiration: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "carousel".
  */
 export interface Carousel {
@@ -316,37 +347,6 @@ export interface Address {
   state: string;
   town_city: string;
   note?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "coupon".
- */
-export interface Coupon {
-  id: string;
-  name: string;
-  message?: (string | null) | Message;
-  modal?: (string | null) | Modal;
-  requirements?:
-    | {
-        brands?: (string | Brand)[] | null;
-        categories?: (string | Category)[] | null;
-        value_min?: number | null;
-        id?: string | null;
-      }[]
-    | null;
-  select_products_variations?: {
-    products?: (string | Product)[] | null;
-    variations?: (string | Variation)[] | null;
-  };
-  code: string;
-  discount: 'percentage' | 'value' | 'delivery_free';
-  percentage_value?: number | null;
-  fixed_value?: number | null;
-  application_with_offer: boolean;
-  enable: boolean;
-  expiration: string;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

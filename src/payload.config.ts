@@ -28,7 +28,7 @@ dotenv.config({
 
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
-  collections: [Products, Variations, Brands, Category, Tags, Media, Carousel, Modal, Messages, Featured, Orders, Offers, Coupons],
+  collections: [Products, Variations, Brands, Category, Tags,  Offers, Coupons, Carousel, Modal, Messages, Featured, Media, Orders],
   routes: {
     admin: '/admin',
   },

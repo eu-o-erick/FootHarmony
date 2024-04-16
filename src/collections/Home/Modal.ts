@@ -14,7 +14,6 @@ export const Modal: CollectionConfig = {
   },
   fields: [
 
-
     {
       name: 'name',
       label: 'Name',
@@ -113,6 +112,9 @@ export const Modal: CollectionConfig = {
       name: 'buttonLabel',
       label: 'Label of Button',
       type: 'text',
+      admin: {
+        condition: (data) => data.linkType !== 'None'
+      }
     },
 
     {

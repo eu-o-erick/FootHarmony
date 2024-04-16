@@ -193,6 +193,7 @@ export interface Modal {
   brand?: (string | null) | Brand;
   category?: (string | null) | Category;
   offer?: (string | null) | Offer;
+  buttonLabel?: string | null;
   active: boolean;
   expiryDate?: string | null;
   updatedAt: string;

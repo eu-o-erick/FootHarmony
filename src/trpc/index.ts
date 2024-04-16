@@ -32,8 +32,6 @@ export const appRouter = router({
 
     }) as Modal;
 
-    console.log(JSON.stringify(modal.content, null, 2))
-
 
     return modal;
   }),

@@ -1,3 +1,4 @@
+import { slateEditor } from "@payloadcms/richtext-slate";
 import { CollectionConfig } from "payload/types";
 
 export const Modal: CollectionConfig = {
@@ -31,9 +32,14 @@ export const Modal: CollectionConfig = {
 
     {
       name: 'content',
-      label: 'content',
+      label: 'Content (title and description)',
       type: 'richText',
       required: true,
+      editor: slateEditor({
+        admin: {
+          elements: ["h1", "h2", "h3", "h4", "textAlign", "ol", "ul", "link" ],
+        }
+      })
     },
 
 
@@ -103,6 +109,11 @@ export const Modal: CollectionConfig = {
       }
     },
 
+    {
+      name: 'buttonLabel',
+      label: 'Label of Button',
+      type: 'text',
+    },
 
     {
       name: 'active',

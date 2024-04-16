@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const modalSlice = createSlice({
   name: 'modal',
-  initialState: '661abefc0bfbe87adf4b1c80' as string | null,
-  // initialState: null as string | null,
+  // initialState: '661abefc0bfbe87adf4b1c80' as string | null,
+  initialState: null as string | null,
   reducers: {
     setId: (state, action) => action.payload,
 

@@ -4,10 +4,12 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Media } from "@/payload-types";
 import { clearId } from "@/store/reducers/modal";
 import { trpc } from "@/trpc/client";
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import RichTextFormater from "../RichText";
+import ButtonModal from "./ButtonLink";
+import SkeletonModal from "./Skeleton";
 
 
 export default function ModalComponent() {
@@ -17,7 +19,7 @@ export default function ModalComponent() {
 
   const modalId = useSelector( (state: any) => state.modal );
 
-  const { status, data: modal } = trpc.modal.useQuery({modalId: modalId ?? '' });
+  const { status, data: modal } = trpc.modal.useQuery({modalId: modalId ?? '' }) ?? { status: 'loading', data: null };
 
   useEffect(() => {
     if(!modalId) return;
@@ -27,25 +29,26 @@ export default function ModalComponent() {
   }, [modalId]);
 
   function handlerClose(open: boolean) {
-    // !open && dispatch( clearId() );
+    !open && dispatch( clearId() );
 
   };
 
 
   return (
-    <Dialog onOpenChange={handlerClose} open={true}>
+    <Dialog onOpenChange={handlerClose}>
       <DialogTrigger className="hidden" ref={refTrigger} /> 
 
-      <DialogContent className="w-[700px] h-[550px] max-w-none overflow-auto">
+      <DialogContent className="w-[700px] h-[650px] max-h-svh max-w-none overflow-auto pb-10">
 
         { (!modal || status !== 'success') ?
-          <p>alou</p>
+          <SkeletonModal />
         :
           <div className="flex flex-col gap-3 my-8 overflow-auto">
-            {/* <Image src={`/media/${(modal.banner as Media).filename}`} width={1000} height={1000} alt="BANNER" /> */}
+            <Image src={`/media/${(modal.banner as Media).filename}`} width={1000} height={1000} alt="BANNER" />
 
             { RichTextFormater(modal.content) }
 
+            <ButtonModal modal={modal} />
           </div>
         }
 

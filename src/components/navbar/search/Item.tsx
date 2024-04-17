@@ -19,13 +19,13 @@ interface TShoes {
 
 
 
-export default function ListItem({shoe}: {shoe: TShoes}) {
+export default function Item({shoe}: {shoe: TShoes}) {
   const { name, brand, variations } = shoe;
 
   const [variationIndex, setVariationIndex] = useState(0);
 
   return (
-    <li className="grid grid-cols-[80px,190px,60px] gap-3 border-b-2">
+    <li className="grid grid-cols-[20%,60%,15%] justify-between border-b-2">
 
       <div className="w-full relative">
         <Image src={variations[variationIndex].img} fill objectFit="contain" alt='image' />

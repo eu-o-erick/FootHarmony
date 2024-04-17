@@ -1,7 +1,7 @@
 import { paymenteRouter } from "./payment-router";
 import { publicProcedure, router } from "./trpc";
 import { getPayloadClient } from "../get-payload";
-import { Message, Modal } from "@/payload-types";
+import { Message, Modal, Offer } from "@/payload-types";
 import { z } from "zod";
 
 
@@ -14,7 +14,7 @@ export const appRouter = router({
 
     const { docs: messages } = await payload.find({
       collection: 'message',
-    }) as { docs: Message[] };
+    }) as { docs: Message[] | null };
 
     return messages;
   }),
@@ -30,10 +30,22 @@ export const appRouter = router({
       collection: 'modal',
       id:  modalId,
 
-    }) as Modal;
+    }) as Modal | null;
 
 
     return modal;
+  }),
+
+  
+  offers: publicProcedure.query( async () => {
+
+    const payload = await getPayloadClient({});
+
+    const { docs: offer } = await payload.find({
+      collection: 'offer',
+    }) as { docs: Offer[] | null };
+
+    return offer;
   }),
 
 });

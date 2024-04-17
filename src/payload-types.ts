@@ -136,9 +136,6 @@ export interface Offer {
   id: string;
   name: string;
   page_title: string;
-  message?: (string | null) | Message;
-  modal?: (string | null) | Message;
-  type_banner: 'new_banner' | 'same_banner' | 'none';
   banner?: string | Media | null;
   detail_banner?: string | Media | null;
   items?:
@@ -159,43 +156,6 @@ export interface Offer {
   with_coupon: boolean;
   enable: boolean;
   expiration: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "message".
- */
-export interface Message {
-  id: string;
-  name: string;
-  card: string | Media;
-  title: string;
-  description: string;
-  linkTo?: (string | null) | Modal;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "modal".
- */
-export interface Modal {
-  id: string;
-  name: string;
-  banner: string | Media;
-  content: {
-    [k: string]: unknown;
-  }[];
-  linkType: 'Product' | 'Variation' | 'Brand' | 'Category' | 'Offer' | 'None';
-  product?: (string | null) | Product;
-  variation?: (string | null) | Variation;
-  brand?: (string | null) | Brand;
-  category?: (string | null) | Category;
-  offer?: (string | null) | Offer;
-  buttonLabel?: string | null;
-  active: boolean;
-  expiryDate?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -259,6 +219,43 @@ export interface Coupon {
   application_with_offer: boolean;
   enable: boolean;
   expiration: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "message".
+ */
+export interface Message {
+  id: string;
+  name: string;
+  card: string | Media;
+  title: string;
+  description: string;
+  linkTo?: (string | null) | Modal;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "modal".
+ */
+export interface Modal {
+  id: string;
+  name: string;
+  banner: string | Media;
+  content: {
+    [k: string]: unknown;
+  }[];
+  linkType: 'Product' | 'Variation' | 'Brand' | 'Category' | 'Offer' | 'None';
+  product?: (string | null) | Product;
+  variation?: (string | null) | Variation;
+  brand?: (string | null) | Brand;
+  category?: (string | null) | Category;
+  offer?: (string | null) | Offer;
+  buttonLabel?: string | null;
+  active: boolean;
+  expiryDate?: string | null;
   updatedAt: string;
   createdAt: string;
 }

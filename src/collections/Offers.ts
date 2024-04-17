@@ -37,64 +37,60 @@ export const Offers: CollectionConfig = {
       required: true
     },
 
-    // msg
-    {
-      name: 'message',
-      label: 'Message',
-      type: 'relationship',
-      relationTo: 'message',
-      hasMany: false,
-      required: false
-    },
-    // modal
-    {
-      name: 'modal',
-      label: 'Modal',
-      type: 'relationship',
-      relationTo: 'message',
-      hasMany: false,
-      required: false
-    },
+    // // msg
+    // {
+    //   name: 'message',
+    //   label: 'Message',
+    //   type: 'relationship',
+    //   relationTo: 'message',
+    //   hasMany: false,
+    //   required: false
+    // },
+    // // modal
+    // {
+    //   name: 'modal',
+    //   label: 'Modal',
+    //   type: 'relationship',
+    //   relationTo: 'message',
+    //   hasMany: false,
+    //   required: false
+    // },
+    // // type banner
+    // {
+    //   name: 'type_banner',
+    //   type: 'radio',
+    //   label: 'Type',
+    //   defaultValue: "none", 
+    //   required: true,
+    //   options: [
+    //     {
+    //       value: 'new_banner',
+    //       label: 'Export a new banner',
+    //     },{
+    //       value: 'same_banner',
+    //       label: 'Use the same banner as the modal',
+    //     },{
+    //       value: 'none',
+    //       label: 'Do not use a banner',
+    //     }
+    //   ]
+    // },
 
-    // type banner
-    {
-      name: 'type_banner',
-      type: 'radio',
-      label: 'Type',
-      defaultValue: "none", 
-      required: true,
-      options: [
-        {
-          value: 'new_banner',
-          label: 'Export a new banner',
-        },{
-          value: 'same_banner',
-          label: 'Use the same banner as the modal',
-        },{
-          value: 'none',
-          label: 'Do not use a banner',
-        }
-      ]
-    },
     // banner products
     {
       name: 'banner',
-      label: 'Banner',
+      label: 'Banner Products Page',
       type: 'upload',
       relationTo: 'media',
-      required: true,
-      admin: {
-        condition: (data) => data.type_banner === 'new_banner'
-      }
     },
     // detai banner page product
     {
       name: 'detail_banner',
-      label: 'Detail Banner (1920x150)',
+      label: 'Detail Banner Product Page(1920x150)',
       type: 'upload',
       relationTo: 'media',
-      required: false,
     },
+    
     // items
     {
       name: 'items',

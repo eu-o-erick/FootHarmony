@@ -1,64 +1,12 @@
-"use client"
+"use client";
 
 import { cn } from '@/lib/utils';
 import { Search, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
+import ListItems from './ListItems';
 import Link from 'next/link';
-import ListItem from './ListItem';
 
-
-const SHOES = [
-  {
-    name: 'Shoe Under Armour',
-    brand: "Under Armour",
-    variations: [
-      {
-        colors: ['gray'],
-        img: '/shoes/D_NQ_NP_929581-MLA51356222200_082022-O.webp',
-        price: 130,
-        price_offer: null
-      },{
-        colors: ['lime', 'gray'],
-        img: '/shoes/D_NQ_NP_694209-MLA51356202561_082022-O.webp',
-        price: 130,
-        price_offer: 109
-      },
-    ]
-  },{
-    name: 'Shoe Under Armour',
-    brand: "Under Armour",
-    variations: [
-      {
-        colors: ['gray'],
-        img: '/shoes/D_NQ_NP_929581-MLA51356222200_082022-O.webp',
-        price: 130,
-        price_offer: null
-      },{
-        colors: ['lime', 'gray'],
-        img: '/shoes/D_NQ_NP_694209-MLA51356202561_082022-O.webp',
-        price: 130,
-        price_offer: 109
-      },
-    ]
-  },{
-    name: 'Shoe Under Armour',
-    brand: "Under Armour",
-    variations: [
-      {
-        colors: ['gray'],
-        img: '/shoes/D_NQ_NP_929581-MLA51356222200_082022-O.webp',
-        price: 130,
-        price_offer: null
-      },{
-        colors: ['lime', 'gray'],
-        img: '/shoes/D_NQ_NP_694209-MLA51356202561_082022-O.webp',
-        price: 130,
-        price_offer: 109
-      },
-    ]
-  },
-]
 
 
 export default function SearchNavbar() {
@@ -69,25 +17,17 @@ export default function SearchNavbar() {
   const router = useRouter();
 
 
-  function handlerOnChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const v = e.target.value;
-
-    setValue(v);
-  }
-
-  function handlerKeyDown(e: React.KeyboardEvent) {
-    if(e.code === "Enter") search();
-  }
 
   function clear() {
     (refInput.current as HTMLInputElement).value = '';
-    
     setValue('');
   }
 
+
+
   function search() {
     if(!value) {
-      (refInput.current as HTMLInputElement).focus()
+      (refInput.current as HTMLInputElement).focus();
 
     } else {
       router.push(`/products?search=`+value)
@@ -97,9 +37,9 @@ export default function SearchNavbar() {
 
 
   return(
-    <div className="relative w-96">
+    <div className="relative">
 
-      <div className="relative flex items-center border-b-2 border-b-neutral-400">
+      <div className="relative z-10 flex items-center border-b-2 border-b-neutral-400 max-lg:hidden">
 
         <button className='p-2 cursor-pointer opacity-60 hover:opacity-100 transition-all' onClick={search}>
           <Search className='text-gray-700' />
@@ -107,45 +47,34 @@ export default function SearchNavbar() {
 
         <input
           ref={refInput}
-          className="p-2 w-80 focus:outline-none"
+          className="p-2 w-80 focus:outline-none transition-all"
+          autoComplete='off'
           id="search_input"
           placeholder="Search..."
-          onChange={handlerOnChange}
-          onKeyDown={handlerKeyDown}
+          onChange={(e) => setValue(e.target.value)}
+          onKeyDown={(e) => e.code === "Enter" && search()}
           />
 
-        <div
-         className={cn("rounded-full bg-gray-50 p-1 cursor-pointer opacity-60 hover:opacity-100 transition-all", {
-          "opacity-0 hover:opacity-0 cursor-default": !value
-         })}
-         onClick={clear}>
+
+        <div className={cn("rounded-full bg-gray-50 p-1 cursor-pointer opacity-60 hover:opacity-100 transition-all", {
+            "opacity-0 hover:opacity-0 cursor-default": !value
+          })}
+          onClick={clear}>
+    
           <X className="w-4 h-4 text-gray-700" />
+    
         </div>
 
       </div>
 
-      <div className={
-        cn(
-          `
-            absolute max-h-72 w-full mt-6 p-3 bg-white top-full shadow-md rounded-sm
-            overflow-y-auto overflow-x-hidden opacity-0 scale-75 pointer-events-none transition-all
-          `,{
-            "opacity-100 scale-100 pointer-events-auto": value
-          }
-        )}>
-        
-        <ul>
-          { SHOES.map((shoe, i) =>
-            <ListItem key={i} shoe={shoe}/>
-          )}
-        </ul>
+      {/* mobile search */}
+      <Link className="flex-center opacity-90 hover:scale-105 hover:opacity-100 transition-all lg:hidden" href="/products">
+        <Search />
+      </Link>
 
-        <div className="flex justify-center py-2">
-          <Link href={'/products?search='+value} className='text-sm font-semibold opacity-70 hover:opacity-90 hover:underline transition-all'>see more results</Link>
-        </div>
-      </div>
+
+      <ListItems value={value} />
       
-
     </div>
   )
 }

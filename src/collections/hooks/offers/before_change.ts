@@ -3,21 +3,16 @@ import { Offer } from "@/payload-types";
 import { BeforeChangeHook } from "payload/dist/collections/config/types";
 
 
+
 export const updateProducts: BeforeChangeHook = async (args) => {
-  console.log('====== before change offer ======');
-  console.log('update products/variations of offer');
+  if(args.req.payloadAPI !== 'REST') return console.log('payloadAPI: ', args.req.payloadAPI);
   
   const items = (args.data as Offer).items;
   const originalItems = (args.originalDoc as Offer )?.items;
 
-  console.log('items: ', items)
-  console.log('originalItems: ', originalItems)
-
-  if(!items?.length) return console.log("don't have items in offer");
+  if(!items?.length) return;
 
   const promises = items.map( async (item) => {
-    console.log('promise: ', item)
-
     return new Promise( async (resolve) => {
     
       const update = await updatePrice(item, args, originalItems);
@@ -27,9 +22,6 @@ export const updateProducts: BeforeChangeHook = async (args) => {
   });
     
   const result = await Promise.all(promises);
-
-  console.log('result: ', result)
-  console.log('');
  
   return {
     ...args.data,
@@ -40,11 +32,7 @@ export const updateProducts: BeforeChangeHook = async (args) => {
 
 
 async function updatePrice(item: any, args: any, originalItems: any) {
-  console.log('++++++ function update price ++++++')
-
   const originalItem = originalItems?.find( (data: any) => data.id === item.id );
-
-  console.log('originalItem: ', originalItem)
 
   const { stripeId: originalStripeId, new_price: originalPrice } = originalItem ?? { stripeId: null, new_price: undefined };
   const { item_type, new_price, discount_type } = item;
@@ -52,7 +40,6 @@ async function updatePrice(item: any, args: any, originalItems: any) {
   let stripeOptions = undefined;
 
   if( discount_type === 'new_price' && (!originalItem || new_price !== originalPrice)) {
-    console.log('create new price for product/variation on offer')
 
     stripeOptions = await stripe.products.create({
       name: args.data.name + ' - ' + item[item_type],
@@ -68,7 +55,6 @@ async function updatePrice(item: any, args: any, originalItems: any) {
     })).catch( err => console.error('ERROR create new price for product/variation of offer: ', err));
 
   } else if(discount_type !== 'new_price' && originalStripeId) {
-    console.log('clear stripe options on offer product/variation');
 
     stripeOptions = {
       stripeId: null,
@@ -78,7 +64,6 @@ async function updatePrice(item: any, args: any, originalItems: any) {
   };
 
   if(originalStripeId && new_price !== originalPrice) {
-    console.log('disable price of offer product/variation');
 
     await stripe.products.update(originalStripeId, {
       active: false,
@@ -90,4 +75,3 @@ async function updatePrice(item: any, args: any, originalItems: any) {
     ...stripeOptions
   };
 };
-

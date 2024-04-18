@@ -4,30 +4,24 @@ import { BeforeChangeHook } from "payload/dist/collections/config/types";
 
 
 export const handlerBeforeChange: BeforeChangeHook = async (args) => {
-  console.log('====== before change product ======');
+  if(args.req.payloadAPI !== 'REST') return console.log('payloadAPI: ', args.req.payloadAPI);
 
   const data = args.data as Product;
-
-  console.log('before change product: ', data);
 
   const originalPrice = (args.originalDoc as Product | undefined)?.standard_price;
   const price = data.standard_price;
 
-  console.log('previous price: ', originalPrice)
-  console.log('current price: ', price)
-
   if (args.operation === 'update' && price !== originalPrice) {
-    console.log('disable previous price');
 
     await stripe.products.update(data.stripeId!, {
       active: false,
     }).catch( err => console.error('ERROR disable previous price of product: ', err));
   };
 
+
   let stripeOptions = undefined;
 
   if (price !== originalPrice) {
-    console.log('create new price for product');
 
     stripeOptions = await stripe.products.create({
       name: data.name,
@@ -41,8 +35,6 @@ export const handlerBeforeChange: BeforeChangeHook = async (args) => {
 
     })).catch( err => console.error('ERROR create new price for product: ', err));
   };
-
-  console.log('');
 
   return {
     ...data,

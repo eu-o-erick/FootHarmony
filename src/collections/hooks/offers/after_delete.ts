@@ -1,24 +1,15 @@
+import { Offer, Product, Variation } from "@/payload-types";
 import { stripe } from "../../../lib/stripe";
 import payload from "payload";
 import { AfterDeleteHook } from "payload/dist/collections/config/types";
 
 
 export const deleteOffer: AfterDeleteHook = async (args) => {
-  console.log('====== after delete offer ======');
-  console.log('delete offer');
-
-  const items = await payload.findByID({
-    collection: 'offer',
-    id: args.id,
-    depth: 0
-  }).then( (data) => data.items );
-
-  console.log('items of offer: ', items);
+  const items = (args.doc as Offer).items;
 
   if(!items?.length) return;
 
   const promises = items.map( async (item) => {
-    console.log('promise: item', item);
 
     return new Promise( async (resolve) => {
 
@@ -28,9 +19,12 @@ export const deleteOffer: AfterDeleteHook = async (args) => {
       
       await payload.update({
         collection: item.item_type,
-        id: item[item.item_type] as string,
+        id: (item[item.item_type] as Product | Variation ).id as string,
         data: {
-          offer: null,
+          offer: {
+            relationTo: null,
+            offer_price: null
+          }
         }
       }).catch( (err) => console.error('ERROR remove offer of product/variation: ', err));
 
@@ -39,7 +33,4 @@ export const deleteOffer: AfterDeleteHook = async (args) => {
   });
 
   await Promise.all(promises);
-
-  console.log('ended delete offer operation');
-  console.log('');
-}
+};

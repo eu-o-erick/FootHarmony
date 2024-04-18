@@ -4,17 +4,17 @@ import { BeforeChangeHook } from "payload/dist/collections/config/types";
 
 
 export const handlerBeforeChanges: BeforeChangeHook = async (args) => {
-  console.log('====== before change coupon ======');
+  // console.log('====== before change coupon ======');
   // console.log('');
   
   const data = (args.data as Coupon);
   const operation = args.operation;
   // const originalItems = (args.originalDoc as Offer )?.items;
 
-  console.log('data: ', data);
-  console.log('');
-  console.log('');
-  console.log('');
+  // console.log('data: ', data);
+  // console.log('');
+  // console.log('');
+  // console.log('');
 
   if (operation === 'create') {
 
@@ -31,7 +31,7 @@ export const handlerBeforeChanges: BeforeChangeHook = async (args) => {
       active: data.enable,
     });
 
-    console.log(promotionCode)
+    // console.log(promotionCode)
 
   } else if (operation === 'update') {
 

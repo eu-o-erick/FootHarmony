@@ -1,25 +1,15 @@
-import { Brand, Category, Product } from "@/payload-types";
+import { Product } from "@/payload-types";
 import payload from "payload";
 import { AfterChangeHook } from "payload/dist/collections/config/types";
 
 
 
 export const relationToVariations: AfterChangeHook = async (args) => {
-  console.log('====== after change product ======');
-  console.log('set/remove product of variations');
+  if(args.req.payloadAPI !== 'REST') return console.log('payloadAPI: ', args.req.payloadAPI);
 
-  const variations = (() => {
-    const variations = (args.doc as Product).variations as Product[] | string[] | null ?? [];
-
-    const arr = variations.map((variation) => (variation && typeof variation !== 'string') ? variation.id : variation );
-  
-    return arr;
-  })();
+  const variations = (args.doc as Product).variations as string[];
   
   const previousVariations = (args.previousDoc as Product | undefined)?.variations as string[] ?? [];
-
-  console.log('current variations: ', variations);
-  console.log('previous variations: ', previousVariations);
 
   const arr: any[] = [];
 
@@ -33,10 +23,8 @@ export const relationToVariations: AfterChangeHook = async (args) => {
 
   });
 
-  console.log('variations with status: ', arr);
 
   const promises = arr.map( ({item, status}) => {
-    console.log('promise: update variation ', item);
 
     return new Promise(async (resolve, reject) => {
 
@@ -53,28 +41,16 @@ export const relationToVariations: AfterChangeHook = async (args) => {
   })
 
   await Promise.all(promises);
-  console.log('ended relation product to variations');
-  console.log('');
 };
 
 
 export const increaseBrands: AfterChangeHook = async (args) => {
-  console.log('====== after change product ======');
-  console.log('increase brand function');
+  if(args.req.payloadAPI !== 'REST') return console.log('payloadAPI: ', args.req.payloadAPI);
 
-  const currentBrand = (() => {
-    const brand = args.doc.details.brand as string | Brand;
-
-    return typeof brand === 'string' ? brand : brand.id;
-  })();
+  const currentBrand = args.doc.details.brand;
   const previousBrand = args.previousDoc.details?.brand as string;
 
-  console.log('current brand: ', currentBrand);
-  console.log('previous brand: ', previousBrand);
-
-
   if(previousBrand !== currentBrand) {
-    console.log('different brands');
 
     const quantity = await payload.findByID({
       collection: 'brand',
@@ -86,8 +62,6 @@ export const increaseBrands: AfterChangeHook = async (args) => {
       return null;
     });
 
-
-
     quantity !== null && await payload.update({
       collection: 'brand',
       id: currentBrand,
@@ -97,8 +71,8 @@ export const increaseBrands: AfterChangeHook = async (args) => {
     }).catch( (err) => console.error('ERROR increase 1 in brand: ', err) );
 
 
+
     if(previousBrand) {
-      console.log('have previous brand, so decrease in brand');
 
       const quantity = await payload.findByID({
         collection: 'brand',
@@ -121,24 +95,15 @@ export const increaseBrands: AfterChangeHook = async (args) => {
     };
   };
 
-  console.log('');
 };
 
 
 export const increaseCategories: AfterChangeHook = async (args) => {
-  console.log('====== after change product ======');
-  console.log('increase category function');
+  if(args.req.payloadAPI !== 'REST') return console.log('payloadAPI: ', args.req.payloadAPI);
 
-  const currentCategories = (() => {
-    const categories = args.doc.details.categories as string[] | Category[];
-
-    return categories.map((category) => typeof category === 'string' ? category : category.id);
-  })();
+  const currentCategories = args.doc.details.categories as string[];
   
   const previousCategories = args.previousDoc.details?.categories as string[] | undefined;
-
-  console.log('previous categories: ', previousCategories);
-  console.log('current categories: ', currentCategories);
 
   if(currentCategories === previousCategories) return;
 
@@ -154,18 +119,15 @@ export const increaseCategories: AfterChangeHook = async (args) => {
 
   });
 
-  console.log('arr with status of categories: ', arr);
-
-
   const promises = arr.map( ({item, status}) => {
-    console.log('promise: item with status: ', item, status)
-
+    
     return new Promise( async (resolve) => {
 
       const quantity = await payload.findByID({
         collection: 'category',
         id: item,
-      }).then((brand) => (status ? brand.quantity + 1 : brand.quantity - 1) )
+      })
+      .then((brand) => (status ? brand.quantity + 1 : brand.quantity - 1) )
       .catch( err => {
         console.error('ERROR get category quantity: ', err);
         return null;
@@ -185,7 +147,5 @@ export const increaseCategories: AfterChangeHook = async (args) => {
 
 
   await Promise.all(promises);
-
-  console.log('ended increase categories function');
-  console.log('');
 };
+

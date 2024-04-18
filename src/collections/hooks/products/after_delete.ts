@@ -6,14 +6,9 @@ import { AfterDeleteHook } from "payload/dist/collections/config/types";
 
 
 export const removeOfVariations: AfterDeleteHook = async (args) => {
-  console.log('====== after delete product ======');
-  console.log('remove product of variation');
-
   const variations = args.doc.variations as Variation[];
-  console.log('variations of product : ', variations);
 
   const promises = variations.map( ({id}) => {
-    console.log('promise: id variation ', id);
 
     return new Promise( async (resolve, reject) => {
 
@@ -31,24 +26,18 @@ export const removeOfVariations: AfterDeleteHook = async (args) => {
   
   await Promise.all(promises);
 
-  console.log('ended all promises "removeOfVariations"');
 
   await stripe.products.update(args.doc.stripeId!, {
     active: false,
   }).catch( err => console.error('ERROR disable price on stripe: ', err));
 
-  console.log('');
 };
 
 
 export const removeOfOffer: AfterDeleteHook = async (args) => {
-  console.log('====== after delete product ======');
-  console.log('remove remove product of offer');
+  const offer = args.doc.offer.relationTo as Offer | null;
 
-  const offer = args.doc.offer as Offer | null;
-  console.log('product-related offer');
-
-  if(!offer) return console.log("don't have offer");
+  if(!offer) return;
 
   const items: any[] = await payload.findByID({
     collection: 'offer',
@@ -67,16 +56,11 @@ export const removeOfOffer: AfterDeleteHook = async (args) => {
     },
   }).catch( (err) => console.error('ERROR update items offer without product removed: ', err));
   
-  console.log('');
 };
 
 
 export const decreaseBrands: AfterDeleteHook = async (args) => {
-  console.log('====== after delete product ======');
-  console.log('decrease brand');
-
   const id = (args.doc.details.brand as Brand).id as string;
-  console.log('id brand for decrease: ', id);
 
   const quantity = await payload.findByID({
     collection: 'brand',
@@ -88,8 +72,6 @@ export const decreaseBrands: AfterDeleteHook = async (args) => {
     return null;
   });
 
-  console.log('quantity brand when product deleted: ', quantity)
-
   quantity !== null && await payload.update({
     collection: 'brand',
     id,
@@ -98,19 +80,13 @@ export const decreaseBrands: AfterDeleteHook = async (args) => {
     }
   }).catch( (err) => console.error('ERROR update brand and decrease 1', err));
 
-  console.log('');
 };
 
 
 export const decreaseCategories: AfterDeleteHook = async (args) => {
-  console.log('====== after delete product ======');
-  console.log('decrease categories');
-
   const categories = args.doc.details.categories as Category[];
-  console.log('categories for decrease: ', categories);
 
   const promises = categories.map( ({id}) => {
-    console.log('promise: id category for decrease: ', id);
 
     return new Promise( async (resolve) => {
 
@@ -124,7 +100,6 @@ export const decreaseCategories: AfterDeleteHook = async (args) => {
         return null; 
       });
 
-      console.log('quantity category when product deleted: ', quantity)
 
       quantity !== null && await payload.update({
         collection: 'category',
@@ -139,7 +114,4 @@ export const decreaseCategories: AfterDeleteHook = async (args) => {
   });
 
   await Promise.all(promises);
-
-  console.log('ended decrease categories');
-  console.log('');
 };

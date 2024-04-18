@@ -47,7 +47,7 @@ export interface Product {
     tags?: (string | Tag)[] | null;
   };
   offer?: {
-    offer_reference?: (string | null) | Offer;
+    relationTo?: (string | null) | Offer;
     offer_price?: number | null;
   };
   stripeId?: string | null;
@@ -87,8 +87,9 @@ export interface Variation {
   stripeId?: string | null;
   priceId?: string | null;
   offer?: {
-    offer_reference?: (string | null) | Offer;
+    relationTo?: (string | null) | Offer;
     offer_price?: number | null;
+    delivery_free?: boolean | null;
   };
   stock: {
     size:

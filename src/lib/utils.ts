@@ -35,11 +35,11 @@ export const filterOptionsOffer: FilterOptions<any> = ({data, id}) => {
   return {
     or: [
       {
-        offer: {
+        "offer.relationTo": {
           exists: false
         },
       },{
-        offer: {
+        "offer.relationTo": {
           equals: id
         },
       },

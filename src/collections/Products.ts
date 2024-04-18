@@ -143,6 +143,12 @@ export const Products: CollectionConfig = {
           required: false,
         },
 
+        // delivery free
+        {
+          name: 'delivery_free',
+          type: 'checkbox',
+          required: false,
+        },
       ],
       admin: {
         hidden: true

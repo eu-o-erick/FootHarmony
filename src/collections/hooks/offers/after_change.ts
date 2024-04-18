@@ -6,24 +6,27 @@ import { AfterChangeHook } from "payload/dist/collections/config/types";
 
 
 export const updateRelationTo: AfterChangeHook = async (args) => {
+  if(args.req.payloadAPI !== 'REST') return console.log('payloadAPI: ', args.req.payloadAPI);
+
   const doc = args.doc as Offer;
   const previousItems = (args.previousDoc as Offer | undefined)?.items;
   const items = doc.items;
-  console.log('====== after change offer ======')
 
   if(args.operation === 'create' && items?.length){
-    console.log('create operation')
 
     const promises = items.map( async (item: any) => {
 
       return new Promise( async (resolve) => {
-        console.log('promise: set offer on product/variation', item)
 
         await payload.update({
           collection: item.item_type,
           id: item[item.item_type],
           data: {
-            offer: doc.id,
+            offer: {
+              relationTo: doc.id,
+              offer_price: item.new_price,
+              delivery_free: item.discount_type === 'delivery_free'
+            }
           },
         }).catch( (err) => console.error('ERROR set offer on product/variation: ', err));
 
@@ -33,32 +36,40 @@ export const updateRelationTo: AfterChangeHook = async (args) => {
     });
 
     await Promise.all(promises);
-    console.log('ended create operation')
 
 
   } else if(args.operation === 'update'){
-    // retrieve the differences from the document and return an object with the item and the 
-    // status whether it was added or removed, added = offer ID | removed = null.
-    const arr: any = [];
-    console.log('update operation')
 
+    const arr: any[] = [];
 
+    // items modified value
+    items?.forEach( (item: any) => {
+      
+      const changeValue = previousItems?.find( (previousItem: any) => (
+        previousItem.id === item.id && 
+        (previousItem.discount_type !== item.discount_type || previousItem.new_price !== item.new_price)
+      ))
+      
+      changeValue && arr.push({ item, status: doc.id, changeValue: true });
+
+    });
+
+    // items added
     items?.forEach( (item: any) => {
       !previousItems?.find( (previousItem: any) => previousItem.id === item.id) && arr.push({ item, status: doc.id });
 
     });
 
+    // items removed
     previousItems?.forEach( (item: any) => {
       !items?.find( (currentItem: any) => currentItem.id === item.id) && arr.push({ item, status: null });
 
     });
 
-    console.log('"arr" with status: ', arr)
+    console.log(arr)
 
-    const promises = arr.map( async ({item, status}: any) => {
+    const promises = arr.map( async ({item, status, changeValue}: any) => {
       
-      console.log('promise: update status, item: ', item, 'status: ', status)
-
       return new Promise( async (resolve) => {
 
         (!status && item.stripeId) && await stripe.products.update(item.stripeId, {
@@ -69,7 +80,13 @@ export const updateRelationTo: AfterChangeHook = async (args) => {
           collection: item.item_type,
           id: item[item.item_type],
           data: {
-            offer: status,
+            offer: {
+              relationTo: status,
+              ...changeValue && {
+                offer_price: item.discount_type === 'new_price' && item.new_price,
+                delivery_free: item.discount_type === 'delivery_free'
+              }
+            }
           },
         }).catch( (err) => console.error('ERROR update offer status on product/variation: ', err));
 
@@ -79,8 +96,5 @@ export const updateRelationTo: AfterChangeHook = async (args) => {
     });
 
     await Promise.all(promises);
-
-    console.log('ended update operation')
-    console.log('');
   };
 };

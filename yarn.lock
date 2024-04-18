@@ -570,18 +570,6 @@
     call-me-maybe "^1.0.1"
     js-yaml "^4.1.0"
 
-"@contentful/rich-text-react-renderer@^15.19.6":
-  version "15.19.6"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-react-renderer/-/rich-text-react-renderer-15.19.6.tgz#a5121d2262bd0c28cef2bf6b1cf2a63871cf7c93"
-  integrity sha512-SPpkr2uSyirsN/uUaek8djqLMGP8nPqSqxoQ8M0VJcfD9+INKK56vjmteNr5dBbqAZO/PJMxT1S8to9BndpinQ==
-  dependencies:
-    "@contentful/rich-text-types" "^16.3.5"
-
-"@contentful/rich-text-types@^16.3.5":
-  version "16.3.5"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-16.3.5.tgz#927433a84416101ba3dbf19bd0924e755f5e6d65"
-  integrity sha512-ZLq6p5uyQXg+i1XGDFu4tAc2VYS12S1KA/jIOyyZjNgC1DvDajsi1JzuiBuOuMEhi1sKEUy6Ry3Yr9jsQtOKuQ==
-
 "@csstools/cascade-layer-name-parser@^1.0.8":
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/@csstools/cascade-layer-name-parser/-/cascade-layer-name-parser-1.0.8.tgz#24d841d80e78f6c2970a36d53e6b58e8fcea41f6"
@@ -8858,6 +8846,11 @@ swc-minify-webpack-plugin@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/swc-minify-webpack-plugin/-/swc-minify-webpack-plugin-2.1.1.tgz#2c63fe592d49541733d7557b3af8f97c7ffa78b9"
   integrity sha512-/9ud/libNWUC5p71vXWhW/O2Nc0essW8D9pY4P4ol0ceM8OcFbNr41R9YFqTkmktqUL2t0WwXau+FkR4T1+PJA==
+
+swiper@^11.1.1:
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-11.1.1.tgz#5efaa222d4a47a3ac75090cfc2fda6e53e564982"
+  integrity sha512-jGmEA/fNz1lACIcY4/40ggm1Gcyv+EUivmgV/Jd2WFPsEJhbWXnRAwzZR8OPjkBLtDxmzcoYG/iiAMWfRs0YKQ==
 
 tabbable@^5.3.3:
   version "5.3.3"

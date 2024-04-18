@@ -46,12 +46,15 @@ export default function ModalComponent() {
     <Dialog onOpenChange={handlerClose}>
       <DialogTrigger className="hidden" ref={refTrigger} /> 
 
-      <DialogContent className="w-[700px] h-[650px] max-h-svh max-w-none overflow-auto pb-10">
+      <DialogContent className="
+        w-[700px] h-[650px] max-h-svh max-w-none overflow-auto
+        max-md:w-[500px] max-md:h-[480px] max-md:py-8 max-sm:w-5/6 max-sm:px-2 max-sm:py-3 max-sm:rounded-sm
+      ">
 
         { (!modal || status !== 'success') ?
           <SkeletonModal />
         :
-          <div className="flex flex-col gap-3 my-8 overflow-auto">
+          <div className="flex flex-col gap-3 overflow-auto mt-2">
             <Image src={`/media/${(modal.banner as Media).filename}`} className="shadow-md" width={1000} height={1000} alt="BANNER" />
 
             { RichTextFormater(modal.content) }

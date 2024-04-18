@@ -265,29 +265,16 @@ export interface Modal {
  */
 export interface Carousel {
   id: string;
-  image: string | Media;
+  name: string;
+  image_desktop: string | Media;
+  image_mobile: string | Media;
   type: 'Link' | 'Modal';
-  linkTo?:
-    | ({
-        relationTo: 'product';
-        value: string | Product;
-      } | null)
-    | ({
-        relationTo: 'variation';
-        value: string | Variation;
-      } | null)
-    | ({
-        relationTo: 'brand';
-        value: string | Brand;
-      } | null)
-    | ({
-        relationTo: 'category';
-        value: string | Category;
-      } | null)
-    | ({
-        relationTo: 'offer';
-        value: string | Offer;
-      } | null);
+  type_link?: ('Product' | 'Variation' | 'Brand' | 'Category' | 'Offer') | null;
+  product?: (string | null) | Product;
+  variation?: (string | null) | Variation;
+  brand?: (string | null) | Brand;
+  category?: (string | null) | Category;
+  offer?: (string | null) | Offer;
   modal?: (string | null) | Modal;
   updatedAt: string;
   createdAt: string;

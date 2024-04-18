@@ -45,7 +45,7 @@ export default function ButtonModal({modal}: {modal: Modal}) {
   
   } else {
     return (
-      <ButtonUI className="mb-4" link={url}>
+      <ButtonUI className="mb-8 max-sm:mb-0" link={url}>
         { buttonLabel ?? 'See '+linkType }
       </ButtonUI>
     );

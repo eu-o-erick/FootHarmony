@@ -5,7 +5,7 @@ export default function Information() {
 
 
   return(
-    <div className="flex gap-20 w-full max-w-[900px] mb-5 px-10 max-sm:flex-col max-sm:gap-10">
+    <div className="flex gap-20 w-full max-w-[1100px] mb-5 px-10 max-sm:flex-col max-sm:gap-10">
 
       <ul className="flex flex-col gap-2">
         <li className="mb-2 font-semibold text-lg">FOLLOW US</li>

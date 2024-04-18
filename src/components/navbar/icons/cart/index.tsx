@@ -135,14 +135,14 @@ export default function Cart() {
       </SheetTrigger>
 
 
-      <SheetContent className="flex flex-col justify-between">
+      <SheetContent className="flex flex-col justify-between max-[450px]:w-full">
         <SheetHeader>
           <SheetTitle>Your Cart</SheetTitle>
         </SheetHeader>
 
         { shoes.length ?
           <>
-            <ul className="w-full h-4/5 p-2 flex flex-col gap-5">
+            <ul className="w-full h-4/5 p-2 flex flex-col gap-5 !max-w-80 m-auto">
 
               { shoes.map( (item, i) => {
                 return(

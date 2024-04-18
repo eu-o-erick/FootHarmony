@@ -62,7 +62,7 @@ export default function ListMsgs({messages, messagesRead, setMessagesRead}: Prop
         const isRead = messagesRead.includes(msg.id);
 
         return(
-          <li key={i}  className={cn("flex gap-3 p-4 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 transition-all", {
+          <li key={i}  className={cn("flex gap-3 p-4 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 transition-all max-[400px]:px-0", {
             'opacity-60': isRead
           })} onClick={ () => handlerSetModalShow(msg) }>
 

@@ -4,6 +4,8 @@ import { cn } from "@/lib/utils";
 import Providers from "@/components/Providers";
 import Modal from "@/components/modal";
 import "./globals.css";
+import 'swiper/css';
+
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -51,7 +51,7 @@ export default function Messages() {
         </div>
       </PopoverTrigger>
 
-      <PopoverContent className="flex flex-col items-center justify-between min-h-40 w-96 -mr-14" align="end">
+      <PopoverContent className="flex flex-col items-center justify-between min-h-40 w-96 -mr-10 mt-2 max-[400px]:w-svw" align="end">
 
         {
           status === 'loading' ?

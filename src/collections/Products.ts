@@ -1,8 +1,8 @@
 import { CollectionConfig } from "payload/types";
 import { slateEditor } from "@payloadcms/richtext-slate";
-import { handlerBeforeChange } from "../hooks/products/before_change";
-import { decreaseBrands, decreaseCategories, removeOfVariations, removeOfOffer } from "../hooks/products/after_delete";
-import { relationToVariations, increaseBrands, increaseCategories } from "../hooks/products/after_change";
+import { handlerBeforeChange } from "./hooks/products/before_change";
+import { decreaseBrands, decreaseCategories, removeOfVariations, removeOfOffer } from "./hooks/products/after_delete";
+import { relationToVariations, increaseBrands, increaseCategories } from "./hooks/products/after_change";
 
 
 export const Products: CollectionConfig = {
@@ -123,10 +123,27 @@ export const Products: CollectionConfig = {
     // offer
     {
       name: 'offer',
-      type: 'relationship',
-      relationTo: 'offer',
-      required: false,
-      hasMany: false,
+      type: 'group',
+      fields: [
+        {
+          name: 'relationTo',
+          type: 'relationship',
+          relationTo: 'offer',
+          required: false,
+          hasMany: false,
+          admin: {
+            hidden: true
+          }
+        },
+
+        // price
+        {
+          name: 'offer_price',
+          type: 'number',
+          required: false,
+        },
+
+      ],
       admin: {
         hidden: true
       }

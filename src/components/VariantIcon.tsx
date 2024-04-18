@@ -1,12 +1,15 @@
 'use client';
 
+import { colors } from "@/constants/colors";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { Variation } from "@/payload-types";
 
 
 interface Props {
-  variations: {
-    colors: string[];
+  variations: Variation[]
+  | {
+    primary_color: string;
+    secondary_color?: string;
   }[];
   variationIndex: number;
   setVariationIndex: React.Dispatch<React.SetStateAction<number>>;
@@ -16,11 +19,16 @@ interface Props {
 export default function VariantIcon({ variations, variationIndex, setVariationIndex, className }: Props) {
 
 
+  function getClassName(variationColor: string) {
+    return colors.find((color) => color.label === variationColor)?.class;
+  };
+
+  
+
   return(
     <ul className={cn("flex gap-1.5", className)}>
 
-      { variations.map((item: any, i: number) => {
-        const colors = item.colors;
+      { variations.map(({primary_color, secondary_color}: any, i: number) => {
 
         return(
           <li key={i} className="relative flex items-center justify-center">
@@ -34,12 +42,12 @@ export default function VariantIcon({ variations, variationIndex, setVariationIn
               "scale-110": variationIndex === i,
             })} onClick={ () => setVariationIndex(i) }>
 
-              { colors[0] && 
-                <div className="w-4 h-4" style={{background: colors[0]}} />
+              { primary_color && 
+                <div className={"w-4 h-4 "+ getClassName(primary_color) } />
               }
                 
-              { colors[1] &&
-                <div className="w-4 h-4" style={{background: colors[1]}} />
+              { secondary_color &&
+                <div className={"w-4 h-4 "+ getClassName(secondary_color) } />
               }
 
             </button>

@@ -39,7 +39,7 @@ export const handlerBeforeChange: BeforeChangeHook = async (args) => {
       stripeId: data.id,
       priceId: data.default_price as string
 
-    })).catch( err => console.log('ERROR create new price for product: ', err));
+    })).catch( err => console.error('ERROR create new price for product: ', err));
   };
 
   console.log('');

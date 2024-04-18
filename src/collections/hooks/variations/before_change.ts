@@ -5,6 +5,8 @@ import { Variation } from "@/payload-types";
 export const handlerBeforeChange: BeforeChangeHook = async (args) => {
   console.log('====== before change variation ======');
 
+  console.log(args.operation)
+
   const data = args.data as Variation;
 
   console.log('create price for variations: ', data);

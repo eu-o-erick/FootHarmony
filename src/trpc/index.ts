@@ -1,7 +1,7 @@
 import { paymenteRouter } from "./payment-router";
 import { publicProcedure, router } from "./trpc";
 import { getPayloadClient } from "../get-payload";
-import { Carousel, Message, Modal, Offer } from "@/payload-types";
+import { Carousel, Featured, Message, Modal, Offer } from "@/payload-types";
 import { z } from "zod";
 
 
@@ -47,7 +47,7 @@ export const appRouter = router({
 
     return offer;
   }),
-    
+
   carousel: publicProcedure.query( async () => {
 
     const payload = await getPayloadClient({});
@@ -57,6 +57,20 @@ export const appRouter = router({
     }) as { docs: Carousel[] | null };
 
     return carousel;
+  }),
+
+      
+  featured: publicProcedure.query( async () => {
+
+    const payload = await getPayloadClient({});
+
+    const { docs: featured } = await payload.find({
+      collection: 'featured',
+      limit: 1,
+      depth: 3
+    }) as { docs: Featured[] | null };
+
+    return featured;
   }),
 
 });

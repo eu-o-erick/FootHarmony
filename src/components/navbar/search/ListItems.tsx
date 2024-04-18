@@ -12,12 +12,13 @@ const SHOES = [
     brand: "Under Armour",
     variations: [
       {
-        colors: ['gray'],
+        primary_color: 'Gray',
         img: '/shoes/D_NQ_NP_929581-MLA51356222200_082022-O.webp',
         price: 130,
         price_offer: null
       },{
-        colors: ['lime', 'gray'],
+        primary_color: 'Green',
+        secondary_color: 'Gray',
         img: '/shoes/D_NQ_NP_694209-MLA51356202561_082022-O.webp',
         price: 130,
         price_offer: 109
@@ -28,12 +29,13 @@ const SHOES = [
     brand: "Under Armour",
     variations: [
       {
-        colors: ['gray'],
+        primary_color: 'Green',
         img: '/shoes/D_NQ_NP_929581-MLA51356222200_082022-O.webp',
         price: 130,
         price_offer: null
       },{
-        colors: ['lime', 'gray'],
+        primary_color: 'Green',
+        secondary_color: 'Gray',
         img: '/shoes/D_NQ_NP_694209-MLA51356202561_082022-O.webp',
         price: 130,
         price_offer: 109
@@ -44,12 +46,14 @@ const SHOES = [
     brand: "Under Armour",
     variations: [
       {
-        colors: ['gray'],
+        primary_color: 'Green',
+        secondary_color: 'Gray',
         img: '/shoes/D_NQ_NP_929581-MLA51356222200_082022-O.webp',
         price: 130,
         price_offer: null
       },{
-        colors: ['lime', 'gray'],
+        primary_color: 'Green',
+        secondary_color: 'Gray',
         img: '/shoes/D_NQ_NP_694209-MLA51356202561_082022-O.webp',
         price: 130,
         price_offer: 109

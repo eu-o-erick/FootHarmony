@@ -1,8 +1,8 @@
-import { sizes } from '../../constants/sizes';
-import { colors } from '../../constants/colors';
+import { sizes } from '../constants/sizes';
+import { colors } from '../constants/colors';
 import { CollectionConfig } from 'payload/types';
-import { handlerBeforeChange } from '../hooks/variations/before_change';
-import { removeOfOffer, removeOfProduct } from '../hooks/variations/after_delete';
+import { handlerBeforeChange } from './hooks/variations/before_change';
+import { removeOfOffer, removeOfProduct } from './hooks/variations/after_delete';
 
 
 // quando removida remover a foto tmbm
@@ -120,10 +120,28 @@ export const Variations: CollectionConfig = {
     // offer
     {
       name: 'offer',
-      type: 'relationship',
-      relationTo: 'offer',
-      required: false,
-      hasMany: false,
+      type: 'group',
+      fields: [
+
+        // relationTo offer
+        {
+          name: 'relationTo',
+          type: 'relationship',
+          relationTo: 'offer',
+          required: false,
+          hasMany: false,
+          admin: {
+            hidden: true
+          }
+        },
+
+        // price
+        {
+          name: 'offer_price',
+          type: 'number',
+          required: false,
+        },
+      ],
       admin: {
         hidden: true
       }

@@ -37,11 +37,13 @@ export const removeOfProduct: AfterDeleteHook = async (args) => {
 
 
 export const removeOfOffer: AfterDeleteHook = async (args) => {
-  console.log('====== after delete offer ======');
+  console.log('====== after delete variation (offer) ======');
 
-  if(!args.doc.offer) return console.log("don't have offer related variation");
+  const offer = args.doc.offer.reference as Offer | undefined;
 
-  const { id, items } = args.doc.offer as Offer;
+  if(!offer) return console.log("don't have offer related variation");
+
+  const { id, items } = offer;
   console.log('id and items of offer related variation: ', id, items);
 
   const newItems: any[] = items?.filter( item => item.variation !== args.id ) ?? [];

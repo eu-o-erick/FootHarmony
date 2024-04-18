@@ -30,16 +30,10 @@ export default function ListMsgs({messages, messagesRead, setMessagesRead}: Prop
 
       const dateNow = [ getDate.getFullYear(), getDate.getMonth() + 1, getDate.getDate() ];
 
-
-      console.log('date: ', date);
-      console.log('dateNow: ', dateNow);
-
       return !date.find( (n, i) => Number(n) < dateNow[i] );
     })
 
-    console.log(arr)
     setMsgValid(arr)
-
 
   }, [messages]);
 

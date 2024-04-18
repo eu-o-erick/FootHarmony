@@ -19,8 +19,10 @@ export default function ButtonModal({modal}: {modal: Modal}) {
         break;
 
       case 'Variation':
-        let variationProduct = (variation as Variation).product as Product;
-        setUrl('/product/' + variationProduct.id + '?variation=' + (variation as Variation).id);
+        const productVariation = variation as Variation
+        const variationProduct = productVariation.product as Product
+
+        setUrl(`/product/${variationProduct.id}?variation=${productVariation.id}`);
         break;
 
       case 'Brand':
@@ -38,6 +40,7 @@ export default function ButtonModal({modal}: {modal: Modal}) {
 
 
   }, [modal])
+
 
 
   if(linkType === 'None') {

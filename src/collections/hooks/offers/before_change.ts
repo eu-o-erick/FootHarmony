@@ -30,7 +30,7 @@ export const updateProducts: BeforeChangeHook = async (args) => {
 
   console.log('result: ', result)
   console.log('');
-
+ 
   return {
     ...args.data,
     items: result

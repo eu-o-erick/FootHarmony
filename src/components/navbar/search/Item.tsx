@@ -10,7 +10,8 @@ interface TShoes {
   name: string;
   brand: string;
   variations: {
-    colors: string[];
+    primary_color: string;
+    secondary_color?: string;
     img: string;
     price: number;
     price_offer: number | null;

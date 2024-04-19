@@ -7,26 +7,16 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 
 interface Props {
-  items: Featured[] | null | undefined;
-  isLoading: boolean;
+  products: Product[] | undefined;
 };
 
 
 
-export default function ProductsFeatured({items, isLoading}: Props) {
-
-  const [products, setProducts] = useState<Product[] | undefined>(undefined);
-
-  useEffect(() => {
-    if(isLoading && !items?.length) return;
-
-    setProducts( items?.[0].products as Product[] )
-
-  }, [items, isLoading]);
+export default function ProductsFeatured({products}: Props) {
 
 
   return(
-    <div className="w-full max-w-[760px]">
+    <div className="w-full">
 
       <h3 className="font-semibold text-gray-700 text-center text-xl">
         Discover Our Latest Shoe Collection!

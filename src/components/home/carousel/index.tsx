@@ -84,7 +84,7 @@ export default function Carousel() {
         loop={true}
         modules={[Autoplay, Pagination]}
         pagination={pagination}
-        className='!pb-10'>
+        className='!pb-14'>
 
         { status === 'success' && carousels?.length ?
         
@@ -95,9 +95,9 @@ export default function Carousel() {
             return(
               <SwiperSlide key={i} className='cursor-pointer' onClick={() => handlerClick(i)}>
               
-                <Image src={`/media/${imagDesktop.filename}`} alt='DESKTOP IMAGE' width={10000} height={1000} className='max-md:hidden' />
+                <Image src={`/media/${imagDesktop.filename}`} alt='DESKTOP IMAGE' width={10000} height={1000} className='max-md:hidden shadow-xl' />
 
-                <Image src={`/media/${imagMobile.filename}`} alt='DESKTOP IMAGE' width={10000} height={1000} className='md:hidden' />
+                <Image src={`/media/${imagMobile.filename}`} alt='DESKTOP IMAGE' width={10000} height={1000} className='md:hidden shadow-lg' />
               
               </SwiperSlide>
             )

@@ -30,11 +30,11 @@ export default function CardProduct({product}: Props) {
     const priceOffer = variation.offer?.offer_price ?? product.offer?.offer_price;
 
     return (
-      <li className='group overflow-hidden drop-shadow-md bg-white shadow-md rounded-lg hover:shadow-xl transition-all w-40 mx-auto my-8'>
+      <li className='group overflow-hidden drop-shadow-md bg-white shadow-md rounded-lg hover:shadow-xl transition-all w-48 mx-auto my-8'>
         
         <Link className='flex flex-col px-2 pb-5 overflow-hidden' href={`/product/${product.id}/`}>
 
-          <div className="h-32 p-2 flex-center group-hover:scale-110 transition-all">
+          <div className="h-36 p-2 flex-center group-hover:scale-110 transition-all">
             <Image src={'/media/'+image.filename} alt='COVER' width={1000} height={1000} />
           </div>
 

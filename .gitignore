@@ -1,7 +1,4 @@
-public/messages/
-public/modals/
-public/shoes/
-public/carousel/
+public/utils/
 src/media/
 
 # Logs

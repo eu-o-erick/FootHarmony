@@ -1,11 +1,17 @@
 import CardProduct from "@/components/card_product"
+import SkeletonCardProduct from "@/components/card_product/Skeleton";
 import { Featured, Product } from "@/payload-types"
 import { useEffect, useState } from "react";
+import { Autoplay, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from 'swiper/react';
+
 
 interface Props {
   items: Featured[] | null | undefined;
   isLoading: boolean;
-}
+};
+
+
 
 export default function ProductsFeatured({items, isLoading}: Props) {
 
@@ -20,31 +26,39 @@ export default function ProductsFeatured({items, isLoading}: Props) {
 
 
   return(
-    <div className="w-full flex-center flex-col">
+    <div className="w-full max-w-[760px]">
 
-      <h3 className="font-semibold text-gray-700 text-2xl">
-        Step into Style: Discover Our Latest Shoe Collection!
+      <h3 className="font-semibold text-gray-700 text-center text-xl">
+        Discover Our Latest Shoe Collection!
       </h3>
 
-      <p className="text-center px-5 pt-6 pb-16 max-w-[550px]">
+      <p className="text-center mx-5 mt-5 mb-10 font-light max-w-[850px]">
         Step into comfort and style with our latest shoe collection! From sleek sneakers to elegant loafers,
         our shoes are designed to elevate every step you take. Crafted with premium materials and attention to detail,
         they offer the perfect blend of fashion and function. Discover your perfect pair today and make every stride a statement!
       </p>
 
-      <ul className="w-full max-w-[800px] flex-center gap-7 ">
 
-        { !products || !products.length ?
-          <>loading</>
+      { !products || !products.length ?
+        <SkeletonCardProduct />
 
-        :
-          [...products, ...products, ...products, ...products].map((product, i) =>
-            <CardProduct key={i} product={product} />
-          )
-        }
+      :
 
-      </ul>
+        <Swiper
+          slidesPerView={4}
+          autoplay={true}
+          loop={true}
+          modules={[Autoplay]}>
+
+            { products.map((product, i) => (
+              <SwiperSlide key={i}>
+                <CardProduct product={product} />
+              </SwiperSlide>
+            ))} 
+
+        </Swiper>
+      }
 
     </div>
-  )
-}
+  );
+};

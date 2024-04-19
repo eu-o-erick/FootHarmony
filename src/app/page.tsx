@@ -8,7 +8,7 @@ export default function Home() {
     <div className="min-h-svh flex flex-col justify-between">
       <Navbar />
       
-      {/* <Carousel /> */}
+      <Carousel />
       <Featured />
 
       <Footer />

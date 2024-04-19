@@ -83,7 +83,7 @@ export const updateRelationTo: AfterChangeHook = async (args) => {
             offer: {
               relationTo: status,
               ...changeValue && {
-                offer_price: item.discount_type === 'new_price' && item.new_price,
+                offer_price: item.discount_type === 'new_price' ? item.new_price : null,
                 delivery_free: item.discount_type === 'delivery_free'
               }
             }

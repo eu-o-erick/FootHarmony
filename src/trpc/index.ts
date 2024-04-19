@@ -68,7 +68,7 @@ export const appRouter = router({
       collection: 'featured',
       limit: 1,
       depth: 3
-    }) as { docs: Featured[] | null };
+    }) as { docs: (Featured | string)[] | null };
 
     return featured;
   }),

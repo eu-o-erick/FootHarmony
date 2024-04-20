@@ -6,6 +6,9 @@ import BrandsFeatured, { TBrandsFeatured } from "./Brands";
 import { useEffect, useState } from "react";
 import { Product } from "@/payload-types";
 import CategoriesFeatured, { TCategoryFeatured } from "./Categories";
+import Link from "next/link";
+import ButtonUI from "@/components/ui/Button";
+import SpecialBrand from "./SpeacialBrand";
 
 
 export default function Featured() {
@@ -34,10 +37,17 @@ export default function Featured() {
   
 
   return(
-    <section className="flex flex-col items-center gap-40 max-w-[1024px] m-auto">
+    <section className="flex flex-col items-center gap-40">
       <ProductsFeatured products={products} />
       <BrandsFeatured brands={brands} />
+
+      <SpecialBrand />
+
       <CategoriesFeatured categories={categories} />
+
+      <ButtonUI link="/products" className="mb-20 max-w-[490px]">
+        see all products
+      </ButtonUI>
     </section>
   );
 };

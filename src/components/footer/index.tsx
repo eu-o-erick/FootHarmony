@@ -7,7 +7,7 @@ import Navigation from "./Navigation";
 export default function Footer() {
 
   return(
-    <footer className="flex-center flex-col gap-5 pb-5 bg-white mt-20">
+    <footer className="flex-center flex-col gap-5 pb-8 bg-white mt-20">
       <Separator className="mb-10" />
       <Information/>
       <Navigation />

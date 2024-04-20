@@ -38,13 +38,13 @@ export default function CardProduct({product}: Props) {
             <Image src={'/media/'+image.filename} alt='COVER' width={1000} height={1000} />
           </div>
 
-          <span className="z-10 text-xs text-gray-400 font-semibold">{(product.details.brand as Brand).name}</span>
+          <span className="z-10 text-xs text-gray-400 font-semibold px-2">{(product.details.brand as Brand).name}</span>
         
-          <h5 className="mt-px truncate">{product.name}</h5>
+          <h5 className="mt-px truncate px-2">{product.name}</h5>
 
         </Link>
 
-        <div className="flex-center justify-between px-2 pb-3">
+        <div className="flex-center justify-between px-4 pb-4">
           <VariantIcon className='scale-95' variationIndex={variationIndex} setVariationIndex={setVariationIndex} variations={variations} />
 
           <div className='relative text-sm'>

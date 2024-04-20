@@ -1,8 +1,7 @@
 import CardProduct from "@/components/card_product"
 import SkeletonCardProduct from "@/components/card_product/Skeleton";
-import { Featured, Product } from "@/payload-types"
-import { useEffect, useState } from "react";
-import { Autoplay, Pagination } from "swiper/modules";
+import { Product } from "@/payload-types"
+import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 
@@ -18,11 +17,11 @@ export default function ProductsFeatured({products}: Props) {
   return(
     <div className="w-full">
 
-      <h3 className="font-semibold text-gray-700 text-center text-xl">
+      <h3 className="font-semibold text-center text-4xl">
         Discover Our Latest Shoe Collection!
       </h3>
 
-      <p className="text-center mx-5 mt-5 mb-10 font-light max-w-[850px]">
+      <p className="m-auto mt-5 mb-10 text-center max-w-[850px]">
         Step into comfort and style with our latest shoe collection! From sleek sneakers to elegant loafers,
         our shoes are designed to elevate every step you take. Crafted with premium materials and attention to detail,
         they offer the perfect blend of fashion and function. Discover your perfect pair today and make every stride a statement!
@@ -31,14 +30,12 @@ export default function ProductsFeatured({products}: Props) {
 
       { !products || !products.length ?
         <SkeletonCardProduct />
-
       :
-
         <Swiper
           slidesPerView={4}
           autoplay={true}
           loop={true}
-          modules={[Autoplay]}>
+          modules={[Navigation]}>
 
             { products.map((product, i) => (
               <SwiperSlide key={i}>
@@ -52,3 +49,9 @@ export default function ProductsFeatured({products}: Props) {
     </div>
   );
 };
+
+
+
+{/*   
+
+*/}

@@ -3,6 +3,8 @@ import { Brand, Media } from "@/payload-types"
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ItemRoundedFeatured from "./ItemsFeatured";
+import Link from "next/link";
+import Image from "next/image";
 
 interface Props {
   brands: TBrandsFeatured[] | undefined | null;
@@ -20,11 +22,11 @@ export default function BrandsFeatured({brands}: Props) {
   return(
     <div className="w-full">
 
-      <h3 className="font-semibold text-gray-700 text-center text-xl">
-        Discover Brands Tailored for You
+      <h3 className="font-semibold text-gray-700 text-center text-4xl">
+        Top Brands
       </h3>
 
-      <p className="text-center mx-auto mt-5 mb-10 font-light max-w-[600px]">
+      <p className="text-center mx-auto mt-5 mb-10 max-w-[650px]">
         Indulge in our carefully curated shoe brands, tailored just for you. From chic and trendy to timeless and comfortable,
         discover the perfect fit for your unique style.
       </p>
@@ -34,7 +36,7 @@ export default function BrandsFeatured({brands}: Props) {
         <SkeletonCardProduct />
       :
         <Swiper
-          slidesPerView={4}
+          slidesPerView={6}
           autoplay={true}
           loop={true}
           modules={[Autoplay]}>
@@ -45,13 +47,15 @@ export default function BrandsFeatured({brands}: Props) {
 
               return (
                 <SwiperSlide key={i}>
-                  <ItemRoundedFeatured
-                    key={i}
-                    img={media.filename as string}
-                    link={'/products?brand='+ encodeURIComponent(brand.name)}
-                    name={brand.name}
-                  />
-              </SwiperSlide>
+
+
+                  <Link href={'/products?brand='+encodeURIComponent(brand.name)} className="w-20 h-20 flex-center m-auto group">
+
+                    <Image src={'/media/'+media.filename} alt={brand.name} width={100} height={100} className="group-hover:scale-110 transition-all" />
+
+                  </Link>
+
+                </SwiperSlide>
               )
             })} 
         </Swiper>

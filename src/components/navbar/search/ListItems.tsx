@@ -80,7 +80,7 @@ export default function ListItems({value}: Props) {
   return(
     <div className={
       cn(`
-        absolute z-10 w-full mt-6 p-3 bg-white top-full shadow-md opacity-0 scale-75 pointer-events-none transition-all
+        absolute z-10 w-full mt-5 p-3 bg-white top-full shadow-md opacity-0 scale-75 pointer-events-none transition-all
       `,{
           "opacity-100 scale-100 pointer-events-auto": value,
         }

@@ -1,26 +1,20 @@
-import SkeletonCardProduct from "@/components/card_product/Skeleton";
-import { Brand, Media } from "@/payload-types"
+import { Brand, Media } from "@/payload-types";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import ItemRoundedFeatured from "./ItemsFeatured";
 import Link from "next/link";
 import Image from "next/image";
+import { Skeleton } from "@/components/ui/skeleton";
+import { TBrandsFeatured } from "@/app/page";
 
 interface Props {
   brands: TBrandsFeatured[] | undefined | null;
 };
 
-export interface TBrandsFeatured {
-  cover: string | Media;
-  brand: string | Brand;
-  id?: string | null | undefined;
-}
 
-
-export default function BrandsFeatured({brands}: Props) {
+export default function Brands({brands}: Props) {
 
   return(
-    <div className="w-full">
+    <article className="w-full max-w-[800px] m-auto mt-28 mb-16">
 
       <h3 className="font-semibold text-gray-700 text-center text-4xl">
         Top Brands
@@ -33,7 +27,15 @@ export default function BrandsFeatured({brands}: Props) {
 
 
       { !brands || !brands.length ?
-        <SkeletonCardProduct />
+        <ul className="flex justify-between">
+
+          { [0,1,2,3,4,5].map(i => (
+            <li className="" key={i}>
+              <Skeleton className="w-24 h-14 shadow-md" />
+            </li>
+          ))}
+
+        </ul>
       :
         <Swiper
           slidesPerView={6}
@@ -47,19 +49,14 @@ export default function BrandsFeatured({brands}: Props) {
 
               return (
                 <SwiperSlide key={i}>
-
-
                   <Link href={'/products?brand='+encodeURIComponent(brand.name)} className="w-20 h-20 flex-center m-auto group">
-
                     <Image src={'/media/'+media.filename} alt={brand.name} width={100} height={100} className="group-hover:scale-110 transition-all" />
-
                   </Link>
-
                 </SwiperSlide>
               )
             })} 
         </Swiper>
       }
-    </div>
+    </article>
   );
 };

@@ -3,49 +3,42 @@ import { ScrollText, ShieldCheck, Truck } from "lucide-react";
 
 const ITEMS = [
   {
-    title: 'Safe Buy',
-    description: 'Your Trusted Online Shopping Guardian. Ensuring worry-free transactions for your peace of mind',
-    Icon: ShieldCheck
+    title: 'Top Notch Quality',
+    description: 'At FootHarmony, we take pride in offering the finest footwear crafted with precision and dedication. Step into unmatched comfort, durability, and style.',
   },{
-    title: 'Free Shipping',
-    description: 'Enjoy the Convenience, Without the Extra Cost. Get your orders delivered straight to your doorstep, no added fees',
-    Icon: Truck
+    title: 'Comfort and Support',
+    description: 'FootHarmony shoes redefine comfort with precision. Our designs seamlessly blend style and support, ensuring every step is a delight. Elevate your comfort with FootHarmony.',
   },{
-    title: 'Guarantee',
-    description: 'Your Satisfaction, Our Promise. Shop with confidence knowing your happiness is our priority',
-    Icon: ScrollText
+    title: 'Style and Versality',
+    description: 'With trend-conscious designs, vibrant colors, and timeless patterns, FootHarmony offers a diverse range that complements every taste, Elevate your style with the perfect pairs!!.',
   }
 ]
 
 export default function About() {
 
   return (
-    <article className='flex-center flex-col py-20 bg-gray shadow-lg  text-light-gray'>
+    <article className='flex flex-col gap-20 py-20 w-full max-w-[800px] m-auto'>
 
-      <h5 className="text-3xl">About Us</h5>
+      <h5 className="text-6xl font-semibold">We Offer :</h5>
 
-      <p className="font-light text-center max-w-[580px] mt-7 mb-10">
-        Where Comfort Meets Style. We specialize in delivering premium footwear that not only looks great
-        but feels amazing too. Step into a world of quality craftsmanship and trendy designs with
-        every pair. Your feet deserve the best, and at FootHarmony, we make sure they get it.
-      </p>
-
-      <ul className="flex justify-between gap-10">
+      <ol className="flex flex-col gap-10">
 
         { ITEMS.map((item, i) => (
-          <li key={i} className="flex flex-col items-center gap-2 max-w-56 p-6 rounded-md shadow-md bg-light-gray">
+          <li key={i} className="flex gap-5">
 
-            <div className="flex-center w-20 h-20 rounded-full shadow-sm bg-dark-gray">
-              <item.Icon className="text-gray w-10 h-10" />
+            <div className="w-12 h-12 bg-gray-950 text-gray-200 flex-center rounded-full text-xl font-semibold">
+              {i}
             </div>
 
-            <h6 className="text-gray">{item.title}</h6>
-            <p className="font-light text-xs text-center text-gray">{item.description}</p>
-
+            <div className="flex flex-col gap-2 w-2/3">
+              <h6 className="text-xl font-semibold">{item.title}</h6>
+              <p className="">{item.description}</p>
+            </div>
+  
           </li>
         )) }
 
-      </ul>
+      </ol>
 
 
     </article>

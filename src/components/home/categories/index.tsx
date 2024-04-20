@@ -2,7 +2,7 @@ import SkeletonCardProduct from "@/components/card_product/Skeleton";
 import { Category, Media } from "@/payload-types"
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import ItemRoundedFeatured from "./ItemsFeatured";
+import ItemRoundedFeatured from "../featured/ItemsFeatured";
 
 interface Props {
   categories: TCategoryFeatured[] | undefined | null;

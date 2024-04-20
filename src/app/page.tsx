@@ -6,6 +6,7 @@ import { Brand, Media, Product } from "@/payload-types";
 import CategoriesFeatured, { TCategoryFeatured } from "@/components/home/categories";
 
 import Navbar from "@/components/navbar";
+import Banner from "@/components/home/banner";
 import Brands from "@/components/home/brands";
 import SpecialBrand from "@/components/home/special_brand";
 import About from "@/components/home/about";
@@ -48,6 +49,7 @@ export default function Home() {
   return (
     <div className="min-h-svh flex flex-col justify-between">
       <Navbar />
+      <Banner />
 
       <Brands brands={brands} />
       <SpecialBrand />

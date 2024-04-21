@@ -42,8 +42,8 @@ export default function ProductCart({item}: {item: TShoesShoppingCart}) {
 
       <div className="flex flex-col justify-between items-end gap-2 w-1/12 pr-1">
         {/*  REMOVE ITEM HANDLER  */}
-        <button className="w-6 h-6 flex-center scale-90 opacity-80 hover:opacity-100 hover:scale-100 transition-all">
-          <Trash className="w-5 h-5"/>
+        <button className="w-6 h-6 flex-center opacity-80 group hover:opacity-100 transition-all">
+          <Trash className="w-5 h-5 group-hover:w-6 group-hover:h-6 transition-all"/>
         </button>
 
         <div className="h-5 flex flex-col items-end justify-end scale-90 font-semibold">
@@ -61,43 +61,5 @@ export default function ProductCart({item}: {item: TShoesShoppingCart}) {
       </div>
 
     </div>
-  )
-}
-
-
-
-
-
-{/*
-
-const [many, setMany] = useState(0);
-
-function handlerDecrease() {
-  const n = many - 1;
-
-  if(n <= 0) {
-    // remove product
-
-  } else {
-    setMany(n);
-
-  };
+  );
 };
-
-function handlerIncrease() {
-  setMany( many + 1 );
-};
-
-
-<div className="flex gap-5 items-center">
-  <div className="flex items-center">
-    <button className="w-4 h-4 flex-center rounded-s-sm border border-gray-300" onClick={handlerDecrease}>
-      <Minus />
-    </button>
-    <span className="w-5 h-4 text-center font-bold text-xs bg-gray-300">{many}</span>
-    <button className="w-4 h-4 flex-center rounded-e-sm border border-gray-300" onClick={handlerIncrease}>
-      <Plus />
-    </button>
-  </div>
-</div>
- */}

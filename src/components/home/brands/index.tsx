@@ -27,7 +27,7 @@ export default function Brands({brands}: Props) {
 
 
       { !brands || !brands.length ?
-        <ul className="flex justify-between">
+        <ul className="flex justify-between bg-red-900">
 
           { [0,1,2,3,4,5].map(i => (
             <li className="" key={i}>
@@ -38,10 +38,17 @@ export default function Brands({brands}: Props) {
         </ul>
       :
         <Swiper
-          slidesPerView={6}
-          autoplay={true}
-          loop={true}
-          modules={[Autoplay]}>
+          slidesPerView={4}
+          breakpoints={{
+            768: {
+              slidesPerView: 5
+            }
+          }}>
+          {/* 
+            autoplay={true}
+            loop={true}
+            modules={[Autoplay]}>
+          */}
 
             { brands.map((featured, i) => {
               const brand = featured.brand as Brand;

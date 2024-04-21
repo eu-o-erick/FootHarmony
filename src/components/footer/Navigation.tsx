@@ -23,6 +23,9 @@ const NAV_ITEMS: TNavItems[] = [
   },{
     label: 'new arrivals',
     link: '/products?sort=createAt'
+  },{
+    label: 'best sallers',
+    link: '/products?sort=sold'
   }
 ];
 
@@ -52,9 +55,7 @@ export default function Navigation() {
         
           navItems.map((item, i) => {
             const label = item.id ? (item as Offer).name : (item as TNavItems).label;
-
             const link = item.id ? `/products?offer=${(item as Offer).id}` : (item as TNavItems).link;
-
 
             return(
               <li key={i}>

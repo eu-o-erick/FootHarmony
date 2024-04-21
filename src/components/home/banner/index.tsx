@@ -32,7 +32,7 @@ export default function Banner() {
 
           <Image src={'/shoe-banner.png'} alt='BANNER SHOE' layout="responsive" width={550} height={550} />
 
-          <div className="group relative flex-center mx-10 px-6 text-xl font-bold max-lg:mx-4 max-lg:px-2 max-sm:text-base">
+          <div className="group relative flex-center mx-10 px-6 text-xl font-bold max-lg:mx-4 max-lg:px-2 max-sm:text-base cursor-default">
 
             <p className="flex-center flex-col">
 

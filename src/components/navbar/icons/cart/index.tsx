@@ -14,7 +14,8 @@ export interface TShoesShoppingCart{
     name: string;
     brand: string;
     variations:{
-      colors: string[];
+      primary_color: string;
+      secondary_color?: string,
       img: string;
       price: number;
       price_offer?: number;
@@ -37,7 +38,7 @@ const shoes: TShoesShoppingCart[] = [
       brand: "Under Armour",
       variations: [
         {
-          colors: ['gray'],
+          primary_color: 'Gray',
           img: '/shoes/D_NQ_NP_929581-MLA51356222200_082022-O.webp',
           price: 130,
           price_offer: 119,
@@ -54,7 +55,8 @@ const shoes: TShoesShoppingCart[] = [
             }
           ]
         },{
-          colors: ['lime', 'gray'],
+          primary_color: 'Gray',
+          secondary_color: 'Green',
           img: '/shoes/D_NQ_NP_694209-MLA51356202561_082022-O.webp',
           price: 120,
           stock: [
@@ -70,7 +72,7 @@ const shoes: TShoesShoppingCart[] = [
             }
           ]
         },{
-          colors: ['white'],
+          primary_color: 'White',
           img: '/shoes/D_NQ_NP_694209-MLA51356202561_082022-O.webp',
           price: 120,
           stock: [
@@ -98,7 +100,8 @@ const shoes: TShoesShoppingCart[] = [
       brand: "Under Armour",
       variations: [
         {
-          colors: ['lime', 'gray'],
+          primary_color: 'Green',
+          secondary_color: 'Gray',
           img: '/shoes/D_NQ_NP_694209-MLA51356202561_082022-O.webp',
           price: 130,
           price_offer: 109,
@@ -137,7 +140,7 @@ export default function Cart() {
 
       <SheetContent className="flex flex-col justify-between max-[450px]:w-full">
         <SheetHeader>
-          <SheetTitle>Your Cart</SheetTitle>
+          <SheetTitle className="p-5 pb-0 text-start">Your Cart</SheetTitle>
         </SheetHeader>
 
         { shoes.length ?
@@ -155,9 +158,9 @@ export default function Cart() {
               }) }
             </ul>
 
-            <ButtonUI link="/">
-              Checkout
-            </ButtonUI>
+            <Link href="/" className="w-48 h-10 bg-gray-950 text-gray-200 flex-center m-auto rounded-full">
+              CHECKOUT
+            </Link>
           </>
 
           :

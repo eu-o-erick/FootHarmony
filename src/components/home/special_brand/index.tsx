@@ -36,6 +36,8 @@ export default function SpecialBrand() {
   
   }, []);
 
+
+  
   return (
     <article className='flex flex-col w-full'>
 

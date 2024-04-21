@@ -1,16 +1,18 @@
-import Logo from "./Logo";
-import Search from "./search";
+import Logo from "./logo";
 import Icons from "./icons";
-import { Separator } from "../ui/separator";
+import NavigationDesktop from "./navigation/Desktop";
+
+// import Search from "./search";
+{/* <Search /> */}
+
 
 export default function Navbar() {
 
   return(
-    <header className="w-full bg-white flex justify-between items-center px-16 py-3 max-lg:justify-end max-lg:px-8 max-sm:px-4">
+    <header className="relative z-50 w-full bg-white flex justify-between items-center px-16 py-6  max-lg:px-8 max-sm:px-4">
       <Logo />
-      <Search />
+      <NavigationDesktop />
       <Icons />
-
     </header>
   )
 }

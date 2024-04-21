@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 
 const name = ['F', 'O', 'O', 'T', 'H', 'A', 'R', 'M', 'O', 'N', 'Y']
@@ -23,9 +23,9 @@ export default function Banner() {
             fashion, ensuring every step you take is a statement. Elevate your footwear game
           </p>
 
-          <button className='flex-center w-32 h-12 rounded-full bg-gray-950 text-gray-200'>
+          <Link href={'/products'} className="rounded-full bg-gray-900 h-12 w-36 flex-center text-gray-200 shadow-md hover:shadow-lg hover:bg-gray-950 transition-all max-sm:my-10">
             Shop Now!
-          </button>
+          </Link>
         </div>
 
         <div className="relative flex justify-end items-center gap-20 w-2/4 max-2xl:gap-5 max-lg:gap-0 max-md:w-full max-md:px-4 max-md:gap-5">

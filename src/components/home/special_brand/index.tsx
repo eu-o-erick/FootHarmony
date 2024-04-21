@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 export default function SpecialBrand() {
 
@@ -74,15 +74,14 @@ export default function SpecialBrand() {
       <ul className="flex justify-around items-center py-5 px-10 my-4 border-y-2 border-y-gray-500 max-lg:px-2">
 
         { manyTimes.map(i => (
-          <>
+          <Fragment key={i}>
             <li className="text-3xl font-semibold opacity-70 max-2xl:text-xl max-md:text-lg">FOOTHARMONY</li>
 
             { i + 1 < manyTimes.length &&
-            
               <li className="w-3 h-3 bg-gray-500 max-md:w-2 max-md:h-2" />
             
             }
-          </>
+          </Fragment>
         )) }
 
       </ul>

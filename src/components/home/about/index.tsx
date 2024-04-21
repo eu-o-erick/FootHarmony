@@ -17,7 +17,7 @@ const ITEMS = [
 export default function About() {
 
   return (
-    <article className='flex flex-col gap-20 py-20 w-full max-w-[800px] m-auto max-[800px]:px-5 max-sm:gap-10'>
+    <article className='flex flex-col gap-20 py-20 w-full max-w-[1024px] m-auto max-w-[1024px]:px-5 max-sm:gap-10'>
 
       <h5 className="text-6xl font-semibold max-sm:text-4xl">We Offer :</h5>
 

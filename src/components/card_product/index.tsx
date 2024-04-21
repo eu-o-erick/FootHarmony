@@ -30,21 +30,20 @@ export default function CardProduct({product}: Props) {
     const priceOffer = variation.offer?.offer_price ?? product.offer?.offer_price;
 
     return (
-      <li className='group overflow-hidden drop-shadow-md bg-white shadow-md rounded-lg hover:shadow-xl transition-all w-48 mx-auto my-8'>
+      <li className='group overflow-hidden bg-white shadow-lg rounded-md hover:shadow-xl transition-all w-52 mx-auto my-10'>
         
-        <Link className='flex flex-col px-2 pb-5 overflow-hidden' href={`/product/${product.id}/`}>
+        <Link className='flex flex-col p-3 overflow-hidden' href={`/product/${product.id}/`}>
 
           <div className="h-36 p-2 flex-center group-hover:scale-110 transition-all">
             <Image src={'/media/'+image.filename} alt='COVER' width={1000} height={1000} />
           </div>
 
-          <span className="z-10 text-xs text-gray-400 font-semibold px-2">{(product.details.brand as Brand).name}</span>
-        
-          <h5 className="mt-px truncate px-2">{product.name}</h5>
+          <h5 className="z-10 mt-px font-semibold text-lg truncate px-2">{product.name}</h5>
+          <span className="text-xs text-gray-400 font-semibold px-2">{(product.details.brand as Brand).name}</span>
 
         </Link>
 
-        <div className="flex-center justify-between px-4 pb-4">
+        <div className="flex-center justify-between px-5 pb-6">
           <VariantIcon className='scale-95' variationIndex={variationIndex} setVariationIndex={setVariationIndex} variations={variations} />
 
           <div className='relative text-sm'>

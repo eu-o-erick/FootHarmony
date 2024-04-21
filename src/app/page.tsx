@@ -55,7 +55,7 @@ export default function Home() {
       <SpecialBrand />
       <About />
       <ProductsFeatured products={products} />
-      <CategoriesFeatured categories={categories} />
+      {/* <CategoriesFeatured categories={categories} /> */}
 
       <Footer />
     </div>

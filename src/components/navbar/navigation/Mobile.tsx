@@ -24,7 +24,7 @@ const NAV_ITEMS = [
 
 export default function NavigationMobile() {
 
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
 

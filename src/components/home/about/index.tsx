@@ -17,30 +17,26 @@ const ITEMS = [
 export default function About() {
 
   return (
-    <article className='flex flex-col gap-20 py-20 w-full max-w-[800px] m-auto'>
+    <article className='flex flex-col gap-20 py-20 w-full max-w-[800px] m-auto max-[800px]:px-5 max-sm:gap-10'>
 
-      <h5 className="text-6xl font-semibold">We Offer :</h5>
+      <h5 className="text-6xl font-semibold max-sm:text-4xl">We Offer :</h5>
 
-      <ol className="flex flex-col gap-10">
-
+      <ol className="flex flex-col gap-10 max-sm:gap-6">
         { ITEMS.map((item, i) => (
-          <li key={i} className="flex gap-5">
+          <li key={i} className="flex gap-5 max-sm:gap-3">
 
-            <div className="w-12 h-12 bg-gray-950 text-gray-200 flex-center rounded-full text-xl font-semibold">
+            <div className="w-12 h-12 bg-gray-950 text-gray-200 flex-center rounded-full text-xl font-semibold max-sm:w-8 max-sm:h-8 max-sm:text-lg">
               {i}
             </div>
 
-            <div className="flex flex-col gap-2 w-2/3">
+            <div className="flex flex-col gap-2 w-2/3 max-sm:w-5/6">
               <h6 className="text-xl font-semibold">{item.title}</h6>
               <p className="">{item.description}</p>
             </div>
   
           </li>
         )) }
-
       </ol>
-
-
     </article>
   );
 }

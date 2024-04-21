@@ -14,41 +14,35 @@ interface Props {
 export default function Brands({brands}: Props) {
 
   return(
-    <article className="w-full max-w-[800px] m-auto mt-28 mb-16">
+    <article className="w-full m-auto pt-28 pb-16 bg-white max-md:pb-8">
 
-      <h3 className="font-semibold text-gray-700 text-center text-4xl">
+      <h3 className="font-semibold text-center text-4xl">
         Top Brands
       </h3>
 
-      <p className="text-center mx-auto mt-5 mb-10 max-w-[650px]">
+      <p className="text-center mx-auto mt-8 mb-10 max-w-[650px] max-sm:mx-6">
         Indulge in our carefully curated shoe brands, tailored just for you. From chic and trendy to timeless and comfortable,
         discover the perfect fit for your unique style.
       </p>
 
 
       { !brands || !brands.length ?
-        <ul className="flex justify-between bg-red-900">
-
-          { [0,1,2,3,4,5].map(i => (
-            <li className="" key={i}>
-              <Skeleton className="w-24 h-14 shadow-md" />
-            </li>
-          ))}
-
-        </ul>
+        <div className="w-full h-20 max-w-[850px] max-[440px]:h-16" />
       :
         <Swiper
           slidesPerView={4}
           breakpoints={{
-            768: {
-              slidesPerView: 5
-            }
-          }}>
-          {/* 
-            autoplay={true}
-            loop={true}
-            modules={[Autoplay]}>
-          */}
+            '@0.00': {
+              slidesPerView: 4,
+            },
+            '@0.75': {
+              slidesPerView: 5,
+            },
+          }}
+          className="max-w-[850px] max-[850px]:!mx-5"
+          autoplay={true}
+          loop={true}
+          modules={[Autoplay]}>
 
             { brands.map((featured, i) => {
               const brand = featured.brand as Brand;
@@ -56,7 +50,7 @@ export default function Brands({brands}: Props) {
 
               return (
                 <SwiperSlide key={i}>
-                  <Link href={'/products?brand='+encodeURIComponent(brand.name)} className="w-20 h-20 flex-center m-auto group">
+                  <Link href={'/products?brand='+encodeURIComponent(brand.name)} className="w-20 h-20 flex-center m-auto group max-[440px]:w-16 max-[440px]:h-16">
                     <Image src={'/media/'+media.filename} alt={brand.name} width={100} height={100} className="group-hover:scale-110 transition-all" />
                   </Link>
                 </SwiperSlide>

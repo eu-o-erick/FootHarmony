@@ -1,7 +1,7 @@
 import { TRPCError } from "@trpc/server";
-import { publicProcedure, router } from "./trpc";
+import { publicProcedure, router } from "../trpc";
 import { z } from 'zod';
-import { getPayloadClient } from "../get-payload";
+import { getPayloadClient } from "../../get-payload";
 
 
 export const paymenteRouter = router({
@@ -22,6 +22,5 @@ export const paymenteRouter = router({
     });
 
     console.log(product);
-
   })
 });

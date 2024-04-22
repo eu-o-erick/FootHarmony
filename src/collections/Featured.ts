@@ -12,17 +12,18 @@ export const Featured: CollectionConfig = {
 
     {
       name: 'products',
-      label: 'Products (at least 4)',
+      label: 'Products',
       type: 'relationship',
       relationTo: 'product',
+      minRows: 4,
+      maxRows: 4,
       required: true,
       hasMany: true,
     },
 
-
     {
       name: 'brands',
-      label: 'Brands (at least 4)',
+      label: 'Brands (at least 5)',
       type: 'array',
       fields: [
 
@@ -43,32 +44,6 @@ export const Featured: CollectionConfig = {
         },
 
       ]
-    },
-
-    {
-      name: 'categories',
-      label: 'Categories (at least 4)',
-      type: 'array',
-      fields: [
-
-        {
-          name: 'cover',
-          label: 'Cover',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-        },
-        {
-          name: 'category',
-          label: 'Category',
-          type: 'relationship',
-          relationTo: 'category',
-          hasMany: false,
-          required: true,
-        },
-
-      ]
     }
-    
   ]
 }

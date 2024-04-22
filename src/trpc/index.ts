@@ -1,78 +1,19 @@
-import { paymenteRouter } from "./payment-router";
-import { publicProcedure, router } from "./trpc";
-import { getPayloadClient } from "../get-payload";
-import { Carousel, Featured, Message, Modal, Offer } from "@/payload-types";
-import { z } from "zod";
+import { paymenteRouter } from "./routers/payment";
+import { router } from "./trpc";
+import { getProductsRouter } from "./routers/products";
+import { getMessagesRouter } from "./routers/messages";
+import { getModalRouter } from "./routers/modal";
+import { getOffersRouter } from "./routers/offers";
+import { getFeaturedsRouter } from "./routers/featureds";
 
 
 export const appRouter = router({
   payment: paymenteRouter,
-
-  messages: publicProcedure.query( async () => {
-
-    const payload = await getPayloadClient({});
-
-    const { docs: messages } = await payload.find({
-      collection: 'message',
-    }) as { docs: Message[] | null };
-
-    return messages;
-  }),
-
-  modal: publicProcedure.input(z.object({ modalId: z.string() })).query( async ({input}) => {
-    const { modalId } = input;
-
-    if(modalId === '') return; 
-
-    const payload = await getPayloadClient({});
-
-    const modal = await payload.findByID({
-      collection: 'modal',
-      id:  modalId,
-
-    }) as Modal | null;
-
-
-    return modal;
-  }),
-
-  
-  offers: publicProcedure.query( async () => {
-
-    const payload = await getPayloadClient({});
-
-    const { docs: offer } = await payload.find({
-      collection: 'offer',
-    }) as { docs: Offer[] | null };
-
-    return offer;
-  }),
-
-  carousel: publicProcedure.query( async () => {
-
-    const payload = await getPayloadClient({});
-
-    const { docs: carousel } = await payload.find({
-      collection: 'carousel',
-    }) as { docs: Carousel[] | null };
-
-    return carousel;
-  }),
-
-      
-  featured: publicProcedure.query( async () => {
-
-    const payload = await getPayloadClient({});
-
-    const { docs: featured } = await payload.find({
-      collection: 'featured',
-      limit: 1,
-      depth: 3
-    }) as { docs: (Featured | string)[] | null };
-
-    return featured;
-  }),
-
+  products: getProductsRouter,
+  messages: getMessagesRouter,
+  modal: getModalRouter,
+  offers: getOffersRouter,
+  featured: getFeaturedsRouter,
 });
 
 

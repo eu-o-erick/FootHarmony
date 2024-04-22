@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { trpc } from "@/trpc/client";
 import { Brand, Media, Product } from "@/payload-types";
-import CategoriesFeatured, { TCategoryFeatured } from "@/components/home/categories";
 
 import Navbar from "@/components/navbar";
 import Banner from "@/components/home/banner";
@@ -11,6 +10,7 @@ import Brands from "@/components/home/brands";
 import SpecialBrand from "@/components/home/special_brand";
 import About from "@/components/home/about";
 import ProductsFeatured from "@/components/home/products";
+import Categories from "@/components/home/categories";
 import Footer from "@/components/footer";
 
 
@@ -27,7 +27,6 @@ export default function Home() {
 
   const [products, setProducts] = useState<Product[] | undefined>(undefined);
   const [brands, setBrands] = useState<TBrandsFeatured[] | undefined | null>(undefined);
-  const [categories, setCategories] = useState<TCategoryFeatured[] | undefined | null>(undefined);
 
   useEffect(() => {
     const featured = itemsFeatured?.[0];
@@ -35,12 +34,10 @@ export default function Home() {
     if(!featured || isLoading || typeof featured === 'string') {
       setProducts(undefined)
       setBrands(undefined)
-      setCategories(undefined)
 
     } else {
       setProducts( featured.products.filter( item => typeof item !== 'string') )
       setBrands(featured.brands)
-      setCategories(featured.categories)
     }
     
 
@@ -55,7 +52,7 @@ export default function Home() {
       <SpecialBrand />
       <About />
       <ProductsFeatured products={products} />
-      {/* <CategoriesFeatured categories={categories} /> */}
+      <Categories />
 
       <Footer />
     </div>

@@ -3,7 +3,6 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Link from "next/link";
 import Image from "next/image";
-import { Skeleton } from "@/components/ui/skeleton";
 import { TBrandsFeatured } from "@/app/page";
 
 interface Props {

@@ -1,62 +1,84 @@
-import SkeletonCardProduct from "@/components/card_product/Skeleton";
-import { Category, Media } from "@/payload-types"
-import { Autoplay } from "swiper/modules";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import ItemRoundedFeatured from "../featured/ItemsFeatured";
-
-interface Props {
-  categories: TCategoryFeatured[] | undefined | null;
-};
-
-export interface TCategoryFeatured {
-  cover: string | Media;
-  category: string | Category;
-  id?: string | null | undefined;
-}
+import Image from "next/image";
+import Link from "next/link";
 
 
-export default function CategoriesFeatured({categories}: Props) {
+const items = [
+  {
+    desc: [
+      {
+        text: 'Unleash your',
+        bold: false
+      },{
+        text: 'potential',
+        bold: true
+      },{
+        text: 'with our range of ',
+        bold: false
+      },{
+        text: 'high-performance',
+        bold: true
+      },{
+        text: 'sports shoes',
+        bold: false
+      }
+    ],
+    img: '/0.png',
+    link: '/products?category=running'
+  },{
+    desc: [
+      {
+        text: 'Fly high with the iconic',
+        bold: false
+      },{
+        text: 'Air Jordans',
+        bold: true
+      },{
+        text: 'the ultimate fusion of',
+        bold: false
+      },{
+        text: 'style',
+        bold: true
+      },{
+        text: 'and',
+        bold: false
+      },{
+        text: 'performance',
+        bold: true
+      }
+    ],
+    img: '/1.png',
+    link: '/products?category=air%20jordan'
+  }
+]
+
+
+export default function Categories() {
 
   return(
-    <div className="w-full">
+    <article className="relative w-full flex gap-5 max-w-[1024px] mx-auto mt-20">
 
-      <h3 className="font-semibold text-gray-700 text-center text-xl">
-        Browse by Style
-      </h3>
+      { items.map((item, i) => (
+        <div key={i} className="relative h-48 bg-gray-100 shadow-lg w-full overflow-hidden py-6 px-10 flex flex-col justify-between">
 
-      <p className="text-center mx-auto mt-5 mb-10 font-light max-w-[600px]">
-        Explore our curated categories designed to streamline your search for the perfect pair.
-        Whether you&apos;re into sneakers, boots, or sandals, we&apos;ve organized our collection
-        to make finding your ideal style effortless
-      </p>
+          <div className="absolute -right-10 top-2/4 -translate-y-2/4 h-full w-60 flex-center">
+            <Image src={item.img} alt='IMAGE' width={1000} height={1000} />
+          </div>
 
+          <h4 className="relative font-semibold text-xl text-gray-400 w-4/5 z-50">
 
-      { !categories || !categories.length ?
-        <SkeletonCardProduct />
-      :
-        <Swiper
-          slidesPerView={4}
-          autoplay={true}
-          loop={true}
-          modules={[Autoplay]}>
+            { item.desc.map(({text, bold}, i) => (
+              !bold ? text : <span key={i} className="font-bold text-gray-900"> {text} </span>
+            ))}
 
-            { categories.map((featured, i) => {
-              const category = featured.category as Category;
-              const media = featured.cover as Media;
+          </h4>
 
-              return (
-                <SwiperSlide key={i}>
-                  <ItemRoundedFeatured
-                    key={i}
-                    img={media.filename as string}
-                    link={'/products?category='+ encodeURIComponent(category.name)}
-                    name={category.name}
-                  />
-              </SwiperSlide>
-              )
-            })} 
-        </Swiper>
-      }
-    </div>
+          <Link href={item.link} className="w-36 h-10 bg-gray-900 text-gray-200 flex-center ">
+            See More
+          </Link>
+
+        </div>
+      ))}
+      
+    </article>
   );
 };

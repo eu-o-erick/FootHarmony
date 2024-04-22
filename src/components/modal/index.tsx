@@ -25,6 +25,7 @@ export default function ModalComponent() {
   useEffect(() => {
     if(!modal) return;
 
+    // console.log('modal: ', modal)
 
   }, [modal]);
 

@@ -9,24 +9,24 @@ const name = ['F', 'O', 'O', 'T', 'H', 'A', 'R', 'M', 'O', 'N', 'Y']
 export default function Banner() {
 
   return (
-    <article className='w-full bg-white pb-20'>
+    <section className='w-full bg-white py-16 max-sm:pt-0'>
 
       <div className="flex max-w-[1600px] m-auto max-md:flex-col">
 
-        <div className="flex flex-col gap-10 px-32 py-20 w-2/4 max-xl:px-20 max-md:w-full max-sm:px-5  max-sm:pb-5">
+        <article className="flex flex-col gap-10 px-32 py-20 w-2/4 max-xl:px-20 max-md:w-full max-sm:px-5  max-sm:pb-5">
           <h1 className="text-5xl font-semibold max-xl:text-3xl max-sm:w-3/4">
             The journey begins with the pair perfect
           </h1>
 
-          <p className="">
+          <p>
             Discover unparalleled style and unmatch comfort with FootHarmony. Our miticulously crafted shoes redefine
             fashion, ensuring every step you take is a statement. Elevate your footwear game
           </p>
 
-          <Link href={'/products'} className="rounded-full bg-gray-900 h-12 w-36 flex-center text-gray-200 shadow-md hover:shadow-lg hover:bg-gray-950 transition-all max-sm:my-10">
+          <Link href={'/products'} className="bg-gray-950 h-12 w-36 flex-center text-gray-200 shadow-md hover:shadow-lg hover:bg-gray-900 transition-all max-sm:my-10">
             Shop Now!
           </Link>
-        </div>
+        </article>
 
         <div className="relative flex justify-end items-center gap-20 w-2/4 max-2xl:gap-5 max-lg:gap-0 max-md:w-full max-md:px-4 max-md:gap-5">
 
@@ -55,6 +55,6 @@ export default function Banner() {
           </div>
         </div>
       </div>
-    </article>
+    </section>
   );
 };

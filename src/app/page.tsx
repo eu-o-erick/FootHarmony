@@ -5,11 +5,12 @@ import { trpc } from "@/trpc/client";
 import { Brand, Media, Product } from "@/payload-types";
 
 import Navbar from "@/components/navbar";
+import Generes from "@/components/home/generes";
 import Banner from "@/components/home/banner";
 import Brands from "@/components/home/brands";
 import SpecialBrand from "@/components/home/special_brand";
-import About from "@/components/home/about";
 import ProductsFeatured from "@/components/home/products";
+import About from "@/components/home/about";
 import Categories from "@/components/home/categories";
 import Footer from "@/components/footer";
 
@@ -44,16 +45,15 @@ export default function Home() {
   }, [isLoading, itemsFeatured]);
 
   return (
-    <div className="min-h-svh flex flex-col justify-between">
+    <div className="min-h-svh">
       <Navbar />
+      <Generes />
       <Banner />
-
       <Brands brands={brands} />
       <SpecialBrand />
-      <About />
       <ProductsFeatured products={products} />
+      <About />
       <Categories />
-
       <Footer />
     </div>
   );

@@ -39,9 +39,9 @@ export default function SpecialBrand() {
 
   
   return (
-    <article className='flex flex-col w-full'>
+    <section className='flex flex-col w-full'>
 
-      <div className="flex bg-gray-200 max-md:flex-col">
+      <article className="flex bg-gray-200 max-md:flex-col">
 
         <div className="w-2/4 h-full relative max-md:w-full">
           <Image src={'/category.jpg'} alt='SKIPE' width={1000} height={1000} />
@@ -63,13 +63,13 @@ export default function SpecialBrand() {
               you take is a stride in fashion-forward confidfence.
             </p>
 
-            <Link href={'/products?alou=yep'} className="rounded-full w-36 h-12 bg-gray-900 max-sm:h-8 max-sm:w-28 max-sm:text-xs flex-center text-gray-200 shadow-md hover:bg-gray-950 hover:text-gray-50 hover:shadow-lg transition-all">
+            <Link href={'/products?alou=yep'} className="w-36 h-12 bg-gray-950 max-sm:h-8 max-sm:w-28 max-sm:text-xs flex-center text-gray-200 shadow-md hover:bg-gray-900 hover:text-gray-50 hover:shadow-lg transition-all">
               Shop Now! 
             </Link>
 
           </div>
         </div>
-      </div>
+      </article>
 
       <ul className="flex justify-around items-center py-5 px-10 my-4 border-y-2 border-y-gray-500 max-lg:px-2">
 
@@ -87,6 +87,6 @@ export default function SpecialBrand() {
       </ul>
 
 
-    </article>
+    </section>
   );
 }

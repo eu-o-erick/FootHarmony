@@ -6,8 +6,9 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { trpc } from "@/trpc/client";
 import SkeletonMessage from "./Skeleton";
 import ListMsgs from "./ListMessage";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { Message, Modal } from "@/payload-types";
 
 
 export default function Messages() {
@@ -16,6 +17,8 @@ export default function Messages() {
   const [hasNew, setHasNew] = useState(false);
 
   const [messagesRead, setMessagesRead] = useState<string[]>([]);
+  const [messagesValid, setMessagesValid] = useState<Message[]>([]);
+
 
   useEffect(() => {
     const msgRead = JSON.parse( localStorage.getItem('messages_read') ?? '[]') as string[];
@@ -26,18 +29,35 @@ export default function Messages() {
 
 
   useEffect(() => {
-    if(!messages) return;
+    if(!messages?.length) return;
 
-    const state = messages.find( msg => !messagesRead.includes(msg.id) );
+    const arr = messages.filter((msg) => {
+      const getDate = new Date();
+
+      const dateLimit = (msg.linkTo as Modal | undefined)?.expiryDate?.split('T')[0].split('-').map( n => Number(n) ) ?? [];
+      const dateNow = [ getDate.getFullYear(), getDate.getMonth() + 1, getDate.getDate() ];
+
+      return dateNow[0] > dateLimit[0] || dateNow[1] > dateLimit[1] || (dateNow[0] <= dateLimit[0] && dateNow[2] > dateLimit[2]);
+    });
+
+    setMessagesValid(arr);
+
+  }, [messages]);
+
+
+  useEffect(() => {
+    if(!messagesValid.length && !messagesRead.length) return;
+
+    const state = messagesValid.find( message => !messagesRead.includes(message.id) );
 
     setHasNew( state ? true : false);
 
     const json = JSON.stringify(messagesRead);
 
-    localStorage.setItem('messages_read', json)
+    json && localStorage.setItem('messages_read', json)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messages, messagesRead]);
+  }, [messagesValid, messagesRead]);
 
 
 
@@ -57,19 +77,22 @@ export default function Messages() {
           status === 'loading' ?
             <SkeletonMessage />
           :
-            messages?.length ?
-              <>
-                <ListMsgs messages={messages} messagesRead={messagesRead} setMessagesRead={setMessagesRead} />
+            messagesValid?.length ?
+              <Fragment>
+                <ul className="relative flex flex-col gap-1 w-full max-h-72 mt-4 mb-6 overflow-auto">
+                  { messagesValid.map((message, i) => (
+                    <ListMsgs key={i} message={message} messagesRead={messagesRead} setMessagesRead={setMessagesRead} />
+                  ))}
+                </ul>
 
                 <Separator />
 
                 <button className="mt-2 text-sm opacity-40 hover:underline">
                   mark all messages as read
                 </button>
-              </>
+              </Fragment>
             :
               <p className="h-full opacity-40 mt-10">You don&apos;t have any message</p>
-
         }
 
       </PopoverContent>

@@ -158,7 +158,7 @@ export default function Cart() {
               }) }
             </ul>
 
-            <Link href="/" className="w-48 h-10 bg-gray-950 text-gray-200 flex-center m-auto rounded-full">
+            <Link href="/" className="w-48 h-10 bg-gray-950 text-gray-200 flex-center m-auto shadow-md hover:shadow-lg hover:bg-gray-900 transition-all">
               CHECKOUT
             </Link>
           </>

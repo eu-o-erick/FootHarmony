@@ -13,7 +13,7 @@ interface Props {
 export default function Brands({brands}: Props) {
 
   return(
-    <article className="w-full m-auto pt-28 pb-16 bg-white max-md:pb-8">
+    <section className="w-full m-auto py-20 bg-white max-md:pb-8">
 
       <h3 className="font-semibold text-center text-4xl">
         Top Brands
@@ -57,6 +57,6 @@ export default function Brands({brands}: Props) {
             })} 
         </Swiper>
       }
-    </article>
+    </section>
   );
 };

@@ -45,7 +45,7 @@ export default function RichTextFormater(content: any[]) {
     
     } else {
       return <Fragment key={i}></Fragment>;
-    }';'
+    };
 
   });
 };

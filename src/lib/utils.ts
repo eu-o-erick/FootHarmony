@@ -44,3 +44,37 @@ export const filterOptionsOffer: FilterOptions<any> = ({data, id}) => {
     },
   };
 };
+
+export function createURLQueries(queries: string, obj: { [k: string]: string }) {
+
+  let keys_values = queries.split('&');
+
+  for (const keyObj in obj) {
+
+    let has = false;
+
+    keys_values = keys_values.map( key_value => {
+      const key = key_value.split('=')[0];
+      const value = key_value.split('=')[1];
+
+      if(keyObj === key && obj[keyObj] === value) {
+        has = true;
+        return '';
+
+      } else if(keyObj === key) {
+        has = true;
+        return key+'='+obj[keyObj];
+      
+      } else {
+        return key_value;
+
+      };
+
+    })
+
+    !has && keys_values.push(keyObj+'='+obj[keyObj])
+  
+  };
+
+  return '/products?'+keys_values.join('&');
+}

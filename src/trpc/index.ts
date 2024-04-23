@@ -5,6 +5,8 @@ import { getMessagesRouter } from "./routers/messages";
 import { getModalRouter } from "./routers/modal";
 import { getOffersRouter } from "./routers/offers";
 import { getFeaturedsRouter } from "./routers/featureds";
+import { getBrandsRouter } from "./routers/brands";
+import { getCategoriesRouter } from "./routers/categories";
 
 
 export const appRouter = router({
@@ -13,6 +15,8 @@ export const appRouter = router({
   messages: getMessagesRouter,
   modal: getModalRouter,
   offers: getOffersRouter,
+  brands: getBrandsRouter,
+  category: getCategoriesRouter,
   featured: getFeaturedsRouter,
 });
 

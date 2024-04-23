@@ -6,6 +6,8 @@ import { useSearchParams } from 'next/navigation';
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { useState } from "react";
+import HeaderProducts from "@/components/products/header";
+import CatalogProducts from "@/components/products/catalog";
 
 type TSort = "bestsallers" | "new_arrivals" | "lowest_price" | "highest_price" | undefined;
 type TGenere = "men" | "women" | "unisex" | undefined;
@@ -14,13 +16,16 @@ type TGenere = "men" | "women" | "unisex" | undefined;
 export default function Home() {
   const searchParams = useSearchParams();
 
-  const [categories] = useState( searchParams.get('categories') ?? undefined );
-  const [brand] = useState( searchParams.get('brand') ?? undefined );
-  const [min_price] = useState( searchParams.get('min_price') ?? undefined );
-  const [max_price] = useState( searchParams.get('max_price') ?? undefined );
-  const [color] = useState( searchParams.get('color') ?? undefined );
-  const [sort] = useState( (searchParams.get('sort') as TSort | null) ?? undefined );
-  const [genere] = useState( (searchParams.get('genere') as TGenere | null) ?? undefined );
+  const categories = searchParams.get('categories') ?? undefined;
+  const brand = searchParams.get('brand') ?? undefined;
+  const min_price = searchParams.get('min_price') ?? undefined;
+  const max_price = searchParams.get('max_price') ?? undefined;
+  const color = searchParams.get('color') ?? undefined;
+  const offer = searchParams.get('offer') ?? undefined;
+  const genere = searchParams.get('genere') ?? undefined;
+  const sort = searchParams.get('sort') ?? undefined;
+
+  const query = searchParams.toString();
 
   const { status, data: products } = trpc.products.useQuery({
     categories,
@@ -28,25 +33,24 @@ export default function Home() {
     min_price,
     max_price,
     color,
-    sort,
-    genere
+    offer,
+    genere,
+    sort
   });
 
   console.log('status: ', status)
   console.log('products: ', products)
 
+
+  // fix hooks, when update item of offer, update content, but not id, and going down... life is a highway
+  // pagination on trpc
+  
   return (
     <div className="min-h-svh flex flex-col justify-between">
       <Navbar />
-      Hello world
+      <HeaderProducts query={query} queries={{ categories, brand, offer, genere }} />
+      <CatalogProducts status={status} products={products} />
       <Footer />
     </div>
   );
 };
-
-
-// me de um exemplo usando payload cms com JS, eu quero que voce use o metodo "find" e procure por algo, e use MUITAS query, usando o where, me os exemplos das queries sendo usada
-
-// tem que ter essas queries: produto com o preço padrão ou o preço de oferta acima de 90, com o preço padrão ou o preço de oferta abaixo de 95, produtos da marca adidas, com a categoria de "running", com a cor primaria ou a cor secundaria "black", e do genero "men", que se encaixe em todas essas requisições 
-
-// estou usando payload cms com trpc e next

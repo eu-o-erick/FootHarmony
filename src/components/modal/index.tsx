@@ -19,15 +19,7 @@ export default function ModalComponent() {
 
   const modalId = useSelector( (state: any) => state.modal );
 
-  const { status, data: modal } = trpc.modal.useQuery({modalId: modalId ?? '' }) ?? { status: 'loading', data: null };
-
-  // test
-  useEffect(() => {
-    if(!modal) return;
-
-    // console.log('modal: ', modal)
-
-  }, [modal]);
+  const { status, data: modal } = trpc.modal.useQuery({modalId});
 
 
   useEffect(() => {

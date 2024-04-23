@@ -49,6 +49,7 @@ export interface Product {
   offer?: {
     relationTo?: (string | null) | Offer;
     offer_price?: number | null;
+    delivery_free?: boolean | null;
   };
   stripeId?: string | null;
   priceId?: string | null;
@@ -297,13 +298,6 @@ export interface Featured {
     | {
         cover: string | Media;
         brand: string | Brand;
-        id?: string | null;
-      }[]
-    | null;
-  categories?:
-    | {
-        cover: string | Media;
-        category: string | Category;
         id?: string | null;
       }[]
     | null;

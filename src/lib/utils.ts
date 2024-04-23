@@ -7,8 +7,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-
-
 export function formatPrice( price: number | string, options: {
   currency?: "USD" | "EUR" | "GBP" | "BDT",
   notation?: Intl.NumberFormatOptions["notation"]
@@ -24,9 +22,6 @@ export function formatPrice( price: number | string, options: {
     maximumFractionDigits: 2,
   }).format(numericPrice);
 }
-
-
-
 
 export const filterOptionsOffer: FilterOptions<any> = ({data, id}) => {
   const ids = (data as Offer).items?.map( (item) => (item.product ?? item.variation) as string | undefined ) ?? [];
@@ -47,5 +42,5 @@ export const filterOptionsOffer: FilterOptions<any> = ({data, id}) => {
     id: {
       not_in: str
     },
-  }
-}
+  };
+};

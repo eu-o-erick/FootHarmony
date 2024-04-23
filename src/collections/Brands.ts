@@ -29,6 +29,5 @@ export const Brands: CollectionConfig = {
         update: () => false,
       },
     }
-
   ]
-}
+};

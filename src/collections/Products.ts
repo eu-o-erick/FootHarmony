@@ -52,8 +52,18 @@ export const Products: CollectionConfig = {
       label: 'Genere',
       type: 'radio',
       defaultValue: 'Unisex',
-      options: ['Unisex', 'Male', 'Female'],
-      required: true,
+      options: [
+        {
+          label: 'Unisex',
+          value: 'unisex'
+        },{
+          label: 'Men',
+          value: 'men'
+        },{
+          label: 'Women',
+          value: 'women'
+        }
+      ],
       admin: {
         layout: 'horizontal',
       },

@@ -5,18 +5,26 @@ import { useSearchParams } from 'next/navigation';
 
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import { useState } from "react";
 import HeaderProducts from "@/components/products/header";
 import CatalogProducts from "@/components/products/catalog";
 
-type TSort = "bestsallers" | "new_arrivals" | "lowest_price" | "highest_price" | undefined;
-type TGenere = "men" | "women" | "unisex" | undefined;
+
+export interface Queries {
+  category: string | undefined;
+  brand: string | undefined;
+  min_price: string | undefined;
+  max_price: string | undefined;
+  color: string | undefined;
+  offer: string | undefined;
+  genere: string | undefined;
+  sort: string | undefined;
+}
 
 
 export default function Home() {
   const searchParams = useSearchParams();
 
-  const categories = searchParams.get('categories') ?? undefined;
+  const category = searchParams.get('category') ?? undefined;
   const brand = searchParams.get('brand') ?? undefined;
   const min_price = searchParams.get('min_price') ?? undefined;
   const max_price = searchParams.get('max_price') ?? undefined;
@@ -26,9 +34,9 @@ export default function Home() {
   const sort = searchParams.get('sort') ?? undefined;
 
   const query = searchParams.toString();
-
-  const { status, data: products } = trpc.products.useQuery({
-    categories,
+  
+  const queries = {
+    category,
     brand,
     min_price,
     max_price,
@@ -36,7 +44,10 @@ export default function Home() {
     offer,
     genere,
     sort
-  });
+  };
+
+
+  const { status, data: products } = trpc.products.useQuery(queries);
 
   console.log('status: ', status)
   console.log('products: ', products)
@@ -44,12 +55,11 @@ export default function Home() {
 
   // fix hooks, when update item of offer, update content, but not id, and going down... life is a highway
   // pagination on trpc
-  
   return (
     <div className="min-h-svh flex flex-col justify-between">
       <Navbar />
-      <HeaderProducts query={query} queries={{ categories, brand, offer, genere }} />
-      <CatalogProducts status={status} products={products} />
+      <HeaderProducts query={query} queries={queries} />
+      <CatalogProducts status={status} products={products} queries={queries} />
       <Footer />
     </div>
   );

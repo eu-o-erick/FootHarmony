@@ -9,12 +9,12 @@ import { Product } from "@/payload-types";
 const SORT = ['sold', 'createAt', 'standard_price', '-standard_price'];
 const GENERES = ['men', 'women', 'unisex'];
 
-// /products?categories=single&brand=adidas&min_price=90&max_price=92&color=white&genere=unisex&sort=bestsallers
+// /products?category=single&brand=adidas&min_price=90&max_price=92&color=white&genere=unisex&sort=bestsallers
 
 export const getProductsRouter = publicProcedure
   .input(
     z.object({
-      categories: z.optional( z.string() ),
+      category: z.optional( z.string() ),
       brand: z.optional( z.string() ),
       min_price: z.optional( z.string() ),
       max_price: z.optional( z.string() ),
@@ -25,7 +25,7 @@ export const getProductsRouter = publicProcedure
     })
   )
   .query( async ({input}) => {
-    const { categories, brand, color, genere, offer, sort } = input;
+    const { category, brand, color, genere, offer, sort } = input;
     const min_price = Number(input.min_price);
     const max_price = Number(input.max_price);
 
@@ -38,9 +38,9 @@ export const getProductsRouter = publicProcedure
         }
       },
     
-      ...categories && {
+      ...category && {
         'details.categories.name': {
-          contains: categories
+          contains: category
         }
       },
     

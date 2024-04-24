@@ -6,7 +6,8 @@ import { Queries } from '@/app/products/page';
 import CategoriesFilter from './Categories';
 import BrandsFilter from './Brands';
 import ColorsFilter from './Colors';
-import Price from './Price';
+import PriceFilter from './Price';
+import SortFilter from './Sort';
 
 interface Props{
   queries: Queries;
@@ -31,8 +32,8 @@ export default function FilterComponents({queries}: Props) {
       <BrandsFilter brand={brand} updateQuery={updateQuery} />
       <CategoriesFilter category={category} updateQuery={updateQuery} />
       <ColorsFilter color={color} updateQuery={updateQuery} />
-      <Price min_price={min_price} max_price={max_price} updateQuery={updateQuery}  />
-
+      <PriceFilter min_price={min_price} max_price={max_price} updateQuery={updateQuery}  />
+      <SortFilter sort={sort} updateQuery={updateQuery} />
     </ul>
   );
 }

@@ -13,7 +13,7 @@ interface Props{
   updateQuery: ({}) => string;
 };
 
-export default function Price({min_price, max_price, updateQuery}: Props) {
+export default function PriceFilter({min_price, max_price, updateQuery}: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const [valueMin, setValueMin] = useState(0);
@@ -97,6 +97,7 @@ export default function Price({min_price, max_price, updateQuery}: Props) {
 
   return (
     <li className='py-3 border-b border-slate-300'>
+      
       <button className="flex items-center justify-between w-full p-2" onClick={handlerOpen}>
         <span className="text-lg">Price</span>
 

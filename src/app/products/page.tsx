@@ -4,9 +4,9 @@ import { trpc } from "@/trpc/client";
 import { useSearchParams } from 'next/navigation';
 
 import Footer from "@/components/footer";
-import Navbar from "@/components/navbar";
 import HeaderProducts from "@/components/products/header";
 import CatalogProducts from "@/components/products/catalog";
+import Navbar from "@/components/navbar";
 
 
 export interface Queries {
@@ -18,7 +18,7 @@ export interface Queries {
   offer: string | undefined;
   genere: string | undefined;
   sort: string | undefined;
-}
+};
 
 
 export default function Home() {
@@ -35,22 +35,9 @@ export default function Home() {
 
   const query = searchParams.toString();
   
-  const queries = {
-    category,
-    brand,
-    min_price,
-    max_price,
-    color,
-    offer,
-    genere,
-    sort
-  };
-
+  const queries = { category, brand, min_price, max_price, color, offer, genere, sort };
 
   const { status, data: products } = trpc.products.useQuery(queries);
-
-  console.log('status: ', status)
-  console.log('products: ', products)
 
 
   // fix hooks, when update item of offer, update content, but not id, and going down... life is a highway

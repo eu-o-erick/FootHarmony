@@ -46,9 +46,9 @@ export default function VariantIcon({ variations, variationIndex, setVariationIn
                 <div className={"w-4 h-4 "+ getClassName(primary_color) } />
               }
                 
-              {/* { secondary_color &&
+              { secondary_color &&
                 <div className={"w-4 h-4 "+ getClassName(secondary_color) } />
-              } */}
+              }
 
             </button>
 

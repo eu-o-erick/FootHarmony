@@ -45,7 +45,7 @@ export default function CategoriesFilter({category: categoryInQuery, updateQuery
           categories.map((category, i) => (
             <li key={i}>
               <Link className={cn("relative flex-center justify-between font-semibold opacity-50 hover:opacity-70 transition-all", {
-                'opacity-100': category.name.toLowerCase() === categoryInQuery?.toLowerCase()
+                'opacity-100 hover:opacity-100': category.name.toLowerCase() === categoryInQuery?.toLowerCase()
               })} href={ updateQuery({ category: encodeURIComponent(category.name)}) }>
                 
                 <span className="z-50 bg-white px-2 text-sm">

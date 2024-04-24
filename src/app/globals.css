@@ -17,7 +17,16 @@
     align-items: center;
   }
 
+  .board_price_range .input-range__slider{
+    background: rgb(3 7 18)!important;
+    border-color: rgb(31 41 55) !important;
+  }
   
+  .board_price_range .input-range__track--active{
+    background: rgb(75 85 99)!important;
+  }
+
+
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;

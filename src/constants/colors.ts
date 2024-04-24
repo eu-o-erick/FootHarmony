@@ -45,7 +45,11 @@ export const colors: TColor[] = [
   },
   {
     label: 'Blue',
-    class: 'bg-blue-500'
+    class: 'bg-blue-600'
+  },
+  {
+    label: 'Cyan',
+    class: 'bg-cyan-300'
   },
   {
     label: 'Green',

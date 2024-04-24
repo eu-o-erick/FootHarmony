@@ -32,23 +32,22 @@ export default function ColorsFilter({color: colorInQuery, updateQuery}: Props) 
         })} />
       </button>
 
-      <ul className={cn("flex justify-between flex-wrap h-0 px-2 gap-2 overflow-hidden", {
+      <ul className={cn("flex justify-between flex-wrap h-0 px-2 gap-x-2 gap-y-3 overflow-hidden", {
         'h-auto  py-2': isOpen
       })}>
       
           
         { colors.map((color, i) => (
-            <li key={i}>
-              <Link className={cn("flex-center shadow-md rounded-full border-2 border-gray-200 overflow-hidden hover:border-gray-300 transition-all", {
-                'border-gray-500 scale-110 hover:border-gray-500 hover:scale-110': color.label.toLowerCase() === colorInQuery?.toLowerCase()
-              })} href={ updateQuery({ color: color.label.toLowerCase() }) }>
-                
-                <div className={"w-7 h-7 "+color.class} />
+          <li key={i}>
+            <Link className={cn("flex-center border-2 border-gray-200 overflow-hidden hover:border-gray-300 transition-all", {
+              'border-gray-400 scale-110 hover:border-gray-400 hover:scale-110': color.label.toLowerCase() === colorInQuery?.toLowerCase()
+            })} href={ updateQuery({ color: color.label.toLowerCase() }) }>
+              
+              <div className={"w-6 h-6 "+color.class} />
 
-              </Link>
-            </li>
-          ))
-        }
+            </Link>
+          </li>
+        ))}
 
       </ul>
     </li>

@@ -44,7 +44,7 @@ export default function BrandsFilter({brand: brandInQuery, updateQuery}: Props) 
           brands.map((brand, i) => (
             <li key={i}>
               <Link className={cn("relative flex-center justify-between font-semibold opacity-50 hover:opacity-70 transition-all", {
-                'opacity-100': brand.name.toLowerCase() === brandInQuery?.toLowerCase()
+                'opacity-100 hover:opacity-100': brand.name.toLowerCase() === brandInQuery?.toLowerCase()
               })} href={ updateQuery({ brand: encodeURIComponent(brand.name)}) }>
                 
                 <span className="z-50 bg-white px-2 text-sm">

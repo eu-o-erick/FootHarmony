@@ -3,10 +3,11 @@
 import { trpc } from "@/trpc/client";
 import { useSearchParams } from 'next/navigation';
 
+import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import HeaderProducts from "@/components/products/header";
 import CatalogProducts from "@/components/products/catalog";
-import Navbar from "@/components/navbar";
+import { useState } from "react";
 
 
 export interface Queries {
@@ -40,13 +41,21 @@ export default function Home() {
   const { status, data: products } = trpc.products.useQuery(queries);
 
 
+  const [isFilterOpen, setIsFilterOpen] = useState(true);
+
+  function toggleFilter() {
+    setIsFilterOpen(!isFilterOpen);
+  
+  };
+
+
   // fix hooks, when update item of offer, update content, but not id, and going down... life is a highway
   // pagination on trpc
   return (
     <div className="min-h-svh flex flex-col justify-between">
       <Navbar />
-      <HeaderProducts query={query} queries={queries} />
-      <CatalogProducts status={status} products={products} queries={queries} />
+      <HeaderProducts query={query} queries={queries} toggleFilter={toggleFilter} isFilterOpen={isFilterOpen} />
+      <CatalogProducts status={status} products={products} queries={queries} isFilterOpen={isFilterOpen} />
       <Footer />
     </div>
   );

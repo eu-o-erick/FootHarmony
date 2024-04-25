@@ -1,62 +1,46 @@
 'use client';
 
-import { cn } from '@/lib/utils';
-import { ChevronDown, Minus } from 'lucide-react';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { Minus } from 'lucide-react';
+import { useEffect } from 'react';
 import InputRange, { Range } from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
 
 interface Props{
-  min_price: string | undefined;
-  max_price: string | undefined;
-  updateQuery: ({}) => string;
+  stateMin: number;
+  setStateMin: React.Dispatch<React.SetStateAction<number>>;
+  stateMax: number;
+  setStateMax: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export default function PriceFilter({min_price, max_price, updateQuery}: Props) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const [valueMin, setValueMin] = useState(0);
-  const [valueMax, setValueMax] = useState(500);
+export default function PriceFilter({stateMin, setStateMin, stateMax, setStateMax}: Props) {
 
   useEffect(() => {
-    const nMin = Number(min_price);
-    const nMax = Number(max_price);
 
-    console.log('nMin: ', nMin)
-    console.log('nMax: ', nMax)
-
-    if(!isNaN(nMin)) {
-      setValueMin(nMin);
+    if(!isNaN(stateMin)) {
+      setStateMin(stateMin);
 
     } else {
-      setValueMin(0);
+      setStateMin(0);
 
     }
 
-    if(!isNaN(nMax)) {
-      setValueMax(nMax);
+    if(!isNaN(stateMax)) {
+      setStateMax(stateMax);
 
     } else {
-      setValueMax(500);
+      setStateMax(500);
 
     }
 
+  }, [stateMin, stateMax]);
 
-  }, [min_price, max_price]);
-
-
-  function handlerOpen() {
-    setIsOpen(!isOpen)
-  
-  };
 
   function handlerUpdate(value: number | Range) {
     const min = (value as Range).min >= 0 ? (value as Range).min : 0;
     const max = (value as Range).max <= 500 ? (value as Range).max : 500;
 
-    setValueMin(min);
-    setValueMax(max);
+    setStateMin(min);
+    setStateMax(max);
   };
 
   function changeInputValue(e: React.ChangeEvent<HTMLInputElement>){
@@ -81,14 +65,14 @@ export default function PriceFilter({min_price, max_price, updateQuery}: Props) 
 
 
     if(id === "inputMin") {
-      value > valueMax && setValueMax(value);
+      value > stateMax && setStateMax(value);
 
-      setValueMin(value);
+      setStateMin(value);
 
     } else {
-      value < valueMin && setValueMin(value);
+      value < stateMin && setStateMin(value);
 
-      setValueMax(value);
+      setStateMax(value);
 
     };
   };
@@ -96,32 +80,23 @@ export default function PriceFilter({min_price, max_price, updateQuery}: Props) 
 
 
   return (
-    <li className='py-3 border-b border-slate-300'>
-      
-      <button className="flex items-center justify-between w-full p-2" onClick={handlerOpen}>
-        <span className="text-lg">Price</span>
+    <li className='py-3'>
+      <span className="font-bold text-gray-800">PRICE</span>
 
-        <ChevronDown className={cn('transition-all', {
-          'rotate-180': isOpen
-        })} />
-      </button>
-
-      <div className={cn("flex flex-col items-end h-0 px-2 gap-3 overflow-hidden board_price_range", {
-        'h-auto py-2': isOpen
-      })}>
+      <div className="flex flex-col items-end px-2 gap-3 overflow-hidden board_price_range">
 
         <div className="flex-center gap-2 m-auto my-3">
 
           <div className="relative">
             <span className="absolute -top-4 left-0 text-xs font-bold scale-90 text-gray-400">min</span>
-            <input id="inputMin" value={valueMin} type="number" className="w-16 p-2 text-sm font-bold text-gray-600 border-2 rounded-md border-gray-100 focus:outline-none" onChange={changeInputValue} /> 
+            <input id="inputMin" value={stateMin} type="number" className="w-16 p-2 text-sm font-bold text-gray-600 border-2 rounded-md border-gray-100 focus:outline-none" onChange={changeInputValue} /> 
           </div>
 
           <Minus className='w-4 h-4 text-gray-400' />
           
           <div className="relative">
             <span className="absolute -top-4 left-0 text-xs font-bold scale-90 text-gray-400">max</span>
-            <input id="inputMax" value={valueMax} type="number" className="w-16 p-2 text-sm font-bold text-gray-600 border-2 rounded-md border-gray-100 focus:outline-none" onChange={changeInputValue} /> 
+            <input id="inputMax" value={stateMax} type="number" className="w-16 p-2 text-sm font-bold text-gray-600 border-2 rounded-md border-gray-100 focus:outline-none" onChange={changeInputValue} /> 
           </div>
 
         </div>
@@ -130,13 +105,9 @@ export default function PriceFilter({min_price, max_price, updateQuery}: Props) 
           formatLabel={() =>''}
           maxValue={500}
           minValue={0}
-          value={{min: valueMin, max: valueMax}}
+          value={{min: stateMin ?? 0, max: stateMax ?? 500}}
           onChange={handlerUpdate}
         />
-
-        <Link href={ updateQuery({ min_price: valueMin, max_price: valueMax }) } className="mt-4 flex-center w-24 h-8 text-sm font-semibold bg-gray-950 text-gray-200">
-          Apply
-        </Link>
 
       </div>
     </li>

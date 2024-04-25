@@ -56,25 +56,25 @@ export function createURLQueries(queries: string, obj: { [k: string]: string }) 
     keys_values = keys_values.map( key_value => {
       const key = key_value.split('=')[0];
       const value = key_value.split('=')[1];
-
+      
       if(keyObj === key && obj[keyObj] === value) {
         has = true;
         return '';
 
       } else if(keyObj === key) {
         has = true;
-        return key+'='+obj[keyObj];
+        return `${key}=${obj[keyObj]}`
       
       } else {
-        return key_value;
+        return `${key}=${value}`
 
       };
 
     })
 
-    !has && keys_values.push(keyObj+'='+obj[keyObj])
+    !has && keys_values.push( `${keyObj}=${obj[keyObj]}` );
   
   };
 
-  return '/products?'+keys_values.join('&');
-}
+  return `/products?${ encodeURIComponent( keys_values.join('&') ).toLowerCase()}`
+};

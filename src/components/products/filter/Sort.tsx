@@ -39,9 +39,9 @@ export default function SortFilter({sort, updateQuery}: Props) {
 
   
   return (
-    <li className='py-3 border-b border-slate-300'>
+    <li className='py-3 border-b-2 border-slate-600'>
       <button className="flex items-center justify-between w-full p-2" onClick={handlerOpen}>
-        <span className="text-lg">Sort</span>
+        <span className="font-bold">SORT</span>
 
         <ChevronDown className={cn('transition-all', {
           'rotate-180': isOpen

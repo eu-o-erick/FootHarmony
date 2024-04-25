@@ -8,6 +8,7 @@ export const getBrandsRouter = publicProcedure.query( async () => {
 
   const { docs: brands } = await payload.find({
     collection: 'brand',
+    sort: 'quantity'
   }) as { docs: Brand[] | null };
 
   return brands;

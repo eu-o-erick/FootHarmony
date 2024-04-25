@@ -1,51 +1,31 @@
 'use client';
 
 import { cn } from '../../../lib/utils';
-import { ChevronDown } from 'lucide-react';
-import { useState } from 'react';
-import Link from 'next/link';
 import { colors } from '@/constants/colors';
 
 interface Props{
-  color: string | undefined;
-  updateQuery: ({}) => string;
+  state: string | undefined;
+  setState: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
-export default function ColorsFilter({color: colorInQuery, updateQuery}: Props) {
-
-  const [isOpen, setIsOpen] = useState(false);
-
-
-  function handlerOpen() {
-    setIsOpen(!isOpen)
-  
-  };
+export default function ColorsFilter({state, setState}: Props) {
 
   
   return (
-    <li className='py-3 border-b border-slate-300'>
-      <button className="flex items-center justify-between w-full p-2" onClick={handlerOpen}>
-        <span className="text-lg">Colors</span>
+    <li className='py-3'>
+      <span className="font-bold text-gray-800">COLORS</span>
 
-        <ChevronDown className={cn('transition-all', {
-          'rotate-180': isOpen
-        })} />
-      </button>
+      <ul className="flex justify-between flex-wrap mt-5 mb-7 gap-x-3 gap-y-3">
 
-      <ul className={cn("flex justify-between flex-wrap h-0 px-2 gap-x-2 gap-y-3 overflow-hidden", {
-        'h-auto  py-2': isOpen
-      })}>
-      
-          
         { colors.map((color, i) => (
           <li key={i}>
-            <Link className={cn("flex-center border-2 border-gray-200 overflow-hidden hover:border-gray-300 transition-all", {
-              'border-gray-400 scale-110 hover:border-gray-400 hover:scale-110': color.label.toLowerCase() === colorInQuery?.toLowerCase()
-            })} href={ updateQuery({ color: color.label.toLowerCase() }) }>
+            <button className={cn("flex-center border-2 border-gray-100 hover:border-gray-200 transition-all", {
+              'border-gray-800 scale-110 hover:border-gray-800 hover:scale-110': color.label.toLowerCase() === state?.toLowerCase()
+            })} onClick={ () => setState(color.label) }>
               
               <div className={"w-6 h-6 "+color.class} />
 
-            </Link>
+            </button>
           </li>
         ))}
 

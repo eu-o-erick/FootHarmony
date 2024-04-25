@@ -1,75 +1,57 @@
 'use client';
 
 import { cn } from '../../../lib/utils';
-import { ChevronDown } from 'lucide-react';
-import { useState } from 'react';
 import { trpc } from '@/trpc/client';
-import Link from 'next/link';
 
 interface Props{
-  category: string | undefined;
-  updateQuery: ({}) => string;
+  state: string | undefined;
+  setState: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
-
-export default function CategoriesFilter({category: categoryInQuery, updateQuery}: Props) {
-
+export default function CategoriesFilter({state, setState}: Props) {
   const { status, data: categories } = trpc.category.useQuery();
-
-  const [isOpen, setIsOpen] = useState(false);
-
-
-  function handlerOpen() {
-    if(status !== 'success' || !categories?.length ) return;
-    
-    setIsOpen(!isOpen)
-  }
 
   
   return (
-    <li className='py-2 border-b border-slate-300'>
-      <button className="flex items-center justify-between w-full p-2" onClick={handlerOpen}>
-        <span className="text-lg">Categories</span>
+    <li>
+      <span className="font-bold text-gray-800">CATEGORIES</span>
 
-        <ChevronDown className={cn('transition-all', {
-          'rotate-180': isOpen
-        })} />
-      </button>
-
-      <ul className={cn("flex flex-col gap-px px-2 h-0 overflow-hidden", {
-        'h-auto': isOpen
-      })}>
+      <ul className="flex flex-col mt-3 mb-7">
       
         { (status === 'success' && categories?.length ) && 
           
-          categories.map((category, i) => (
-            <li key={i}>
-              <Link className={cn("relative flex-center justify-between font-semibold opacity-50 hover:opacity-70 transition-all", {
-                'opacity-100 hover:opacity-100': category.name.toLowerCase() === categoryInQuery?.toLowerCase()
-              })} href={ updateQuery({ category: encodeURIComponent(category.name)}) }>
+          categories.map((category, i) => {
+            const actived = category.name.toLowerCase() === state?.toLowerCase();
+
+            return(
+              <li key={i}>
+
+                <button className={cn("relative h-7 flex-center justify-between font-semibold opacity-50 hover:opacity-80 group transition-all", {
+                  'opacity-100 hover:opacity-100': actived
+                })} onClick={ () => setState(category.name) }>
+                  
+                  <span className={cn("z-50 bg-white px-2 text-xs border-l-2 h-5 flex-center uppercase", {
+                    'hover:opacity-100 border-l-2 border-gray-950': actived
+                  })}>
+                    {category.name}
+                  </span>
+                  
+                  <span className={cn("z-50 bg-white pl-2 text-sm", {
+                    'text-base hover:opacity-100': actived
+                  })}>
+                    {category.quantity}
+                  </span>
+
+                  <div className={cn("absolute top-2/4 left-0 translate-y-2/4 w-full h-px bg-gray-400 group-hover:bg-gray-950 transition-all", {
+                    'bg-gray-950 h-[2px]': actived
+                  })}/>
                 
-                <span className="z-50 bg-white px-2 text-sm">
-                  {category.name}
-                </span>
-
-                <span className="z-50 bg-white px-2">
-                  {category.quantity}
-                </span>
-
-                <div className="absolute top-2/4 left-0 translate-y-2/4 w-full h-px bg-gray-300" />
-              
-              </Link>
-            </li>
-          ))
+                </button>
+              </li>
+            )}
+          )
         }
-
-        <li  className="flex-center">
-          <button className="text-xs mt-2 underline opacity-70 hover:opacity-100 transition-all" onClick={handlerOpen}>
-            see less
-          </button>
-        </li>
-
       </ul>
     </li>
   );
-}
+};

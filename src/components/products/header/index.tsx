@@ -3,19 +3,20 @@
 import { Queries } from '@/app/products/page';
 import { cn, createURLQueries } from '@/lib/utils';
 import { trpc } from '@/trpc/client';
-import { Tally1 } from 'lucide-react';
+import { Filter, Tally1 } from 'lucide-react';
 import Link from 'next/link';
 
 
 interface Props {
   queries: Queries;
   query: string;
+  toggleFilter: () => void;
+  isFilterOpen: boolean;
 };
 
 
 
-
-export default function HeaderProducts({queries, query}: Props) {
+export default function HeaderProducts({queries, query, toggleFilter, isFilterOpen}: Props) {
   const { category, brand, genere, offer } = queries;
 
   const { status, data: offers } = trpc.offers.useQuery();
@@ -46,7 +47,7 @@ export default function HeaderProducts({queries, query}: Props) {
         </span>
       </h4>
 
-      <nav>
+      <nav className='flex-center gap-7'>
         <ul className='flex gap-8'>
 
           { ['men', 'women', 'unisex'].map((item, i) => (
@@ -93,7 +94,16 @@ export default function HeaderProducts({queries, query}: Props) {
           ))}
         
         </ul>
+
+        <button className={cn('flex-center gap-1 transition-all', { 'opacity-70': !isFilterOpen })} onClick={toggleFilter}>
+          <Filter className='w-5 h-5' />
+
+          <span className="font-bold text-gray-700">
+            FILTERS
+          </span>
+        </button>
       </nav>
+
     </header>
   );
 }

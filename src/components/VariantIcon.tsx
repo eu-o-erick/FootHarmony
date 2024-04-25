@@ -11,12 +11,13 @@ interface Props {
     primary_color: string;
     secondary_color?: string;
   }[];
+  limit?: number;
   variationIndex: number;
   setVariationIndex: React.Dispatch<React.SetStateAction<number>>;
   className?: string;
 }
 
-export default function VariantIcon({ variations, variationIndex, setVariationIndex, className }: Props) {
+export default function VariantIcon({ variations, limit, variationIndex, setVariationIndex, className }: Props) {
 
 
   function getClassName(variationColor: string) {
@@ -29,6 +30,8 @@ export default function VariantIcon({ variations, variationIndex, setVariationIn
     <ul className={cn("flex gap-1.5", className)}>
 
       { variations.map(({primary_color, secondary_color}: any, i: number) => {
+
+        if(limit && i >= limit) return <></>;
 
         return(
           <li key={i} className="relative flex items-center justify-center">

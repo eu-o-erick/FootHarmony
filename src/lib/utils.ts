@@ -62,7 +62,7 @@ export function createURLQueries(queries: string, obj: { [k: string]: string | u
         has = true;
         return `${key}=${newValue}`;
       
-      } else if(key === keyObj && (value === newValue || !newValue)) {
+      } else if(key === keyObj && (newValue === value || !newValue)) {
         has = true;
         return '';
       
@@ -72,7 +72,7 @@ export function createURLQueries(queries: string, obj: { [k: string]: string | u
       
     });
 
-    !has && keys_values.push(`${keyObj}=${newValue}`);
+    (!has && newValue) && keys_values.push(`${keyObj}=${newValue}`);
   };
 
 

@@ -16,16 +16,11 @@ export default function TitleProducts({queries, offers}: Props) {
   const { category, brand, genere, offer } = queries;
 
 
-
   return (
-    <h4 className="text-2xl font-bold flex-center uppercase text-gray-600">
+    <h4 className="text-2xl font-bold flex-center uppercase text-gray-600 mt-1 mb-5">
       <span>{genere ?? 'shoes' }</span>
       <Tally1 className='flex-center ml-2 -mr-2' />
-      <span>
-        {
-          brand ?? ( category ?? ( offers?.find( off => off.id === offer )?.name ?? 'catalog' ) )
-        }
-      </span>
+      <span>{ brand ?? category ?? offers?.find( off => off.id === offer )?.name ?? 'catalog' } </span>
     </h4>
   );
 }

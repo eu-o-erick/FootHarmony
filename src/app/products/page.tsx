@@ -56,8 +56,8 @@ export default function Home() {
     <div className="min-h-svh ">
       <Navbar />
       <Generes />
-      {/* <HeaderProducts query={query} queries={queries} isFilterOpen={isFilterOpen} toggleFilter={toggleFilter} /> */}
-      {/* <CatalogProducts status={status} products={products} queries={queries} isFilterOpen={isFilterOpen} toggleFilter={toggleFilter} /> */}
+      <HeaderProducts queries={queries} isFilterOpen={isFilterOpen} toggleFilter={toggleFilter} />
+      <CatalogProducts status={status} products={products} queries={queries} isFilterOpen={isFilterOpen} toggleFilter={toggleFilter} />
       <Footer />
     </div>
   );

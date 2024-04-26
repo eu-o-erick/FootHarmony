@@ -3,7 +3,6 @@ import ProductCart from "./ProductCart";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
-import ButtonUI from "@/components/ui/Button";
 
 export interface TShoesShoppingCart{
   information: {

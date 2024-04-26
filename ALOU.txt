@@ -1,0 +1,14 @@
+FRONT
+
+requisição das ofertas no footer, se n tiver mostrar só as opções desejadas
+
+
+
+
+
+
+
+
+BACKEND
+
+quando atualiza um produto de uma oferta e nao altera o valor, ou o id, ele n faz nada

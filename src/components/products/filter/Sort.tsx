@@ -1,13 +1,11 @@
 'use client';
 
+import { Separator } from '@/components/ui/separator';
 import { cn } from '../../../lib/utils';
-import { ChevronDown } from 'lucide-react';
-import { useState } from 'react';
-import Link from 'next/link';
 
 interface Props{
-  sort: string | undefined;
-  updateQuery: ({}) => string;
+  state: string | undefined;
+  setState: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
 
@@ -27,49 +25,39 @@ const SORT = [
   },
 ];
 
-export default function SortFilter({sort, updateQuery}: Props) {
+export default function SortFilter({state, setState}: Props) {
 
-  const [isOpen, setIsOpen] = useState(false);
-
-
-  function handlerOpen() {
-    setIsOpen(!isOpen)
-  
-  };
-
-  
   return (
-    <li className='py-3 border-b-2 border-slate-600'>
-      <button className="flex items-center justify-between w-full p-2" onClick={handlerOpen}>
-        <span className="font-bold">SORT</span>
+    <li>
+      <span className="font-bold">SORT</span>
 
-        <ChevronDown className={cn('transition-all', {
-          'rotate-180': isOpen
-        })} />
-      </button>
+      <ul className="mt-3 mb-6 flex flex-col gap-y-2">
 
-      <ul className={cn("h-0 px-2 gap-x-2 gap-y-3 overflow-hidden", {
-        'h-auto  py-2': isOpen
-      })}>
+        { SORT.map(({value, label}, i) => {
+          const actived = value.toLowerCase() === state?.toLowerCase();
 
-        { SORT.map(({value, label}, i) => (
-          <li key={i}>
-            <Link className="flex items-center gap-2" href={ updateQuery({ sort: value }) }>
+            return(
+              <li key={i}>
+                <button className="flex items-center gap-2" onClick={ () => setState( actived ? undefined : value) }>
 
-              <div className="relative w-4 h-4 rounded-full bg-gray-950 flex-center">
-                <div className={cn("absolute-center h-4 w-4 rounded-full bg-gray-50 transition-all", {
-                  'w-2 h-2': value.toLowerCase() === sort?.toLowerCase()
-                })} />
-              </div>
+                  <div className={cn("relative w-4 h-4 rounded-full border-2 border-gray-600 overflow-hidden bg-gray-950 flex-center", {
+                      'border-gray-950': actived
+                    })}>
 
-              <span className="">
-                {label}
-              </span>              
-    
-            </Link>
-          </li>
-        ))}
+                    <div className={cn("absolute-center h-4 w-4 rounded-full bg-gray-50 transition-all", {
+                      'w-2 h-2': actived
+                    })} />
+                  
+                  </div>
 
+                  <span className="uppercase text-sm text-gray-800">
+                    {label}
+                  </span>
+
+                </button>
+              </li>
+          )}
+        )}
       </ul>
     </li>
   );

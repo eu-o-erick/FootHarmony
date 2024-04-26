@@ -1,5 +1,6 @@
 'use client';
 
+import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '../../../lib/utils';
 import { trpc } from '@/trpc/client';
 
@@ -16,9 +17,9 @@ export default function BrandsFilter({state, setState}: Props) {
     <li>
       <span className="font-bold text-gray-800">BRANDS</span>
 
-      <ul className="flex flex-col mt-3 mb-7">
+      <ul className="flex flex-col mt-3 mb-10">
       
-        { (status === 'success' && brands?.length ) && 
+        { (status === 'success' && brands?.length ) ?
           
           brands.map((brand, i) => {
             const actived = brand.name.toLowerCase() === state?.toLowerCase();
@@ -26,9 +27,9 @@ export default function BrandsFilter({state, setState}: Props) {
             return(
               <li key={i}>
 
-                <button className={cn("relative h-7 flex-center justify-between font-semibold opacity-50 hover:opacity-80 group transition-all", {
+                <button className={cn("relative w-full h-7 flex-center justify-between font-semibold opacity-50 hover:opacity-80 group transition-all", {
                   'opacity-100 hover:opacity-100': actived
-                })} onClick={ () => setState(brand.name) }>
+                })} onClick={ () => setState(actived ? undefined : brand.name) }>
                   
                   <span className={cn("z-50 bg-white px-2 text-xs border-l-2 h-5 flex-center uppercase", {
                     'hover:opacity-100 border-l-2 border-gray-950': actived
@@ -49,6 +50,10 @@ export default function BrandsFilter({state, setState}: Props) {
                 </button>
               </li>
             )}
+          )
+          :
+          [0,1,2].map(i =>
+            <Skeleton key={i} className='w-full h-4 my-1' />
           )
         }
       </ul>

@@ -8,6 +8,7 @@ import Footer from "@/components/footer";
 import HeaderProducts from "@/components/products/header";
 import CatalogProducts from "@/components/products/catalog";
 import { useState } from "react";
+import Generes from "@/components/home/generes";
 
 
 export interface Queries {
@@ -52,10 +53,11 @@ export default function Home() {
   // fix hooks, when update item of offer, update content, but not id, and going down... life is a highway
   // pagination on trpc
   return (
-    <div className="min-h-svh flex flex-col justify-between">
+    <div className="min-h-svh ">
       <Navbar />
-      <HeaderProducts query={query} queries={queries} toggleFilter={toggleFilter} isFilterOpen={isFilterOpen} />
-      <CatalogProducts status={status} products={products} queries={queries} isFilterOpen={isFilterOpen} />
+      <Generes />
+      {/* <HeaderProducts query={query} queries={queries} isFilterOpen={isFilterOpen} toggleFilter={toggleFilter} /> */}
+      {/* <CatalogProducts status={status} products={products} queries={queries} isFilterOpen={isFilterOpen} toggleFilter={toggleFilter} /> */}
       <Footer />
     </div>
   );

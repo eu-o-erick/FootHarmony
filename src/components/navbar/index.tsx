@@ -2,9 +2,6 @@ import Logo from "./logo";
 import Icons from "./icons";
 import NavigationDesktop from "./navigation/Desktop";
 
-// import Search from "./search";
-{/* <Search /> */}
-
 
 export default function Navbar() {
 

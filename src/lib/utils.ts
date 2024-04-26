@@ -45,36 +45,72 @@ export const filterOptionsOffer: FilterOptions<any> = ({data, id}) => {
   };
 };
 
-export function createURLQueries(queries: string, obj: { [k: string]: string }) {
+export function createURLQueries(queries: string, obj: { [k: string]: string | undefined }) {
+  if(!obj) return '';
 
   let keys_values = queries.split('&');
 
   for (const keyObj in obj) {
+    const newValue = obj[keyObj];
 
     let has = false;
 
-    keys_values = keys_values.map( key_value => {
-      const key = key_value.split('=')[0];
-      const value = key_value.split('=')[1];
+    keys_values = keys_values.map((key_value) => {
+      const [key, value] = key_value.split('=');
+
+      if(key === keyObj && newValue && value !== newValue ) {
+        has = true;
+        return `${key}=${newValue}`;
       
-      if(keyObj === key && obj[keyObj] === value) {
+      } else if(key === keyObj && (value === newValue || !newValue)) {
         has = true;
         return '';
-
-      } else if(keyObj === key) {
-        has = true;
-        return `${key}=${obj[keyObj]}`
       
       } else {
-        return `${key}=${value}`
-
+        return key_value;
       };
+      
+    });
 
-    })
-
-    !has && keys_values.push( `${keyObj}=${obj[keyObj]}` );
-  
+    !has && keys_values.push(`${keyObj}=${newValue}`);
   };
 
-  return `/products?${ encodeURIComponent( keys_values.join('&') ).toLowerCase()}`
+
+  return `/products?${keys_values.filter(str => str.trim() !== "").join('&')}`;
 };
+
+
+
+// export function createURLQueries(queries: string, obj: { [k: string]: string | undefined }) {
+//   if(!obj) return '';
+
+//   let keys_values = queries.split('&');
+
+//   const params = new URLSearchParams();
+
+//   for (const keyObj in obj) {
+//     const newValue = obj[keyObj];
+
+//     let has = false;
+
+//     keys_values.forEach( key_value => {
+//       const [key, value] = key_value.split('=');
+
+//       if(keyObj === key && newValue === value) {
+//         has = true;
+
+//       } else if(keyObj === key) {
+//         params.append(key, newValue);
+//         has = true;
+      
+//       } else {
+//         params.append(key, value);
+
+//       };
+//     });
+
+//     !has &&  params.append(keyObj, newValue);
+//   };
+
+//   return `/products?${params.toString().replaceAll('=undefined&', '')}`
+// };

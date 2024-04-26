@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import VariantIcon from "../../VariantIcon"
+import VariantIcon from "../../../VariantIcon"
 import { formatPrice } from "@/lib/utils"
 import { useState } from "react";
 

@@ -7,11 +7,13 @@ import { getOffersRouter } from "./routers/offers";
 import { getFeaturedsRouter } from "./routers/featureds";
 import { getBrandsRouter } from "./routers/brands";
 import { getCategoriesRouter } from "./routers/categories";
+import { searchRouter } from "./routers/search";
 
 
 export const appRouter = router({
   payment: paymenteRouter,
   products: getProductsRouter,
+  search: searchRouter,
   messages: getMessagesRouter,
   modal: getModalRouter,
   offers: getOffersRouter,

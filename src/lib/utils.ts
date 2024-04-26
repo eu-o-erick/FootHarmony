@@ -78,39 +78,3 @@ export function createURLQueries(queries: string, obj: { [k: string]: string | u
 
   return `/products?${keys_values.filter(str => str.trim() !== "").join('&')}`;
 };
-
-
-
-// export function createURLQueries(queries: string, obj: { [k: string]: string | undefined }) {
-//   if(!obj) return '';
-
-//   let keys_values = queries.split('&');
-
-//   const params = new URLSearchParams();
-
-//   for (const keyObj in obj) {
-//     const newValue = obj[keyObj];
-
-//     let has = false;
-
-//     keys_values.forEach( key_value => {
-//       const [key, value] = key_value.split('=');
-
-//       if(keyObj === key && newValue === value) {
-//         has = true;
-
-//       } else if(keyObj === key) {
-//         params.append(key, newValue);
-//         has = true;
-      
-//       } else {
-//         params.append(key, value);
-
-//       };
-//     });
-
-//     !has &&  params.append(keyObj, newValue);
-//   };
-
-//   return `/products?${params.toString().replaceAll('=undefined&', '')}`
-// };

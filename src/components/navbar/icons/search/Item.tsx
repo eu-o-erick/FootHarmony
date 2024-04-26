@@ -8,9 +8,13 @@ import { Brand, Media, Product, Variation } from "@/payload-types";
 import Link from "next/link";
 
 
+interface Props {
+  product: Product;
+  close: () => void;
+}
 
 
-export default function Item({product}: {product: Product}) {
+export default function Item({product, close}: Props) {
   const [variationIndex, setVariationIndex] = useState(0);
 
   const brand = product.details.brand as Brand;
@@ -22,7 +26,7 @@ export default function Item({product}: {product: Product}) {
   const priceOffer = variation.offer?.offer_price ?? product.offer?.offer_price;
 
   return (
-    <li className="flex-center border-b mx-4 group">
+    <li className="flex-center border-b mx-4 group max-sm:mx-2">
 
       <Link href={`/product/${product.id}?variation=${variation.id}`} className="h-24 w-24 flex-center group-hover:scale-105 transition-all">
         <Image src={'/media/'+filename} width={1000} height={1000} alt='COVER' />
@@ -30,7 +34,7 @@ export default function Item({product}: {product: Product}) {
 
       <div className="flex flex-col justify-between w-full pl-5 pr-2">
 
-        <Link href={`/products?brand=${encodeURIComponent(brand.name)}`} className="text-xs font-semibold text-gray-500">
+        <Link href={`/products?brand=${encodeURIComponent(brand.name)}`} className="text-xs font-semibold text-gray-500" onClick={close}>
           {brand.name}
         </Link>
 

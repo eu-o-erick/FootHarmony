@@ -129,9 +129,13 @@ export default function Cart() {
   return(
     <Sheet>
       <SheetTrigger className="relative text-gray-800 flex items-center justify-center opacity-90 hover:scale-105 hover:opacity-100 transition-all">
-        <ShoppingCart className="w-7 h-7" />
+        <ShoppingCart className="w-7 h-7 max-sm:w-6 max-sm:h-6" />
 
-        <span className="max-w-3.5 h-3 p-2 text-xs font-bold text-center bg-white flex items-center justify-center absolute top-0 left-4 -translate-x-1/2 scale-90">
+        <span className={`
+          w-3.5 h-3.5 text-[10px] font-bold text-center bg-white flex-center
+          absolute top-px left-4 -translate-x-1/2
+          max-sm:w-3 max-sm:h-3 max-sm:text-[8px] max-sm:left-[13px]
+        `}>
           {shoes.length}
         </span>
       </SheetTrigger>

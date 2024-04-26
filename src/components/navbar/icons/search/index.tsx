@@ -49,6 +49,7 @@ export default function SearchNavbar() {
       (refInput.current as HTMLInputElement).focus();
 
     } else {
+      close();
       navigation.push( createURLQueries(queries(), { search: value }) );
 
     };
@@ -59,16 +60,16 @@ export default function SearchNavbar() {
   return(
     <div>
       <button className='flex-center opacity-90 hover:opacity-100 hover:scale-105 transition-all' onClick={open}>
-        <Search className='' />
+        <Search className='w-7 h-7 max-sm:w-6 max-sm:h-6' />
       </button>
 
       <section className={cn('fixed top-0 left-0 w-full h-svh z-50 hidden flex-col', {
         'flex': isOpen
       })}>
         <div className="relative w-full bg-white flex-center py-14">
-          <Logo className='!absolute top-2/4 -translate-y-2/4 left-14' />
+          <Logo className='!absolute top-2/4 -translate-y-2/4 left-14 max-lg:top-10 max-sm:left-5' />
 
-          <div className="flex-center overflow-hidden shadow-md border border-gray-950">
+          <div className="flex-center overflow-hidden shadow-md border border-gray-950 max-lg:mt-10 max-lg:mx-3">
             <button className="py-3 px-4 bg-gray-950 border-r border-gray-300 group">
               <Search className='h-5 w-5 text-gray-200 group-hover:text-gray-100 group-hover:scale-110 transition-all' />
             </button>
@@ -88,7 +89,7 @@ export default function SearchNavbar() {
             </button>
           </div>
 
-          <button className="absolute top-2/4 -translate-y-2/4 right-10 rounded-full h-8 w-8 flex-center bg-gray-50 group" onClick={close}>
+          <button className="absolute top-2/4 -translate-y-2/4 right-10 rounded-full h-8 w-8 flex-center bg-gray-50 group max-lg:top-10 max-sm:right-5" onClick={close}>
             <X className="text-gray-500 h-4 w-4 group-hover:text-gray-800 group-hover:scale-110 transition-all" />
           </button>
 
@@ -96,7 +97,7 @@ export default function SearchNavbar() {
 
 
         <div className="h-full w-full backdrop-filter backdrop-blur-sm flex-center items-start" onClick={handlerClick}>
-          <ListItems value={value} search={search} />
+          <ListItems value={value} search={search} close={close} />
         </div>
 
       </section>

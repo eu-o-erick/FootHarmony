@@ -40,6 +40,7 @@ export default function Messages() {
       return dateNow[0] > dateLimit[0] || dateNow[1] > dateLimit[1] || (dateNow[0] <= dateLimit[0] && dateNow[2] > dateLimit[2]);
     });
 
+    //  @ts-ignore
     setMessagesValid(arr);
 
   }, [messages]);
@@ -66,7 +67,7 @@ export default function Messages() {
 
       <PopoverTrigger>
         <div className="relative text-gray-800 flex items-center justify-center opacity-90 hover:scale-105 hover:opacity-100 transition-all">
-          <Mail className="w-7 h-7" />
+          <Mail className="w-7 h-7 max-sm:w-6 max-sm:h-6" />
           <span className={cn("w-2 h-2 bg-red-500 rounded-full absolute top-0 right-0", { 'hidden': !hasNew })} />
         </div>
       </PopoverTrigger>

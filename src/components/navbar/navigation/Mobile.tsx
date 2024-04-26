@@ -38,14 +38,14 @@ export default function NavigationMobile() {
   }, []);
 
   return (
-    <nav className='md:hidden flex-center '>
+    <nav className='max-[830px]:flex flex-center hidden '>
 
-      <button onClick={() => setIsOpen(!isOpen)}>
-        <Menu />
+      <button className="-m-1" onClick={() => setIsOpen(!isOpen)}>
+        <Menu className="w-7 h-7 max-sm:w-6 max-sm:h-6" />
       </button>
 
       <div className={cn("absolute w-full right-0 top-14 bg-white flex flex-col p-6 shadow-lg opacity-0 pointer-events-none transition-all", {
-        'top-20 opacity-100 pointer-events-auto': isOpen
+        'top-16 opacity-100 pointer-events-auto': isOpen
       })}>
 
         <button className="absolute top-2 right-2" onClick={() => setIsOpen(!isOpen)}>

@@ -10,16 +10,17 @@ import { SearchX } from 'lucide-react';
 interface Props {
   value: string;
   search: () => void;
+  close: () => void;
 }
 
 
-export default function ListItems({value, search}: Props) {
+export default function ListItems({value, search, close }: Props) {
 
   const { status, data: products } = trpc.search.useQuery({value});
 
 
   return(
-    <div className={ cn('max-w-[422px] w-full p-3 bg-white border border-gray-800 -mt-10 shadow-lg hidden', {
+    <div className={ cn('max-w-[422px] w-full p-3 bg-white border -mt-10 mx-3 shadow-lg hidden max-sm:p-1', {
       "block": value.replace(/ /g, '').length >= 3,
     })}>
 
@@ -30,15 +31,15 @@ export default function ListItems({value, search}: Props) {
           </ul>
           :
           products?.length ?
-            <ul className='max-h-60 overflow-y-auto overflow-x-hidden py-4'>
+            <ul className='max-h-60 overflow-y-auto overflow-x-hidden py-4 max-sm:py-2'>
               { products.map((product, i) =>
-                <Item key={i} product={product}/>
+                <Item key={i} product={product} close={close} />
               )}
             </ul>
             :
-            <div className="py-10 flex-center flex-col gap-4">
-              <SearchX className='w-16 h-16 text-gray-400' />
-              <p className='text-gray-300 font-bold text-lg'>No results found</p>
+            <div className="py-10 flex-center flex-col gap-2">
+              <SearchX className='w-12 h-12 text-gray-400' />
+              <p className='text-gray-300 font-bold'>No results found</p>
             </div>
       }
 

@@ -27,6 +27,7 @@ export const filterOptionsOffer: FilterOptions<any> = ({data, id}) => {
   const ids = (data as Offer).items?.map( (item) => (item.product ?? item.variation) as string | undefined ) ?? [];
   const str = ids.filter( item => item ).join();
 
+
   return {
     or: [
       {
@@ -62,7 +63,7 @@ export function createURLQueries(queries: string, obj: { [k: string]: string | u
         has = true;
         return `${key}=${newValue}`;
       
-      } else if(key === keyObj && (newValue === value || !newValue)) {
+      } else if(key === keyObj && !newValue) {
         has = true;
         return '';
       

@@ -17,7 +17,7 @@ export default function TitleProducts({queries, offers}: Props) {
 
 
   return (
-    <h4 className="text-2xl font-bold flex-center uppercase text-gray-600 mt-1 mb-5">
+    <h4 className="text-2xl font-bold flex-center uppercase  mt-1 mb-5">
       <span>{genere ?? 'shoes' }</span>
       <Tally1 className='flex-center ml-2 -mr-2' />
       <span>{ brand ?? category ?? offers?.find( off => off.id === offer )?.name ?? 'catalog' } </span>

@@ -31,13 +31,13 @@ export default function BrandsFilter({state, setState}: Props) {
                   'opacity-100 hover:opacity-100': actived
                 })} onClick={ () => setState(actived ? undefined : brand.name) }>
                   
-                  <span className={cn("z-50 bg-white px-2 text-xs border-l-2 h-5 flex-center uppercase", {
+                  <span className={cn("z-10 bg-white px-2 text-xs border-l-2 h-5 flex-center uppercase", {
                     'hover:opacity-100 border-l-2 border-gray-950': actived
                   })}>
                     {brand.name}
                   </span>
                   
-                  <span className={cn("z-50 bg-white pl-2 text-sm", {
+                  <span className={cn("z-10 bg-white pl-2 text-sm", {
                     'text-base hover:opacity-100': actived
                   })}>
                     {brand.quantity}

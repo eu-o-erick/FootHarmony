@@ -21,14 +21,43 @@ export const searchRouter = publicProcedure.input(
       where: {
         or: [
           {
-            'details.tags': {
-              in: value.replace(/ /g, ',')
-            },
-          },{
-            'name': {
-              like: value
-            },
-          }
+            or: [
+              {
+                'details.tags.name': {
+                  in: value.replace(/ /g, ','),
+                }
+              },
+              {
+                'details.tags.name': {
+                  like: value,
+                }
+              },
+              {
+                'details.tags.name': {
+                  contains: value,
+                }
+              },
+            ]
+          },
+          {
+            or: [
+              {
+                name: {
+                  in: value.replace(/ /g, ','),
+                }
+              },
+              {
+                name: {
+                  like: value,
+                }
+              },
+              {
+                name: {
+                  contains: value,
+                }
+              },
+            ]
+          },
         ]
       },
       limit: 10

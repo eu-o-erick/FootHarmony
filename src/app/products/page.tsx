@@ -7,11 +7,12 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import HeaderProducts from "@/components/products/header";
 import CatalogProducts from "@/components/products/catalog";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Generes from "@/components/home/generes";
 
 
 export interface Queries {
+  search: string | undefined;
   category: string | undefined;
   brand: string | undefined;
   min_price: string | undefined;
@@ -26,6 +27,7 @@ export interface Queries {
 export default function Home() {
   const searchParams = useSearchParams();
 
+  const search = searchParams.get('search') ?? undefined;
   const category = searchParams.get('category') ?? undefined;
   const brand = searchParams.get('brand') ?? undefined;
   const min_price = searchParams.get('min_price') ?? undefined;
@@ -34,10 +36,8 @@ export default function Home() {
   const offer = searchParams.get('offer') ?? undefined;
   const genere = searchParams.get('genere') ?? undefined;
   const sort = searchParams.get('sort') ?? undefined;
-
-  const query = searchParams.toString();
   
-  const queries = { category, brand, min_price, max_price, color, offer, genere, sort };
+  const queries = { search, category, brand, min_price, max_price, color, offer, genere, sort };
 
   const { status, data: products } = trpc.products.useQuery(queries);
 
@@ -49,9 +49,6 @@ export default function Home() {
   
   };
 
-
-  // fix hooks, when update item of offer, update content, but not id, and going down... life is a highway
-  // pagination on trpc
   return (
     <div className="min-h-svh ">
       <Navbar />

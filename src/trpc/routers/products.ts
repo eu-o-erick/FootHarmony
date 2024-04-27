@@ -14,6 +14,7 @@ const GENERES = ['men', 'women', 'unisex'];
 export const getProductsRouter = publicProcedure
   .input(
     z.object({
+      search: z.optional( z.string() ),
       category: z.optional( z.string() ),
       brand: z.optional( z.string() ),
       min_price: z.optional( z.string() ),
@@ -25,7 +26,7 @@ export const getProductsRouter = publicProcedure
     })
   )
   .query( async ({input}) => {
-    const { category, brand, color, genere, offer, sort } = input;
+    const { search, category, brand, color, genere, offer, sort } = input;
     const min_price = Number(input.min_price);
     const max_price = Number(input.max_price);
 
@@ -51,7 +52,50 @@ export const getProductsRouter = publicProcedure
       },
   
       and: [
-  
+
+        search && {
+          or: [
+            {
+              or: [
+                {
+                  'details.tags.name': {
+                    in: search.replace(/ /g, ','),
+                  }
+                },
+                {
+                  'details.tags.name': {
+                    like: search,
+                  }
+                },
+                {
+                  'details.tags.name': {
+                    contains: search,
+                  }
+                },
+              ]
+            },
+            {
+              or: [
+                {
+                  name: {
+                    in: search.replace(/ /g, ','),
+                  }
+                },
+                {
+                  name: {
+                    like: search,
+                  }
+                },
+                {
+                  name: {
+                    contains: search,
+                  }
+                },
+              ]
+            },
+          ]
+        },
+
         (color && COLORS.find( c => c.label.toLowerCase() === color.toLowerCase()) ) ? {
           or: [
   

@@ -1,46 +1,33 @@
 'use client';
 
 import { Queries } from '@/app/products/page';
+import SearchNavbar from '@/components/navbar/icons/search';
 import { cn, createURLQueries } from '@/lib/utils';
 import { Offer } from '@/payload-types';
-import { trpc } from '@/trpc/client';
 import { Filter } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
 interface Props {
-  isFilterOpen: boolean;
-  queries: Queries;
-  toggleFilter: () => void;
   offers: Offer[] | undefined | null;
   status: "error" | "success" | "loading";
+  isFilterOpen: boolean;
+  toggleFilter: () => void;
+  queries: Queries;
 };
 
 
 
-export default function OptionsHeader({status, queries, toggleFilter, isFilterOpen}: Props) {
+export default function OptionsHeader({status, offers, isFilterOpen, toggleFilter, queries}: Props) {
   const { genere, offer } = queries;
-
-  const { data: offers } = trpc.offers.useQuery();
 
   const searchParams = useSearchParams();
 
   const query = searchParams.toString();
-  
-  const updateQuery = (item: {genere?: string, offer?: string}) => {
-
-    if(item.genere) {
-      return createURLQueries(query, { genere: item.genere });
-
-    } else {
-      return createURLQueries(query, { offer: (item.offer as string) });
-
-    }
-  };
 
 
   return (
-    <nav className='flex justify-between items-center gap-7 bg-gray-a950 w-full p-3'>
+    <nav className='relative flex justify-between items-end gap-7 border-b-2 border-gray-950 w-full'>
 
       <ul className='flex'>
 
@@ -49,13 +36,13 @@ export default function OptionsHeader({status, queries, toggleFilter, isFilterOp
 
           return (
             <li key={i}>
-              <Link href={updateQuery({ genere: item })} className={
-                cn('relative p-4 py-2 text-gray-800 border-b-2 border-gray-950 hover:text-gray-800 hover:bg-gray-100 group transition-all', {
-                  'mr-6': i === 2,
+              <Link href={createURLQueries(query, { genere: actived ? undefined : item })} className={
+                cn('relative flex-center px-4 h-10 text-gray-800 hover:text-gray-800 hover:bg-gray-100 group transition-all', {
+                  'mr-8': i === 2,
                   'bg-gray-950 hover:bg-gray-950': actived
                 })}>
 
-                <span className={cn("font-semibold z-50 uppercase", {
+                <span className={cn("font-semibold uppercase", {
                   'text-gray-200': actived
                 })}>
                   {item}
@@ -67,46 +54,51 @@ export default function OptionsHeader({status, queries, toggleFilter, isFilterOp
         )}
 
 
-        { status === 'success' && offers?.map(({id, name}, i) => (
-          <li key={i}>
-            <Link href={updateQuery({ offer: id })} className='relative p-2 font-semibold text-gray-500 hover:text-gray-800 transition-all'>
+        { status === 'success' && offers?.map(({id, name}, i) => {
+          const actived = id === offer;
 
-              <span className={cn("font-semibold z-50", {
-                'opacity-0': id === offer
-              })}>
-                {name}
-              </span>
+          return (
+            <li key={i}>
+              <Link href={createURLQueries(query, { offer: actived ? undefined : id })} className={
+                cn('relative flex-center px-4 h-10 text-gray-800 hover:text-gray-800 hover:bg-gray-100 group transition-all', {
+                  'mr-8': i === 2,
+                  'bg-gray-950 hover:bg-gray-950': actived
+                })}>
 
-              <span className={cn("absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 font-bold text-gray-800 opacity-0 text-nowrap", {
-                'opacity-100':id === offer
-              })}>
-                {name}
-              </span>
+                <span className={cn("font-semibold uppercase", {
+                  'text-gray-200': actived
+                })}>
+                  {name}
+                </span>
 
-            </Link>
-          </li>
-        ))}
+              </Link>
+            </li>
+          )}
+        )}
       
       </ul>
 
-      <button className={
-        cn('relative p-4 py-2 border-b-2 border-gray-950 flex-center gap-2 transition-all', {
-          'bg-gray-950 hover:bg-gray-950': isFilterOpen
-        })}
-        onClick={toggleFilter}>
-        
-        <Filter className={cn("w-4 h-4 mt-px -mb-px", {
-          'text-gray-200': isFilterOpen
-        })} />
+      <div className="flex-center">
+        <SearchNavbar className='w-10 h-10 p-2 !opacity-100 bg-gray-100 !scale-100' />
 
-        <span className={cn("font-semibold z-50 uppercase", {
-          'text-gray-200': isFilterOpen
-        })}>
-          FILTERS
-        </span>
+        <button className={
+          cn('relative px-4 h-10 flex-center gap-2 hover:text-gray-800 hover:bg-gray-100 transition-all', {
+            'bg-gray-950 hover:bg-gray-950': isFilterOpen
+          })}
+          onClick={toggleFilter}>
+          
+          <Filter className={cn("w-4 h-4 mt-px -mb-px", {
+            'text-gray-200': isFilterOpen
+          })} />
 
+          <span className={cn("font-semibold uppercase", {
+            'text-gray-200': isFilterOpen
+          })}>
+            FILTERS
+          </span>
 
-      </button>
+        </button>
+      </div>
     </nav>
   );
-}
+};

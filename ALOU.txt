@@ -2,8 +2,13 @@ FRONT
 
 requisição das ofertas no footer, se n tiver mostrar só as opções desejadas
 
+redimensionar produtos na home
 
+priorizar pela variação com desconto se tiver na oferta
 
+filters
+  tamanho disponiveis
+  mostrando a pesquisa atual, o nome da pesquisa
 
 
 
@@ -11,4 +16,8 @@ requisição das ofertas no footer, se n tiver mostrar só as opções desejadas
 
 BACKEND
 
+receber paginação nos produtos
+
 quando atualiza um produto de uma oferta e nao altera o valor, ou o id, ele n faz nada
+
+não repetir a escolha nos destacados, filtro nas relações

@@ -8,8 +8,7 @@ import BrandsFilter from './Brands';
 import ColorsFilter from './Colors';
 import PriceFilter from './Price';
 import SortFilter from './Sort';
-import { useState } from 'react';
-import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 interface Props{
   queries: Queries;
@@ -28,7 +27,7 @@ export default function FilterComponents({queries}: Props) {
   const [stateMaxPrice, setStateMaxPrice] = useState( isNaN(Number(max_price)) ? 500 : Number(max_price) );
   const [stateSort, setStateSort] = useState(sort);
 
-
+  
   const params = useSearchParams();
 
   const query = params.toString();

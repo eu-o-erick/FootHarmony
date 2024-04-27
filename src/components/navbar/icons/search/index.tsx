@@ -9,7 +9,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 
 
-export default function SearchNavbar() {
+export default function SearchNavbar({className}: {className?: string}) {
   const refInput = useRef<HTMLInputElement>(null);
 
   const navigation = useRouter();
@@ -49,8 +49,8 @@ export default function SearchNavbar() {
       (refInput.current as HTMLInputElement).focus();
 
     } else {
+      navigation.push('/products?search='+value);
       close();
-      navigation.push( createURLQueries(queries(), { search: value }) );
 
     };
   };
@@ -59,7 +59,7 @@ export default function SearchNavbar() {
 
   return(
     <div>
-      <button className='flex-center opacity-90 hover:opacity-100 hover:scale-105 transition-all' onClick={open}>
+      <button className={'flex-center text-gray-800 opacity-90 hover:opacity-100 hover:scale-105 transition-all '+(className ?? '')} onClick={open}>
         <Search className='w-7 h-7 max-sm:w-6 max-sm:h-6' />
       </button>
 

@@ -9,6 +9,8 @@ import HeaderProducts from "@/components/products/header";
 import CatalogProducts from "@/components/products/catalog";
 import { useEffect, useState } from "react";
 import Generes from "@/components/home/generes";
+import Filter from "@/components/products/filter";
+import { closeDropDowns } from "@/lib/close-drop-down";
 
 
 export interface Queries {
@@ -37,24 +39,35 @@ export default function Home() {
   const genere = searchParams.get('genere') ?? undefined;
   const sort = searchParams.get('sort') ?? undefined;
   
+  const query = searchParams.toString();
+
   const queries = { search, category, brand, min_price, max_price, color, offer, genere, sort };
 
-  const { status, data: products } = trpc.products.useQuery(queries);
+  const { status, data: products } = trpc.products.useQuery(queries) ?? { status: 'error', data: undefined };
+
+  useEffect(() => {
+
+    document.body.addEventListener('click', closeDropDowns);
+
+    return () => document.body.removeEventListener('click', closeDropDowns);
+
+  }, []);
 
 
   const [isFilterOpen, setIsFilterOpen] = useState(true);
 
   function toggleFilter() {
     setIsFilterOpen(!isFilterOpen);
-  
   };
+
 
   return (
     <div className="min-h-svh ">
       <Navbar />
       <Generes />
       <HeaderProducts queries={queries} isFilterOpen={isFilterOpen} toggleFilter={toggleFilter} />
-      <CatalogProducts status={status} products={products} queries={queries} isFilterOpen={isFilterOpen} toggleFilter={toggleFilter} />
+      <Filter queries={queries} query={query} isFilterOpen={isFilterOpen} />
+      <CatalogProducts status={status} products={products} />
       <Footer />
     </div>
   );

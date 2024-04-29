@@ -26,6 +26,21 @@
     height: 100%;
   }
 
+  .show-dropdown {
+    opacity: 100 !important;
+    transform: scale(1) !important;
+    pointer-events: auto !important;
+    top: 100% !important;
+  }
+
+  .show-dropdown ~ .button-dropdown {
+    --tw-text-opacity: 1;
+    color: rgb(229 231 235 / var(--tw-text-opacity));
+    --tw-bg-opacity: 1;
+    background-color: rgb(3 7 18 / var(--tw-bg-opacity)) !important;
+  }
+  
+
   .board_price_range .input-range__slider{
     background: rgb(3 7 18)!important;
     border-color: rgb(31 41 55) !important;

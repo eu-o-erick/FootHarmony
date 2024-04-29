@@ -1,5 +1,3 @@
-'use client';
-
 import { Queries } from '@/app/products/page';
 import SearchNavbar from '@/components/navbar/icons/search';
 import { cn, createURLQueries } from '@/lib/utils';
@@ -27,7 +25,7 @@ export default function OptionsHeader({status, offers, isFilterOpen, toggleFilte
 
 
   return (
-    <nav className='relative flex justify-between items-end gap-7 border-b-2 border-gray-950 w-full'>
+    <nav className='relative flex justify-between items-end gap-7 border-b-2 border-gray-950 w-full bg-gray-50 z-[100]'>
 
       <ul className='flex'>
 

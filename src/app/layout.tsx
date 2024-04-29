@@ -19,6 +19,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
   return (
     <html lang="en">
       <body className={cn("relative h-full font-sans antialiased bg-gray-50", inter.className)}>

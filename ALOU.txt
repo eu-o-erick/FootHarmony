@@ -6,6 +6,8 @@ redimensionar produtos na home
 
 priorizar pela variação com desconto se tiver na oferta
 
+mostrar a quantidade de busca
+
 filters
   tamanho disponiveis
   mostrando a pesquisa atual, o nome da pesquisa

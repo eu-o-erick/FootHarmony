@@ -1,8 +1,5 @@
-'use client';
-
 import { Queries } from '@/app/products/page';
 import { Offer } from '@/payload-types';
-import { trpc } from '@/trpc/client';
 import { Tally1 } from 'lucide-react';
 
 interface Props {

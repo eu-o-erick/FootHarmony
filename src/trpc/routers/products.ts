@@ -53,7 +53,7 @@ export const getProductsRouter = publicProcedure
   
       and: [
 
-        search && {
+        search ? {
           or: [
             {
               or: [
@@ -94,7 +94,7 @@ export const getProductsRouter = publicProcedure
               ]
             },
           ]
-        },
+        } : {},
 
         (color && COLORS.find( c => c.label.toLowerCase() === color.toLowerCase()) ) ? {
           or: [

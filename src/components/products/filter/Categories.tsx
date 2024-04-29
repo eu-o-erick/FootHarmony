@@ -1,62 +1,43 @@
-'use client';
-
-import { Skeleton } from '@/components/ui/skeleton';
-import { cn } from '../../../lib/utils';
 import { trpc } from '@/trpc/client';
+import ItemFilter from './Item';
+import BarLoader from "react-spinners/BarLoader";
+import { cn, createURLQueries } from '@/lib/utils';
+import Link from 'next/link';
 
 interface Props{
-  state: string | undefined;
-  setState: React.Dispatch<React.SetStateAction<string | undefined>>;
+  query: string;
+  category: undefined | string;
 };
 
-export default function CategoriesFilter({state, setState}: Props) {
+export default function CategoriesFilter({query, category}: Props) {
   const { status, data: categories } = trpc.category.useQuery();
 
-  
   return (
-    <li>
-      <span className="font-bold text-gray-800">CATEGORIES</span>
-
-      <ul className="flex flex-col mt-3 mb-10">
-      
-        { (status === 'success' && categories?.length ) ?
-          
-          categories.map((category, i) => {
-            const actived = category.name.toLowerCase() === state?.toLowerCase();
+    <ItemFilter label="Category">
+      { status !== 'success' ?
+        <div className="flex-center w-20 h-14 p-4">
+          <BarLoader color="#030712" height={3} />
+        </div>
+        :
+        <ul className="flex flex-col max-h-32 h-auto overflow-y-auto overflow-x-hidden">
+          { categories?.map(({name}, i) => {
+            const actived = category === name;
 
             return(
-              <li key={i}>
+              <li className="" key={i}>
+                <Link
+                  className={cn('p-2 w-36 flex text-xs font-semibold truncate uppercase', {
+                  'bg-gray-400': actived 
+                  })}
+                  href={ createURLQueries(query, { category: actived ? undefined : name }) }>
 
-                <button className={cn("relative w-full h-7 flex-center justify-between font-semibold opacity-50 hover:opacity-80 group transition-all", {
-                  'opacity-100 hover:opacity-100': actived
-                })} onClick={ () => setState(actived ? undefined : category.name) }>
-                  
-                  <span className={cn("z-10 bg-white px-2 text-xs border-l-2 h-5 flex-center uppercase", {
-                    'hover:opacity-100 border-l-2 border-gray-950': actived
-                  })}>
-                    {category.name}
-                  </span>
-                  
-                  <span className={cn("z-10 bg-white pl-2 text-sm", {
-                    'text-base hover:opacity-100': actived
-                  })}>
-                    {category.quantity}
-                  </span>
-
-                  <div className={cn("absolute top-2/4 left-0 translate-y-2/4 w-full h-px bg-gray-400 group-hover:bg-gray-950 transition-all", {
-                    'bg-gray-950 h-[2px]': actived
-                  })}/>
-                
-                </button>
+                  {name}
+                </Link>
               </li>
-            )}
-          )
-          :
-          [0,1,2].map(i =>
-            <Skeleton key={i} className='w-full h-4 my-1' />
-          )
-        }
-      </ul>
-    </li>
+            )
+          }) }
+        </ul>
+      }
+    </ItemFilter>
   );
-};
+}

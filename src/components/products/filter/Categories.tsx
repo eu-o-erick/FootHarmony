@@ -19,15 +19,15 @@ export default function CategoriesFilter({query, category}: Props) {
           <BarLoader color="#030712" height={3} />
         </div>
         :
-        <ul className="flex flex-col max-h-32 h-auto overflow-y-auto overflow-x-hidden">
+        <ul className="flex flex-col max-h-32 h-auto py-2 overflow-y-auto">
           { categories?.map(({name}, i) => {
             const actived = category === name;
 
             return(
               <li className="" key={i}>
                 <Link
-                  className={cn('p-2 w-36 flex text-xs font-semibold truncate uppercase', {
-                  'bg-gray-400': actived 
+                  className={cn('px-3 py-2 w-36 flex text-xs font-semibold truncate uppercase hover:bg-gray-100 transition-all', {
+                  'bg-gray-200 hover:bg-gray-200': actived 
                   })}
                   href={ createURLQueries(query, { category: actived ? undefined : name }) }>
 

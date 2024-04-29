@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useRef } from "react";
 import { IoMdArrowDropup } from "react-icons/io";
 
 interface Props{
@@ -11,21 +12,26 @@ export default function ItemFilter({label, children}: Props) {
 
   const ref = useRef<null | HTMLDivElement>(null);
 
-  function toggleOpenDropDown(e: React.MouseEvent<HTMLButtonElement>) {
+  const searchParams = useSearchParams().toString();
+
+  useEffect(() => {
+    const dropdowns = document.getElementsByClassName('show-dropdown');
+
+    Array.from(dropdowns).forEach(elem => elem.classList.remove('show-dropdown'))
+
+  }, [searchParams]);
+
+
+  function toggleOpenDropDown() {
     const elem = ref.current;
-    const button = e.target as HTMLButtonElement;
 
     if(!elem) return;
 
-    console.log(elem.className)
-
     if(elem.className.includes('show-dropdown')) {
       elem.classList.remove('show-dropdown');
-      // button.classList.remove('button-dropdown-is-open');
       
     } else {
       elem.classList.add('show-dropdown');
-      // button.classList.add('button-dropdown-is-open');
 
     };
   };

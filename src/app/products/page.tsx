@@ -22,6 +22,7 @@ export interface Queries {
   color: string | undefined;
   offer: string | undefined;
   genere: string | undefined;
+  size: string | undefined;
   sort: string | undefined;
 };
 
@@ -37,11 +38,12 @@ export default function Home() {
   const color = searchParams.get('color') ?? undefined;
   const offer = searchParams.get('offer') ?? undefined;
   const genere = searchParams.get('genere') ?? undefined;
+  const size = searchParams.get('size') ?? undefined;
   const sort = searchParams.get('sort') ?? undefined;
   
   const query = searchParams.toString();
 
-  const queries = { search, category, brand, min_price, max_price, color, offer, genere, sort };
+  const queries = { search, category, brand, min_price, max_price, color, offer, genere, size, sort };
 
   const { status, data: products } = trpc.products.useQuery(queries) ?? { status: 'error', data: undefined };
 

@@ -2,57 +2,57 @@
 
 interface TColor {
   label: string;
-  class: string;
+  className: string;
 }
 
 
 export const colors: TColor[] = [
   {
     label: 'White',
-    class: 'bg-white'
+    className: 'bg-white'
   },
   {
     label: 'Gray',
-    class: 'bg-gray-500'
+    className: 'bg-gray-500'
   },
   {
     label: 'Black',
-    class: 'bg-black'
+    className: 'bg-black'
   },
   {
     label: 'Brown',
-    class: 'bg-yellow-700'
+    className: 'bg-yellow-700'
   },
   {
     label: 'Yellow',
-    class: 'bg-yellow-300'
+    className: 'bg-yellow-300'
   },
   {
     label: 'Orange',
-    class: 'bg-orange-500'
+    className: 'bg-orange-500'
   },
   {
     label: 'Red',
-    class: 'bg-red-600'
+    className: 'bg-red-600'
   },
   {
     label: 'Pink',
-    class: 'bg-pink-400'
+    className: 'bg-pink-400'
   },
   {
     label: 'Purple',
-    class: 'bg-purple-500'
+    className: 'bg-purple-500'
   },
   {
     label: 'Blue',
-    class: 'bg-blue-600'
+    className: 'bg-blue-600'
   },
   {
     label: 'Cyan',
-    class: 'bg-cyan-300'
+    className: 'bg-cyan-300'
   },
   {
     label: 'Green',
-    class: 'bg-green-500'
+    className: 'bg-green-500'
   },
 ]

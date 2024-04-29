@@ -21,7 +21,7 @@ export default function VariantIcon({ variations, limit, variationIndex, setVari
 
 
   function getClassName(variationColor: string) {
-    return colors.find((color) => color.label === variationColor)?.class;
+    return colors.find((color) => color.label === variationColor)?.className;
   };
 
   

@@ -10,14 +10,16 @@ interface Props {
 
 
 export default function TitleProducts({queries, offers}: Props) {
-  const { category, brand, genere, offer } = queries;
+  const { search, category, brand, genere, offer } = queries;
+
+
 
 
   return (
     <h4 className="text-2xl font-bold flex-center uppercase  mt-1 mb-5">
-      <span>{genere ?? 'shoes' }</span>
+      <span>{ (search && 'SEARCH') ?? genere ?? 'shoes' }</span>
       <Tally1 className='flex-center ml-2 -mr-2' />
-      <span>{ brand ?? category ?? offers?.find( off => off.id === offer )?.name ?? 'catalog' } </span>
+      <span>{ search ?? brand ?? category ?? offers?.find( off => off.id === offer )?.name ?? 'catalog' } </span>
     </h4>
   );
 }

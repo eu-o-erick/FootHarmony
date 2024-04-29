@@ -9,7 +9,6 @@ import { Product } from "@/payload-types";
 const SORT = ['sold', 'createAt', 'standard_price', '-standard_price'];
 const GENERES = ['men', 'women', 'unisex'];
 
-// /products?category=single&brand=adidas&min_price=90&max_price=92&color=white&genere=unisex&sort=bestsallers
 
 export const getProductsRouter = publicProcedure
   .input(
@@ -22,11 +21,12 @@ export const getProductsRouter = publicProcedure
       color: z.optional( z.string() ),
       genere: z.optional( z.string() ),
       offer: z.optional( z.string() ),
+      size: z.optional( z.string() ),
       sort: z.optional( z.string() ),
     })
   )
   .query( async ({input}) => {
-    const { search, category, brand, color, genere, offer, sort } = input;
+    const { search, category, brand, color, genere, offer, size, sort } = input;
     const min_price = Number(input.min_price);
     const max_price = Number(input.max_price);
 
@@ -48,6 +48,12 @@ export const getProductsRouter = publicProcedure
       ...GENERES.includes(genere ?? '') && {
         'genere': {
           equals: genere
+        }
+      },
+
+      ...size && {
+        'variations.stock.size': {
+          equals: size
         }
       },
   

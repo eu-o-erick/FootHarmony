@@ -25,7 +25,7 @@ export default function OptionsHeader({status, offers, isFilterOpen, toggleFilte
 
 
   return (
-    <nav className='relative flex justify-between items-end gap-7 border-b-2 border-gray-950 w-full bg-gray-50 z-[100]'>
+    <nav className='relative flex justify-between items-end gap-7 border-b-2 border-gray-950 w-full bg-gray-50 z-[49]'>
 
       <ul className='flex'>
 

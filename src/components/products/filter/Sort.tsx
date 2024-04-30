@@ -29,10 +29,10 @@ const SORT = [
 export default function SortFilter({query, sort}: Props) {
 
   return (
-    <ItemFilter label="Sort">
+    <ItemFilter label="Sort" right={true} using={sort ? true : false}>
       <ul className="flex flex-col py-2">
         { SORT.map( ({label, value}, i) => {
-          const actived = sort === label;
+          const actived = sort === value;
 
           return(
             <li className="flex-center" key={i}>

@@ -13,7 +13,7 @@ export default function CategoriesFilter({query, category}: Props) {
   const { status, data: categories } = trpc.category.useQuery();
 
   return (
-    <ItemFilter label="Category">
+    <ItemFilter label="Category" using={category ? true : false}>
       { status !== 'success' ?
         <div className="flex-center w-20 h-14 p-4">
           <BarLoader color="#030712" height={3} />

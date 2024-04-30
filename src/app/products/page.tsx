@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import Generes from "@/components/home/generes";
 import Filter from "@/components/products/filter";
 import { closeDropDowns } from "@/lib/close-drop-down";
+import DescriptionQueries from "@/components/products/desc_queries";
 
 
 export interface Queries {
@@ -70,6 +71,7 @@ export default function Home() {
       <HeaderProducts queries={queries} isFilterOpen={isFilterOpen} toggleFilter={toggleFilter} />
       <Filter queries={queries} query={query} isFilterOpen={isFilterOpen} />
       <CatalogProducts status={status} products={products} />
+      <DescriptionQueries queries={queries} />
       <Footer />
     </div>
   );

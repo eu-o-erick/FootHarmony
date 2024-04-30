@@ -2,7 +2,7 @@ import ItemFilter from './Item';
 import { createURLQueries } from '@/lib/utils';
 import { Minus } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import InputRange, { Range } from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
 
@@ -18,6 +18,15 @@ export default function PriceFilter({query, min_price, max_price}: Props) {
 
   const [stateMin, setStateMin] = useState(0);
   const [stateMax, setStateMax] = useState(500);
+
+  useEffect(() => {
+    const min = Number(min_price);
+    const max = Number(max_price);
+
+    setStateMin( min && !isNaN(min) && min > 0 && min <= max ? min : 0 );
+    setStateMax( max && !isNaN(max) && max > 0 && max >= min ? max : 500 );
+
+  }, []);
 
 
   function handlerUpdate(value: number | Range) {
@@ -66,7 +75,7 @@ export default function PriceFilter({query, min_price, max_price}: Props) {
 
 
   return (
-    <ItemFilter label="Price">
+    <ItemFilter label="Price" using={(min_price && Number(min_price) > 0 ? true : false ) || (max_price && Number(max_price) < 500 ? true : false )}>
 
       <div className="flex flex-col gap-2 w-44 p-4 board_price_range">
 

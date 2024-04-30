@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+import { ChevronDown } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { IoMdArrowDropup } from "react-icons/io";
@@ -5,10 +7,12 @@ import { IoMdArrowDropup } from "react-icons/io";
 interface Props{
   label: string;
   children: React.ReactNode;
+  right?: boolean;
+  using: boolean;
 };
 
 
-export default function ItemFilter({label, children}: Props) {
+export default function ItemFilter({label, children, right, using}: Props) {
 
   const ref = useRef<null | HTMLDivElement>(null);
 
@@ -40,13 +44,26 @@ export default function ItemFilter({label, children}: Props) {
   return (
     <div className='relative'>
 
-      <div ref={ref} className="absolute z-20 top-3/4 left-0 mt-2 bg-white shadow-md border border-gray-950 opacity-0 scale-75 pointer-events-none transition-all">
-        <IoMdArrowDropup className="absolute -top-[15px] left-3 text-2xl text-gray-950" />
+      <div ref={ref} className={cn("absolute z-20 top-3/4 left-0 mt-2 bg-white shadow-md border border-gray-950 opacity-0 scale-75 pointer-events-none transition-all", {
+        '!left-auto right-0': right
+      })}>
+
+        <IoMdArrowDropup className={cn("absolute -top-[15px] left-3 text-2xl text-gray-950",{
+          '!left-auto right-3': right
+        })} />
+        
         { children }
+
       </div>
     
-      <button className="button-dropdown border border-gray-950 px-3 py-1.5 font-semibold text-xs uppercase hover:bg-gray-200 transition-all" onClick={toggleOpenDropDown}>
+      <button className="relative shadow-sm button-dropdown border flex-center gap-2 border-gray-950 px-3 py-1.5 font-semibold text-xs uppercase hover:bg-gray-200 transition-all" onClick={toggleOpenDropDown}>
+
+        <div className={cn("w-2 h-full absolute top-0 right-0 bg-gray-950 hidden", {
+          'block': using
+        })} />
+
         {label}
+        <ChevronDown className="w-4 h-4 transition-all" />
       </button>
 
     </div>

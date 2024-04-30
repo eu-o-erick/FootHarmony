@@ -13,7 +13,7 @@ export default function BrandsFilters({query, brand}: Props) {
   const { status, data: brands } = trpc.brands.useQuery();
 
   return (
-    <ItemFilter label="Brands">
+    <ItemFilter label="Brands" using={brand ? true : false}>
       { status !== 'success' ?
         <div className="flex-center w-20 h-14 p-4">
           <BarLoader color="#030712" height={3} />

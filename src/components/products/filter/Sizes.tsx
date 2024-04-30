@@ -14,7 +14,7 @@ interface Props{
 export default function SizeFilter({query, size}: Props) {
 
   return (
-    <ItemFilter label="Size">
+    <ItemFilter label="Size" using={size ? true : false}>
       <ul className="grid grid-cols-4 py-3 px-4 w-48 gap-2 justify-center">
         { sizes.map( (option, i) => {
           const actived = option === size;

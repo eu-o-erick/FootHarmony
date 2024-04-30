@@ -19,7 +19,7 @@ export default function TitleProducts({queries, offers}: Props) {
     <h4 className="text-2xl font-bold flex-center uppercase  mt-1 mb-5">
       <span>{ (search && 'SEARCH') ?? genere ?? 'shoes' }</span>
       <Tally1 className='flex-center ml-2 -mr-2' />
-      <span>{ search ?? brand ?? category ?? offers?.find( off => off.id === offer )?.name ?? 'catalog' } </span>
+      <span>{ offers?.find( off => off.id === offer )?.name ?? search ?? brand ?? category  ?? 'catalog' } </span>
     </h4>
   );
 }

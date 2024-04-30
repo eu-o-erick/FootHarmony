@@ -14,7 +14,7 @@ interface Props{
 export default function ColorsFilter({query, color}: Props) {
 
   return (
-    <ItemFilter label="Colors">
+    <ItemFilter label="Colors" using={color ? true : false}>
       <ul className="grid grid-cols-4 py-3 px-4 w-40 gap-1.5 justify-center">
         { colors.map( ({label, className}, i) => {
           const actived = color === label;

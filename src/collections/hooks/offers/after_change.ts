@@ -72,9 +72,9 @@ export const updateRelationTo: AfterChangeHook = async (args) => {
       
       return new Promise( async (resolve) => {
 
-        (!status && item.stripeId) && await stripe.products.update(item.stripeId, {
+        (!status && item.stripeId) && (await stripe.products.update(item.stripeId, {
           active: false,
-        }).catch( err => console.error('ERROR disable price on stripe: ', err) );
+        }).catch( err => console.error('ERROR disable price on stripe: ', err) ));
 
         await payload.update({
           collection: item.item_type,
@@ -82,10 +82,10 @@ export const updateRelationTo: AfterChangeHook = async (args) => {
           data: {
             offer: {
               relationTo: status,
-              ...changeValue && {
+              ...(changeValue && {
                 offer_price: item.discount_type === 'new_price' ? item.new_price : null,
                 delivery_free: item.discount_type === 'delivery_free'
-              }
+              })
             }
           },
         }).catch( (err) => console.error('ERROR update offer status on product/variation: ', err));

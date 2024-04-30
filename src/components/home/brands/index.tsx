@@ -2,7 +2,7 @@ import { Brand, Media } from "@/payload-types";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { TBrandsFeatured } from "@/app/page";
 
 interface Props {

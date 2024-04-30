@@ -3,7 +3,7 @@
 import { useDispatch } from "react-redux";
 import { setId } from "@/store/reducers/modal";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { Media, Message, Modal } from "@/payload-types";
 
 

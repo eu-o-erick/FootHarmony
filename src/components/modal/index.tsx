@@ -6,7 +6,7 @@ import { clearId } from "@/store/reducers/modal";
 import { trpc } from "@/trpc/client";
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import RichTextFormater from "../RichText";
 import ButtonModal from "./ButtonLink";
 import SkeletonModal from "./Skeleton";

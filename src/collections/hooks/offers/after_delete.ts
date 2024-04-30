@@ -13,9 +13,9 @@ export const deleteOffer: AfterDeleteHook = async (args) => {
 
     return new Promise( async (resolve) => {
 
-      item.stripeId && await stripe.products.update(item.stripeId, {
+      item.stripeId && (await stripe.products.update(item.stripeId, {
         active: false,
-      }).catch( err => console.error('ERROR disable price on stripe: ', err) );
+      }).catch( err => console.error('ERROR disable price on stripe: ', err) ));
       
       await payload.update({
         collection: item.item_type,

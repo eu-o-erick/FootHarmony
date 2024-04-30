@@ -63,7 +63,7 @@ export default function ItemFilter({label, children, right, using}: Props) {
         })} />
 
         {label}
-        <ChevronDown className="w-4 h-4 transition-all" />
+        <ChevronDown className="pointer-events-none w-4 h-4 transition-all" />
       </button>
 
     </div>

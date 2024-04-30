@@ -62,15 +62,13 @@ export const increaseBrands: AfterChangeHook = async (args) => {
       return null;
     });
 
-    quantity !== null && await payload.update({
+    quantity !== null && (await payload.update({
       collection: 'brand',
       id: currentBrand,
       data: {
         quantity
       }
-    }).catch( (err) => console.error('ERROR increase 1 in brand: ', err) );
-
-
+    }).catch( (err) => console.error('ERROR increase 1 in brand: ', err) ));
 
     if(previousBrand) {
 
@@ -84,13 +82,13 @@ export const increaseBrands: AfterChangeHook = async (args) => {
         return null;
       });
   
-      quantity !== null && await payload.update({
+      quantity !== null && (await payload.update({
         collection: 'brand',
         id: previousBrand,
         data: {
           quantity
         }
-      }).catch( (err) => console.error('ERROR decrease 1 in brand: ', err) );
+      }).catch( (err) => console.error('ERROR decrease 1 in brand: ', err) ));
 
     };
   };
@@ -133,13 +131,13 @@ export const increaseCategories: AfterChangeHook = async (args) => {
         return null;
       });
 
-      quantity !== null && await payload.update({
+      quantity !== null && (await payload.update({
         collection: 'category',
         id: item,
         data: {
           quantity
         }
-      }).catch( (err) => console.error('ERROR increase or decrease 1 in category: ', err) );
+      }).catch( (err) => console.error('ERROR increase or decrease 1 in category: ', err) ));
 
       resolve({});
     });

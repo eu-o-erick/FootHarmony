@@ -10,9 +10,9 @@ export const removeOfProduct: AfterDeleteHook = async (args) => {
   const variations = product?.variations as string[] | undefined;
 
 
-  stripeId && await stripe.products.update(stripeId!, {
+  stripeId && (await stripe.products.update(stripeId!, {
     active: false,
-  }).catch( err => console.error('ERROR disable stripe price: ', stripeId, err));
+  }).catch( err => console.error('ERROR disable stripe price: ', stripeId, err)));
 
   if(!variations?.length) return;
 

@@ -19,7 +19,7 @@ export default function ListItems({value, search, close }: Props) {
   const { status, data: products } = trpc.search.useQuery({value});
 
 
-  return(
+  return (
     <div className={ cn('max-w-[422px] w-full p-3 bg-white border -mt-10 mx-3 shadow-lg hidden max-sm:p-1', {
       "block": value.replace(/ /g, '').length >= 3,
     })}>

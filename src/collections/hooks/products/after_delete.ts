@@ -39,13 +39,13 @@ export const removeOfOffer: AfterDeleteHook = async (args) => {
 
   if(!offer) return;
 
-  const items: any[] = await payload.findByID({
+  const items: any[] = (await payload.findByID({
     collection: 'offer',
     id: offer.id,
     depth: 0
   })
   .then( (data: any) => data.items?.filter( (item: any) => item.product !== args.id ))
-  .catch( err => console.error('ERROR get items of offer to remove product deleted: ', err)) ?? [];
+  .catch( err => console.error('ERROR get items of offer to remove product deleted: ', err))) ?? [];
 
 
   await payload.update({
@@ -72,13 +72,13 @@ export const decreaseBrands: AfterDeleteHook = async (args) => {
     return null;
   });
 
-  quantity !== null && await payload.update({
+  quantity !== null && (await payload.update({
     collection: 'brand',
     id,
     data: {
       quantity
     }
-  }).catch( (err) => console.error('ERROR update brand and decrease 1', err));
+  }).catch( (err) => console.error('ERROR update brand and decrease 1', err)));
 
 };
 
@@ -101,13 +101,13 @@ export const decreaseCategories: AfterDeleteHook = async (args) => {
       });
 
 
-      quantity !== null && await payload.update({
+      quantity !== null && (await payload.update({
         collection: 'category',
         id,
         data: {
           quantity
         }
-      }).catch( (err) => console.error('ERROR update category and decrease 1', err));
+      }).catch( (err) => console.error('ERROR update category and decrease 1', err)));
 
       resolve({});
     });

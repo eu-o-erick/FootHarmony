@@ -33,29 +33,29 @@ export const getProductsRouter = publicProcedure
 
     const where = {
 
-      ...brand && {
+      ...(brand && {
         'details.brand.name': {
           contains: brand
         }
-      },
+      }),
     
-      ...category && {
+      ...(category && {
         'details.categories.name': {
           contains: category
         }
-      },
+      }),
     
-      ...GENERES.includes(genere ?? '') && {
+      ...(GENERES.includes(genere ?? '') && {
         'genere': {
           equals: genere
         }
-      },
+      }),
 
-      ...size && {
+      ...(size && {
         'variations.stock.size': {
           equals: size
         }
-      },
+      }),
   
       and: [
 

@@ -78,7 +78,7 @@ export default function Home() {
         </h3>
       )}
 
-      <CatalogProducts status={status} products={products} />
+      <CatalogProducts status={status} products={products} queries={queries} />
       <DescriptionQueries queries={queries} />
       <Footer />
     </div>

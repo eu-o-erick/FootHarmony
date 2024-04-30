@@ -34,8 +34,8 @@ export default function CardProduct({product}: Props) {
 
         <Link className='flex flex-col' href={`/product/${product.id}/`}>
 
-          <div className="relative h-44 bg-white overflow-hidden ">
-            <Image src={'/media/'+filename} alt='COVER' objectFit='contain' fill className='p-4 group-hover:p-3 transition-all' />
+          <div className="relative flex-center h-44 bg-white overflow-hidden">
+            <Image src={'/media/'+filename} alt='COVER' objectFit='contain' fill className='bg-red-200' />
           </div>
 
           <span className="z-10 mt-3 px-3 text-xs text-[10px] text-gray-500 font-semibold uppercase">{(product.details.brand as Brand).name}</span>

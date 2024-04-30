@@ -1,4 +1,5 @@
 import { Queries } from '@/app/products/page';
+import { trpc } from '@/trpc/client';
 
 
 interface Props{
@@ -6,6 +7,7 @@ interface Props{
 };
 
 export default function DescriptionQueries({ queries }: Props) {
+  const { data: offers } = trpc.offers.useQuery();
 
   const QUERIES = [
     {
@@ -28,10 +30,7 @@ export default function DescriptionQueries({ queries }: Props) {
       value: Number(queries.max_price) < 500 ? queries.max_price : undefined
     },{
       label: 'Offer Filtered: ',
-      value: queries.offer
-    },{
-      label: 'Search For: ',
-      value: queries.search
+      value: queries.offer && offers?.find((offer) => offer.id === queries.offer)?.name
     },{
       label: 'Size Filtered: ',
       value: queries.size
@@ -42,7 +41,7 @@ export default function DescriptionQueries({ queries }: Props) {
   ];
 
   return (
-    <div className="w-full max-w-[1300px] mx-auto px-20 mt-20 opacity-40">
+    <div className="w-full max-w-[1448px] mx-auto px-14 mt-20 flex flex-wrap gap-x-8 gap-y-2 opacity-40">
 
       { QUERIES.map(({label, value}, i) => value && (
 

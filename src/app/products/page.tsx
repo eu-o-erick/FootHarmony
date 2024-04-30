@@ -70,6 +70,14 @@ export default function Home() {
       <Generes />
       <HeaderProducts queries={queries} isFilterOpen={isFilterOpen} toggleFilter={toggleFilter} />
       <Filter queries={queries} query={query} isFilterOpen={isFilterOpen} />
+      
+      { search && (
+        <h3 className="text-xl font-semibold max-w-[1448px] mx-auto px-20 mt-5 uppercase text-gray-500 truncate">
+          RESULTS FOR: 
+          <span className="font-bold"> {search}</span>
+        </h3>
+      )}
+
       <CatalogProducts status={status} products={products} />
       <DescriptionQueries queries={queries} />
       <Footer />

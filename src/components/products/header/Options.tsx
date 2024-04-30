@@ -97,6 +97,7 @@ export default function OptionsHeader({status, offers, isFilterOpen, toggleFilte
 
         </button>
       </div>
+
     </nav>
   );
 };

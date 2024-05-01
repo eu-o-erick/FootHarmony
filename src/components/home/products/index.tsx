@@ -18,7 +18,12 @@ export default function ProductsFeatured({products}: Props) {
       </h3>
 
       { !products || !products.length ?
-        <SkeletonCardProduct />
+
+        <ul className="w-full grid gap-5 grid-cols-4 gap-y-5 max-lg:grid-cols-2 max-lg:px-4 max-lg:gap-10 max-md:px-0 max-sm:gap-y-5 max-sm:gap-x-2">
+          { [0,1,2,3].map((i) => (
+            <SkeletonCardProduct key={i} />
+          ))}
+        </ul>
       :
         <ul className="w-full grid gap-5 grid-cols-4 gap-y-5 max-lg:grid-cols-2 max-lg:px-4 max-lg:gap-10 max-md:px-0 max-sm:gap-y-5 max-sm:gap-x-2">
           { products.map((product, i) => (

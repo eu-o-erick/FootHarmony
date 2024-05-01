@@ -5,22 +5,27 @@ import { Skeleton } from "../ui/skeleton";
 export default function SkeletonCardProduct() {
 
   return (
-    <ul className="w-full flex justify-between max-md:flex-wrap max-md:gap-y-5">
+    <li className="relative flex flex-col justify-between w-full bg-gray-50 shadow-lg border">
 
-      { [0,1,2,3].map((i) => (
-        <li key={i} className="
-              bg-white shadow-lg rounded-md
-              w-60 max-lg:w-48 max-md:w-60 max-sm:w-48 max-[500px]:w-40
-              px-5 py-4 max-lg:px-2 max-lg:py-3 max-md:px-5 max-md:py-4 max-sm:px-2 max-sm:py-3
-            ">
+      <Skeleton className="w-full aspect-[4/3] bg-white" color="black" />
 
-          <Skeleton className="w-full h-32" />
-          <Skeleton className="w-4/5 h-4 my-4" />
-          <Skeleton className="w-12 h-3 mb-3" />
-          <Skeleton className="w-full h-6" />
-        </li>
-      )) }
+      <div className="flex flex-col justify-between">
+        <div className="px-[5%]">
+          <Skeleton className="w-12 h-4 bg-gray-200 my-[2%] max-[500px]:mb-1.5 max-[500px]:h-3.5" />
+          <Skeleton className="w-3/5 h-5 bg-gray-300 mb-[4%] max-[500px]:h-[18px]" />
+        </div>
 
-    </ul>
+        <div className="flex">
+          <div className="w-2/4 h-9 bg-gray-300 flex items-center gap-1.5 px-4 max-md:px-2 max-[500px]:gap-1">
+            <Skeleton className="w-5 h-5 rounded-full bg-gray-400 max-[500px]:scale-90" />
+            <Skeleton className="w-5 h-5 rounded-full bg-gray-400 max-[500px]:scale-90" />
+          </div>
+      
+          <div className="w-2/4 h-9 bg-zinc-500 flex items-center justify-end px-4">
+            <Skeleton className="w-12 h-4 bg-zinc-400 my-[2%]" />
+          </div>
+        </div>
+      </div>
+    </li>
   );
 };

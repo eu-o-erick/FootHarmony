@@ -4,6 +4,7 @@ import CardProduct from '@/components/card_product';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { SearchX } from 'lucide-react';
 import Pagination from "./pagination";
+import SkeletonCardProduct from "@/components/card_product/Skeleton";
 
 
 interface Props{
@@ -52,7 +53,17 @@ export default function CatalogProducts({query, queries}: Props) {
             </p>
           </div>
         : 
-        <BeatLoader color="#030712" size={20} />
+          
+        <ul className={cn(`
+          w-full h-full grid gap-10 grid-cols-4 justify-items-center mt-10 max-[1448px]:gap-3
+          max-lg:gap-5 max-lg:grid-cols-3 max-sm:grid-cols-2 max-sm:gap-5 max-sm:px-5 
+          max-[500px]:px-0 max-[500px]:gap-x-1 max-[500px]:mt-4
+        `)}>
+
+          { [0,1,2,3].map((i) => (
+            <SkeletonCardProduct key={i} />
+          ))}
+        </ul>
       }
 
       { totalPages > 1 && <Pagination query={query} page={queries.page} totalPages={totalPages} /> }

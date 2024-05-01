@@ -82,7 +82,14 @@ export default function CardProduct({product, offer, color}: Props) {
   return (
     <li className='relative group overflow-hidden bg-gray-50 border border-gray-200 shadow-md hover:shadow-lg transition-all w-full'>
 
-      { available && <span className="absolute-center font-bold text-xs z-[10] py-3 px-4 text-gray-200 bg-gray-950 shadow-lg flex-center text-nowrap">OUT OF STOCK</span> }
+      { available &&
+        <span className="
+          absolute-center font-semibold text-xs z-[10] py-3 px-4 text-gray-200 bg-gray-950 
+          shadow-lg flex-center text-nowrap max-sm:px-3  max-sm:text-[10px]
+        ">
+          OUT OF STOCK
+        </span>
+      }
 
       <Link className={cn('flex flex-col', {
          'opacity-60': available

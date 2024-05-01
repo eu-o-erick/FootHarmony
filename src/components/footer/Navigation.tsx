@@ -38,6 +38,8 @@ export default function Navigation() {
   const [navItems, setNavItems] = useState<null | (TNavItems | Offer)[]>(null); 
 
   useEffect(() => {
+    setNavItems(NAV_ITEMS);
+
     if(!offers || !offers.length) return;
 
     setNavItems([ ...NAV_ITEMS, ...offers ])

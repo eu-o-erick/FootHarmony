@@ -1,10 +1,28 @@
-import { Queries } from '@/app/products/page';
 import { trpc } from '@/trpc/client';
 
-
 interface Props{
-  queries: Queries;
+  queries: {
+    [x: string]: string;
+  };
 };
+
+const SORT = [
+  {
+    label: 'Best Sallers',
+    value: 'sold'
+  },{
+    label: 'New Arrivals',
+    value: 'createAt'
+  },{
+    label: 'Lowest Price',
+    value: 'standard_price'
+  },{
+    label: 'Highest Price',
+    value: '-standard_price'
+  },
+];
+
+
 
 export default function DescriptionQueries({ queries }: Props) {
   const { data: offers } = trpc.offers.useQuery();
@@ -12,10 +30,10 @@ export default function DescriptionQueries({ queries }: Props) {
   const QUERIES = [
     {
       label: 'Brand Filtered: ',
-      value: queries.brand
+      value: queries.brand?.replaceAll('+', ' ')
     },{
       label: 'Category Filtered: ',
-      value: queries.category
+      value: queries.category?.replaceAll('+', ' ')
     },{
       label: 'Color Filtered: ',
       value: queries.color
@@ -36,20 +54,25 @@ export default function DescriptionQueries({ queries }: Props) {
       value: queries.size
     },{
       label: 'Sort By: ',
-      value: queries.sort
+      value: queries.sort && SORT.find(sort => sort.value === queries.sort)?.label
     }
   ];
 
+  if( QUERIES.findIndex(query => query.value) < 0 ) return <></>;
+
   return (
-    <div className="w-full max-w-[1448px] mx-auto px-14 mt-20 flex flex-wrap gap-x-8 gap-y-2 opacity-40">
+    <div className={`
+      w-full max-w-[1448px] mx-auto px-16 mt-20 flex flex-wrap gap-x-8 gap-y-3 opacity-40
+      max-lg:px-10 max-sm:px-4 max-[500px]:mt-32 max-[500px]:flex-col max-[500px]:mt-12
+    `}>
 
       { QUERIES.map(({label, value}, i) => value && (
 
-        <div key={i} className="text-sm uppercase my-1">
-          <span className="font-semibold">{label}</span>
-          <span className="font-bold "><strong>{value}</strong></span>
+        <div key={i} className="text-sm uppercase max-[500px]:text-xs font-semibold">
+          {label}
+          <strong>{value}</strong>
         </div>
       ))}
     </div>
   );
-}
+};

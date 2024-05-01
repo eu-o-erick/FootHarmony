@@ -7,10 +7,6 @@ import { Variation } from "@/payload-types";
 
 interface Props {
   variations: Variation[]
-  | {
-    primary_color: string;
-    secondary_color?: string;
-  }[];
   limit?: number;
   variationIndex: number;
   setVariationIndex: React.Dispatch<React.SetStateAction<number>>;
@@ -29,12 +25,16 @@ export default function VariantIcon({ variations, limit, variationIndex, setVari
   return(
     <ul className={cn("flex gap-1.5", className)}>
 
-      { variations.map(({primary_color, secondary_color}: any, i: number) => {
+      { variations.map(({primary_color, secondary_color, stock}, i: number) => {
 
         if(limit && i >= limit) return <></>;
 
+        const isOutOfStock = !stock?.find( ({amount}) => amount > 0);
+
         return(
-          <li key={i} className="relative flex items-center justify-center">
+          <li key={i} className={cn("relative flex items-center justify-center", {
+            'opacity-40': isOutOfStock
+          })}>
 
             <div className={cn("absolute rounded-full transform top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-4 h-4 outline outline-transparent outline-1 outline-offset-1", {
               "outline-zinc-500": variationIndex === i

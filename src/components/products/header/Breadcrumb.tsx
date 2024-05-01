@@ -5,19 +5,19 @@ export default function BreadcrumbProducts() {
 
   return (
     <Breadcrumb>
-      <BreadcrumbList>
+      <BreadcrumbList className="!gap-2 max-sm:!gap-1 max-sm:!text-xs">
     
         <BreadcrumbItem>
-          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          <BreadcrumbLink href="/">HOME</BreadcrumbLink>
         </BreadcrumbItem>
     
         <BreadcrumbSeparator />
     
         <BreadcrumbItem>
-          <BreadcrumbLink href="/products">Products</BreadcrumbLink>
+          <BreadcrumbLink href="/products">PRODUCTS</BreadcrumbLink>
         </BreadcrumbItem>
     
       </BreadcrumbList>
     </Breadcrumb>
   );
-}
+};

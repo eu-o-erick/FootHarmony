@@ -5,14 +5,15 @@ import { useEffect, useRef } from "react";
 import { IoMdArrowDropup } from "react-icons/io";
 
 interface Props{
-  label: string;
   children: React.ReactNode;
+  classNames?: string;
+  label: string;
   right?: boolean;
   using: boolean;
 };
 
 
-export default function ItemFilter({label, children, right, using}: Props) {
+export default function ItemFilter({children, classNames, label, right, using}: Props) {
 
   const ref = useRef<null | HTMLDivElement>(null);
 
@@ -42,9 +43,12 @@ export default function ItemFilter({label, children, right, using}: Props) {
 
 
   return (
-    <div className='relative'>
+    <div className={'relative h-[30px] ' + (classNames ?? '')}>
 
-      <div ref={ref} className={cn("absolute z-20 top-3/4 left-0 mt-2 bg-white shadow-md border border-gray-950 opacity-0 scale-75 pointer-events-none transition-all", {
+      <div ref={ref} className={cn(`
+        absolute z-20 top-3/4 left-0 mt-2 bg-white shadow-md border border-gray-950
+        opacity-0 scale-75 pointer-events-none transition-all
+      `, {
         '!left-auto right-0': right
       })}>
 
@@ -56,7 +60,11 @@ export default function ItemFilter({label, children, right, using}: Props) {
 
       </div>
     
-      <button className="relative shadow-sm button-dropdown border flex-center gap-2 border-gray-950 px-3 py-1.5 font-semibold text-xs uppercase hover:bg-gray-200 transition-all" onClick={toggleOpenDropDown}>
+      <button className={`
+        relative shadow-sm button-dropdown flex-center gap-2 border border-gray-950 px-3 py-1.5
+        font-semibold text-xs uppercase hover:bg-gray-200 transition-all
+      `}
+      onClick={toggleOpenDropDown}>
 
         <div className={cn("w-2 h-full absolute top-0 right-0 bg-gray-950 hidden", {
           'block': using

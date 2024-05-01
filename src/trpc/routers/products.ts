@@ -23,12 +23,14 @@ export const getProductsRouter = publicProcedure
       offer: z.optional( z.string() ),
       size: z.optional( z.string() ),
       sort: z.optional( z.string() ),
+      page: z.optional( z.string() ),
     })
   )
   .query( async ({input}) => {
     const { search, category, brand, color, genere, offer, size, sort } = input;
     const min_price = Number(input.min_price);
     const max_price = Number(input.max_price);
+    const page = Number(input.page);
 
 
     const where = {
@@ -56,7 +58,7 @@ export const getProductsRouter = publicProcedure
           equals: size
         }
       }),
-  
+
       and: [
 
         search ? {
@@ -172,14 +174,19 @@ export const getProductsRouter = publicProcedure
 
     const payload = await getPayloadClient();
 
-    const { docs: products } = await payload.find({
+    const { docs: products, totalPages  } = await payload.find({
       collection: 'product',
       where,
       depth: 3,
-      limit: 10,
-      sort: SORT.includes(sort ?? '') ? sort : undefined
-    }).catch((err: string) => new TRPCError({message: err, code: 'BAD_REQUEST'})) as { docs: Product[] | undefined };
+      limit: 24,
+      sort: SORT.includes(sort ?? '') ? sort : undefined,
+      page: isNaN(page) ? 1 : page,
 
-    return products;
+    }).catch((err: string) => new TRPCError({message: err, code: 'BAD_REQUEST'})) as {
+      docs: Product[] | undefined,
+      totalPages: number
+    };
+
+    return { products, totalPages };
   }
 );

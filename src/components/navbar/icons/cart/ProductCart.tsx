@@ -23,7 +23,7 @@ export default function ProductCart({item}: {item: TShoesShoppingCart}) {
     <div className='w-full flex justify-between'>
 
       <div className="relative w-3/12 h-20 flex">
-        <Image src={variations[variationIndex].img} fill objectFit="contain" alt="IMAGE" />
+        <Image src={variations[variationIndex].img} layout='fill' objectFit="contain" alt="IMAGE" />
       </div>
 
       <div className="flex flex-col justify-between w-7/12">
@@ -34,7 +34,7 @@ export default function ProductCart({item}: {item: TShoesShoppingCart}) {
           </h3>
         </Link>
 
-        <VariantIcon variations={variations} variationIndex={variationIndex} setVariationIndex={setVariationIndex} className='scale-95' />
+        {/* <VariantIcon variations={variations} variationIndex={variationIndex} setVariationIndex={setVariationIndex} className='scale-95' /> */}
       
         <SizeDropdown sizeIndex={sizeIndex} setSizeIndex={setSizeIndex} options={variations[variationIndex].stock} />
 

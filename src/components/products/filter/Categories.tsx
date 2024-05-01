@@ -19,9 +19,9 @@ export default function CategoriesFilter({query, category}: Props) {
           <BarLoader color="#030712" height={3} />
         </div>
         :
-        <ul className="flex flex-col max-h-32 h-auto py-2 overflow-y-auto">
+        <ul className="flex flex-col max-h-48 h-auto py-2 overflow-y-auto">
           { categories?.map(({name}, i) => {
-            const actived = category === name;
+            const actived = category?.replaceAll('+', ' ') === name;
 
             return(
               <li className="" key={i}>

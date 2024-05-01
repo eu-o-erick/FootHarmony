@@ -61,7 +61,7 @@ export default function Categories() {
         <div key={i} className="relative h-48 bg-gray-100 shadow-lg w-full overflow-hidden py-6 px-10 flex flex-col justify-between gap-5 max-lg:px-6 max-[500px]:h-auto max-[500px]:px-3 max-[500px]:py-5">
 
           <div className="absolute -right-10 top-2/4 -translate-y-2/4 h-full w-60 flex-center max-lg:w-52 max-md:w-60 max-[500px]:w-48">
-            <Image src={item.img} alt='IMAGE' width={1000} height={1000} />
+            <Image src={item.img} alt='IMAGE' objectFit="contain" layout="fill" />
           </div>
 
           <h4 className="relative font-semibold text-xl text-gray-500 w-4/5 z-50 max-lg:text-lg max-md:text-xl max-[500px]:text-base">

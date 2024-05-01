@@ -1,63 +1,39 @@
 "use client";
 
-import { trpc } from "@/trpc/client";
+import { useEffect, useState } from "react";
 import { useSearchParams } from 'next/navigation';
 
-import Navbar from "@/components/navbar";
-import Footer from "@/components/footer";
-import HeaderProducts from "@/components/products/header";
-import CatalogProducts from "@/components/products/catalog";
-import { useEffect, useState } from "react";
-import Generes from "@/components/home/generes";
-import Filter from "@/components/products/filter";
 import { closeDropDowns } from "@/lib/close-drop-down";
+
+import Navbar from "@/components/navbar";
+import Generes from "@/components/home/generes";
+import HeaderProducts from "@/components/products/header";
+import Filter from "@/components/products/filter";
+import SearchDecription from '@/components/products/search';
+import CatalogProducts from '@/components/products/catalog';
 import DescriptionQueries from "@/components/products/desc_queries";
-
-
-export interface Queries {
-  search: string | undefined;
-  category: string | undefined;
-  brand: string | undefined;
-  min_price: string | undefined;
-  max_price: string | undefined;
-  color: string | undefined;
-  offer: string | undefined;
-  genere: string | undefined;
-  size: string | undefined;
-  sort: string | undefined;
-};
+import Footer from "@/components/footer";
 
 
 export default function Home() {
   const searchParams = useSearchParams();
 
-  const search = searchParams.get('search') ?? undefined;
-  const category = searchParams.get('category') ?? undefined;
-  const brand = searchParams.get('brand') ?? undefined;
-  const min_price = searchParams.get('min_price') ?? undefined;
-  const max_price = searchParams.get('max_price') ?? undefined;
-  const color = searchParams.get('color') ?? undefined;
-  const offer = searchParams.get('offer') ?? undefined;
-  const genere = searchParams.get('genere') ?? undefined;
-  const size = searchParams.get('size') ?? undefined;
-  const sort = searchParams.get('sort') ?? undefined;
-  
   const query = searchParams.toString();
 
-  const queries = { search, category, brand, min_price, max_price, color, offer, genere, size, sort };
+  const queries = query.split('&').map((key_value) => {
+    const [key, value] = key_value.split('=');
 
-  const { status, data: products } = trpc.products.useQuery(queries) ?? { status: 'error', data: undefined };
+    return {[key]: value};
 
-  useEffect(() => {
-
-    document.body.addEventListener('click', closeDropDowns);
-
-    return () => document.body.removeEventListener('click', closeDropDowns);
-
-  }, []);
-
+  }).reduce((obj, item) => ({ ...obj, ...item }), {});
 
   const [isFilterOpen, setIsFilterOpen] = useState(true);
+
+  
+  useEffect(() => {
+    document.body.addEventListener('click', closeDropDowns);
+    return () => document.body.removeEventListener('click', closeDropDowns);
+  }, []);
 
   function toggleFilter() {
     setIsFilterOpen(!isFilterOpen);
@@ -70,15 +46,8 @@ export default function Home() {
       <Generes />
       <HeaderProducts queries={queries} isFilterOpen={isFilterOpen} toggleFilter={toggleFilter} />
       <Filter queries={queries} query={query} isFilterOpen={isFilterOpen} />
-      
-      { search && (
-        <h3 className="text-xl font-semibold max-w-[1448px] mx-auto px-20 mt-5 uppercase text-gray-500 truncate">
-          RESULTS FOR: 
-          <span className="font-bold"> {search}</span>
-        </h3>
-      )}
-
-      <CatalogProducts status={status} products={products} queries={queries} />
+      <SearchDecription queries={queries} query={query} />
+      <CatalogProducts query={query} queries={queries} />
       <DescriptionQueries queries={queries} />
       <Footer />
     </div>

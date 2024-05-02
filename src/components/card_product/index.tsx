@@ -4,6 +4,7 @@ import VariantIcon from '../VariantIcon';
 import Link from 'next/link';
 import { cn, formatPrice } from '@/lib/utils';
 import Image from "next/legacy/image";
+import CarouselImages from './Images';
 
 
 interface Props{
@@ -73,7 +74,6 @@ export default function CardProduct({product, offer, color}: Props) {
   if(!variations?.length) return <></>;
 
   const variation = variations[variationIndex];
-  const { filename } = variation?.images[0].image as Media ?? { filename: '' };
 
   const priceDefault = variation?.standard_price ?? product.standard_price;
   const priceOffer = variation?.offer?.offer_price ?? product.offer?.offer_price;
@@ -91,23 +91,21 @@ export default function CardProduct({product, offer, color}: Props) {
         </span>
       }
 
-      <Link className={cn('flex flex-col', {
-         'opacity-60': available
-        })}
-        href={`/product/${product.id}/`}>
+      <div className={cn('flex flex-col', {
+        'opacity-60': available
+      })}>
 
-        <div className={cn("aspect-[4/3] bg-white overflow-hidden p-6 group-hover:p-5 transition-all max-[1448px]:p-4  max-[1448px]:group-hover:p-3", {
-          '!p-6 max-[1448px]:!p-4': available
-        })}>
-          <div className="relative w-full h-full">
-            <Image src={'/media/'+filename} alt='COVER' objectFit='contain' layout='fill' />
-          </div>
-        </div>
+        <CarouselImages available={available} variation={variation} />
 
-        <span className="z-10 mt-[2%] px-[5%] text-xs text-[10px] text-gray-500 font-semibold uppercase max-[500px]:mt-1 max-[500px]:-mb-1 max-[500px]:text-[10px]">{(product.details.brand as Brand).name}</span>
-        <h5 className="z-10 mb-[4%] px-[5%] font-bold truncate uppercase max-[500px]:mb-3">{product.name}</h5>
+        <Link className='flex flex-col' href={`/product/${product.id}/`}>
+          <span className="z-10 mt-[2%] px-[5%] text-xs text-[10px] text-gray-500 font-semibold uppercase max-[500px]:mt-1 max-[500px]:-mb-1 max-[500px]:text-[10px]">{(product.details.brand as Brand).name}</span>
+          <h5 className="z-10 mb-[4%] px-[5%] font-bold truncate uppercase max-[500px]:mb-3">{product.name}</h5>
+        </Link>
 
-      </Link>
+      </div>
+        
+
+
 
       <div className="flex">
         <div className="flex items-center px-[5%] py-[3%] bg-gray-300 w-2/4 max-md:px-1">

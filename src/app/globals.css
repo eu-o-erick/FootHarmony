@@ -54,6 +54,11 @@
     background: rgb(75 85 99)!important;
   }
 
+  .shadow-inset{
+    box-shadow: inset 0px 0px 6px #0002 !important;
+  }
+
+
 
   :root {
     --background: 0 0% 100%;

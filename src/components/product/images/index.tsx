@@ -59,14 +59,14 @@ export default function ImagesProduct({images}: Props) {
 
         <div className="absolute top-2/4 -translate-y-2/4 flex justify-between w-full px-3 z-20 opacity-100 transition-all">
           <button className="flex-center" onClick={prev}>
-            <IoIosArrowBack className={cn('bg-gray-50 rounded-full -ml-px text-gray-600 w-7 h-7 p-1.5 hover:p-1 hover:text-gray-900 transition-all max-sm:!p-1 max-sm:!w-6 max-sm:!h-6', {
-              'opacity-60 cursor-default !text-gray-900 !p-1.5': index <= 0
+            <IoIosArrowBack className={cn('text-gray-500 w-10 h-10 p-1.5 hover:p-1 hover:text-gray-950 transition-all max-sm:!p-1 max-sm:!w-8 max-sm:!h-8', {
+              'opacity-0 cursor-default': index <= 0
             })} />
           </button> 
 
           <button className="flex-center" onClick={next}>
-            <IoIosArrowForward className={cn('bg-gray-50 rounded-full -mr-px text-gray-600 w-7 h-7 p-1.5 hover:p-1 hover:text-gray-900 transition-all max-sm:!p-1 max-sm:!w-6 max-sm:!h-6', {
-              'opacity-60 cursor-default !text-gray-900 !p-1.5': index >= images.length - 1
+            <IoIosArrowForward className={cn('text-gray-500 w-10 h-10 p-1.5 hover:p-1 hover:text-gray-950 transition-all max-sm:!p-1 max-sm:!w-8 max-sm:!h-8', {
+              'opacity-0 cursor-default': index >= images.length - 1
             })} />
           </button>
         </div>
@@ -97,7 +97,7 @@ export default function ImagesProduct({images}: Props) {
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Thumbs]}
-        className='bg-white'>
+        className='bg-white border-t border-gray-950'>
 
           { filenames.map((filename, i) => (
             <SwiperSlide key={i} className='relative aspect-[4/3] p-4 shadow-amd'>

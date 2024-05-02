@@ -16,7 +16,7 @@ export default function BreadcrumbComponent({ elements, classNames }: Props) {
 
   return (
     <Breadcrumb>
-      <BreadcrumbList className={"!gap-1.5 max-sm:!gap-1 max-sm:!text-xs text-gray-950 font-semibold uppercase mb-3 " + classNames}>
+      <BreadcrumbList className={"!gap-1.5 max-sm:!gap-1 max-sm:!text-xs text-gray-950 uppercase mb-3 " + classNames}>
 
         { elements.map(({label, href}, i) => (
           <Fragment key={i}>

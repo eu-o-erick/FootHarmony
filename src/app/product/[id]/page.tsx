@@ -4,6 +4,7 @@ import BreadcrumbComponent, { BreadCrumbElement } from '@/components/breadcrumb'
 import Footer from '@/components/footer';
 import Generes from '@/components/home/generes';
 import Navbar from '@/components/navbar';
+import ContentProduct from '@/components/product/content';
 import ImagesProduct from '@/components/product/images';
 import { Brand, Variation } from '@/payload-types';
 import { trpc } from '@/trpc/client';
@@ -19,7 +20,18 @@ export default function Product() {
 
   const { id } = useParams() as any;
 
-  const { status, data: product } = trpc.product.useQuery({id})
+  const { status, data: product } = trpc.product.useQuery({id});
+
+  const [variationIndex, setVariationIndex] = useState(0);
+
+  useEffect(() => {
+    if(!product || !product.variations?.length) return setVariationIndex(0);
+
+    const i = product.variations.findIndex(variation => (variation as Variation).id === variationId) ?? 0;
+
+    setVariationIndex(i);
+
+  }, [product, variationId])
 
 
   if(status !== 'success' || !product) {
@@ -29,9 +41,10 @@ export default function Product() {
     );
 
   } else {
-    const variation = product.variations?.[0] as Variation | null;
+    const variations = product.variations as Variation[] | null;
+    const variation = variations?.[variationIndex] as Variation | null;
 
-    if(!variation) return <></>;
+    if(!variations || !variation) return <></>;
 
     const elements: BreadCrumbElement[] = [
       {
@@ -46,7 +59,7 @@ export default function Product() {
       },{
         label: product.name,
       },
-    ]
+    ];
 
     return (
       <div className='min-h-svh w-full '>
@@ -60,7 +73,7 @@ export default function Product() {
         <div className="grid grid-cols-2 gap-10 max-w-[1278px] mx-auto px-14">
           <ImagesProduct images={variation.images} />
 
-          <div className="w-full h-full bg-red-500" />
+          <ContentProduct product={product} variations={variations} variationIndex={variationIndex} setVariationIndex={setVariationIndex} />
         </div>
         
         <Footer />

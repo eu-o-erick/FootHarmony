@@ -32,18 +32,17 @@ export const getProductsRouter = publicProcedure
     const max_price = Number(input.max_price);
     const page = Number(input.page);
 
-
     const where = {
 
       ...(brand && {
         'details.brand.name': {
-          contains: brand
+          contains: brand.replaceAll('+', ' ')
         }
       }),
     
       ...(category && {
         'details.categories.name': {
-          contains: category
+          contains: category.replaceAll('+', ' ')
         }
       }),
     

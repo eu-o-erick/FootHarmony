@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from 'next/navigation';
 
 import { closeDropDowns } from "@/lib/close-drop-down";
-
 import Navbar from "@/components/navbar";
 import Generes from "@/components/home/generes";
 import HeaderProducts from "@/components/products/header";
@@ -15,7 +14,7 @@ import DescriptionQueries from "@/components/products/desc_queries";
 import Footer from "@/components/footer";
 
 
-export default function Home() {
+export default function Products() {
   const searchParams = useSearchParams();
 
   const query = searchParams.toString();
@@ -41,7 +40,7 @@ export default function Home() {
 
 
   return (
-    <div className="min-h-svh ">
+    <div className="min-h-svh">
       <Navbar />
       <Generes />
       <HeaderProducts queries={queries} isFilterOpen={isFilterOpen} toggleFilter={toggleFilter} />

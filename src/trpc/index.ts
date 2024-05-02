@@ -8,11 +8,13 @@ import { getFeaturedsRouter } from "./routers/featureds";
 import { getBrandsRouter } from "./routers/brands";
 import { getCategoriesRouter } from "./routers/categories";
 import { searchRouter } from "./routers/search";
+import { getProductRouter } from "./routers/product";
 
 
 export const appRouter = router({
   payment: paymenteRouter,
   products: getProductsRouter,
+  product: getProductRouter,
   search: searchRouter,
   messages: getMessagesRouter,
   modal: getModalRouter,

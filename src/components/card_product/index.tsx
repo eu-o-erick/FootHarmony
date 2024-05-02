@@ -97,7 +97,7 @@ export default function CardProduct({product, offer, color}: Props) {
 
         <CarouselImages available={available} variation={variation} />
 
-        <Link className='flex flex-col' href={`/product/${product.id}/`}>
+        <Link className='flex flex-col' href={`/product/${product.id}?variation=${variation.id}`}>
           <span className="z-10 mt-[2%] px-[5%] text-xs text-[10px] text-gray-500 font-semibold uppercase max-[500px]:mt-1 max-[500px]:-mb-1 max-[500px]:text-[10px]">{(product.details.brand as Brand).name}</span>
           <h5 className="z-10 mb-[4%] px-[5%] font-bold truncate uppercase max-[500px]:mb-3">{product.name}</h5>
         </Link>

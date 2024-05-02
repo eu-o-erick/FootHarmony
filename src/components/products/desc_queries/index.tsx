@@ -58,12 +58,11 @@ export default function DescriptionQueries({ queries }: Props) {
     }
   ];
 
-  if( QUERIES.findIndex(query => query.value) < 0 ) return <></>;
 
   return (
     <div className={`
       w-full max-w-[1448px] mx-auto px-16 mt-20 flex flex-wrap gap-x-8 gap-y-3 opacity-40
-      max-lg:px-10 max-sm:px-4 max-[500px]:mt-32 max-[500px]:flex-col max-[500px]:mt-12
+      max-lg:px-10 max-sm:px-4 max-[500px]:flex-col max-[500px]:mt-12
     `}>
 
       { QUERIES.map(({label, value}, i) => value && (

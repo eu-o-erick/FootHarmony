@@ -53,7 +53,7 @@ export default function ImagesProduct({images}: Props) {
 
 
   return (
-    <div>
+    <div className='border bg-white w-[58%]'>
 
       <div className="relative">
 
@@ -77,7 +77,7 @@ export default function ImagesProduct({images}: Props) {
           onSlideChange={handleSwiperUpdate}
           thumbs={{ swiper: thumbsSwiper }}
           modules={[FreeMode, Thumbs]}
-          className='bg-white'>
+          className=''>
 
           { filenames.map((filename, i) => (
             <SwiperSlide key={i} className="w-full aspect-[4/3] p-14">
@@ -89,19 +89,18 @@ export default function ImagesProduct({images}: Props) {
         </Swiper>
       </div>
 
-
       <Swiper
         onSwiper={setThumbsSwiper}
-        slidesPerView={4}
+        slidesPerView={3}
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Thumbs]}
-        className='bg-white !pb-10'>
+        className='!py-6 !px-2'>
 
           { filenames.map((filename, i) => (
-            <SwiperSlide key={i} className='!p-3'>
-              <div className={cn('relative aspect-[4/3] p-4 shadow-md border hover:p-3.5 transition-all', {
-                'border-gray-950 border-b-2': i === index,
+            <SwiperSlide key={i} className='!px-3'>
+              <div className={cn('relative aspect-[4/3] p-5 shadow-md hover:p-4 transition-all border border-gray-100', {
+                'border-gray-400 !border-b-2 !p-2': i === index,
               })}>
 
                 <div className="relative w-full h-full">

@@ -12,6 +12,8 @@ import ButtonModal from "./ButtonLink";
 import SkeletonModal from "./Skeleton";
 
 
+const MONTH = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
 export default function ModalComponent() {
 
   const dispatch = useDispatch();
@@ -47,6 +49,7 @@ export default function ModalComponent() {
         { (!modal || status !== 'success') ?
           <SkeletonModal />
         :
+
           <div className="flex flex-col gap-3 overflow-auto mt-2">
             <Image src={`/media/${(modal.banner as Media).filename}`} className="shadow-md" width={1000} height={1000} alt="BANNER" />
 
@@ -54,9 +57,14 @@ export default function ModalComponent() {
 
             { modal.expiryDate && (
               <p className="text-right font-semibold opacity-60 text-sm">
-                Valid until
+                Expires on
                 <span className="ml-1 font-bold">
-                  {modal.expiryDate.split('T')[0].replaceAll('-','/')}                
+                  { (() => {
+                    const date = modal.expiryDate.split('T')[0].split('-');
+                    const mount = MONTH[Number( (date[1] as any) - 1)];
+
+                    return `${mount} ${date[2]}, ${date[0]}`
+                  })() }
                 </span>
               </p>
             )}

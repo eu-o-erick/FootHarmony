@@ -9,12 +9,14 @@ import { getBrandsRouter } from "./routers/brands";
 import { getCategoriesRouter } from "./routers/categories";
 import { searchRouter } from "./routers/search";
 import { getProductRouter } from "./routers/product";
+import { getSimilarRouter } from "./routers/similar";
 
 
 export const appRouter = router({
   payment: paymenteRouter,
   products: getProductsRouter,
   product: getProductRouter,
+  similar: getSimilarRouter,
   search: searchRouter,
   messages: getMessagesRouter,
   modal: getModalRouter,

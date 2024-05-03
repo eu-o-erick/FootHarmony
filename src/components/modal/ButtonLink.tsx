@@ -47,7 +47,7 @@ export default function ButtonModal({modal}: {modal: Modal}) {
   
   } else {
     return (
-      <Link className="bg-gray-950 text-gray-200 text-center py-3 mt-4 mb-10 shadow:md hover:shadow-lg hover:bg-gray-900 transition-all" href={url}>
+      <Link className="bg-gray-950 text-gray-200 border-2 border-gray-950 text-center py-3 mt-4 mb-10 shadow:md hover:shadow-lg hover:bg-gray-900 transition-all" href={url}>
         { buttonLabel ?? 'See '+linkType }
       </Link>
     );

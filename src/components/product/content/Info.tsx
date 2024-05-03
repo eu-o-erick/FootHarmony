@@ -10,7 +10,7 @@ interface Props{
 export default function Info({product}: Props) {
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col">
 
       <h6 className='uppercase flex items-center text-sm font-semibold text-gray-600 overflow-hidden'>
         <span>{(product.details.brand as Brand).name}</span>
@@ -27,7 +27,7 @@ export default function Info({product}: Props) {
         ))}
       </h6>
 
-      <h1 className="text-3xl font-bold uppercase truncate">{product.name}</h1>
+      <h1 className="text-3xl font-bold uppercase truncate my-2">{product.name}</h1>
 
     </div>
   );

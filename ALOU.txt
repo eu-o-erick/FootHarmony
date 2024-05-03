@@ -1,6 +1,5 @@
 FRONT
-redimensionar produtos na home
-
+funcionalidade no "new" do produto
 
 
 

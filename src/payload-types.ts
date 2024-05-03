@@ -34,11 +34,8 @@ export interface Config {
 export interface Product {
   id: string;
   name: string;
-  subtitle: string;
-  description: {
-    [k: string]: unknown;
-  }[];
-  genere: 'Unisex' | 'Male' | 'Female';
+  description: string;
+  genere: 'unisex' | 'men' | 'women';
   standard_price: number;
   variations?: (string | Variation)[] | null;
   details: {
@@ -75,9 +72,23 @@ export interface Variation {
     | 'Pink'
     | 'Purple'
     | 'Blue'
+    | 'Cyan'
     | 'Green';
   secondary_color?:
-    | ('White' | 'Gray' | 'Black' | 'Brown' | 'Yellow' | 'Orange' | 'Red' | 'Pink' | 'Purple' | 'Blue' | 'Green')
+    | (
+        | 'White'
+        | 'Gray'
+        | 'Black'
+        | 'Brown'
+        | 'Yellow'
+        | 'Orange'
+        | 'Red'
+        | 'Pink'
+        | 'Purple'
+        | 'Blue'
+        | 'Cyan'
+        | 'Green'
+      )
     | null;
   images: {
     image: string | Media;

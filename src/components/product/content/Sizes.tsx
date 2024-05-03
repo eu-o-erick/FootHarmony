@@ -10,28 +10,20 @@ interface Props{
   variation: Variation;
   size: number | undefined;
   setSize: React.Dispatch<React.SetStateAction<number | undefined>>;
+  outOfStock: boolean;
 };
 
 
-export default function Sizes({variation, size: sizeState, setSize}: Props) {
+export default function Sizes({variation, size: sizeState, setSize, outOfStock}: Props) {
   
   const [remaining, setRemaining] = useState<number | undefined>(undefined);
-
-  const [outOfStock, setOutOfStock] = useState(false);
-
-  useEffect(() => {
-    const isOut = !variation.stock.find( ({amount}) => amount > 0 );
-
-    setOutOfStock(isOut);
-
-  }, [variation])
 
 
   return (
     <div className="mt-5 flex flex-col gap-3">
       <h4 className="font-semibold text-gray-700">SIZES</h4>
 
-      <ul className='relative flex flex-wrap gap-3 w-[340px]'>
+      <ul className='relative flex flex-wrap gap-3'>
         { sizes.map((size, i) => {
           const available = variation.stock.find(({amount, size: SIZE}) => SIZE === size && amount > 0);
           const actived = i === sizeState;

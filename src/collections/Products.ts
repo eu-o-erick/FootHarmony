@@ -30,22 +30,14 @@ export const Products: CollectionConfig = {
       required: true,
     },
     
-    // subtitle
+    // description
     {
-      name: 'subtitle',
-      label: 'Subtitle',
-      type: 'text',
+      name: 'description',
+      label: 'Description',
+      type: 'textarea',
       required: true,
     },
     
-    // desc
-    {
-      name: 'description',
-      type: 'richText',
-      editor: slateEditor({}),
-      required: true,
-    },
-
     // genere
     {
       name: 'genere',

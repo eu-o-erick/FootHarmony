@@ -36,60 +36,6 @@ export const Offers: CollectionConfig = {
       type: 'text',
       required: true
     },
-
-    // // msg
-    // {
-    //   name: 'message',
-    //   label: 'Message',
-    //   type: 'relationship',
-    //   relationTo: 'message',
-    //   hasMany: false,
-    //   required: false
-    // },
-    // // modal
-    // {
-    //   name: 'modal',
-    //   label: 'Modal',
-    //   type: 'relationship',
-    //   relationTo: 'message',
-    //   hasMany: false,
-    //   required: false
-    // },
-    // // type banner
-    // {
-    //   name: 'type_banner',
-    //   type: 'radio',
-    //   label: 'Type',
-    //   defaultValue: "none", 
-    //   required: true,
-    //   options: [
-    //     {
-    //       value: 'new_banner',
-    //       label: 'Export a new banner',
-    //     },{
-    //       value: 'same_banner',
-    //       label: 'Use the same banner as the modal',
-    //     },{
-    //       value: 'none',
-    //       label: 'Do not use a banner',
-    //     }
-    //   ]
-    // },
-
-    // banner products
-    {
-      name: 'banner',
-      label: 'Banner Products Page',
-      type: 'upload',
-      relationTo: 'media',
-    },
-    // detai banner page product
-    {
-      name: 'detail_banner',
-      label: 'Detail Banner Product Page(1920x150)',
-      type: 'upload',
-      relationTo: 'media',
-    },
     
     // items
     {

@@ -51,19 +51,19 @@ export default function CarouselImages({available, variation}: Props) {
   return (
     <div className="relative aspect-[4/3] bg-white overflow-hidden">
 
-      <div className={cn("absolute top-2/4 -translate-y-2/4 flex justify-between w-full px-2 z-20 opacity-0 transition-all group-hover:opacity-100", {
+      <div className={cn("absolute top-2/4 -translate-y-2/4 flex justify-between w-full px-1 z-20 opacity-0 transition-all group-hover:opacity-100", {
         '!opacity-100': isMobileDevice
       })}>
 
         <button className="flex-center" onClick={prev}>
-          <IoIosArrowBack className={cn('bg-gray-50 rounded-full -ml-px text-gray-600 w-7 h-7 p-1.5 hover:p-1 hover:text-gray-900 transition-all max-sm:!p-1 max-sm:!w-6 max-sm:!h-6', {
-            'opacity-60 cursor-default !text-gray-900 !p-1.5': index <= 0
+          <IoIosArrowBack className={cn('text-gray-600 w-7 h-7 p-1 hover:p-0.5 hover:text-gray-900 transition-all max-sm:!w-6 max-sm:!h-6', {
+            'opacity-60 cursor-default !text-gray-900 !p-1': index <= 0
           })} />
         </button> 
       
         <button className="flex-center" onClick={next}>
-          <IoIosArrowForward className={cn('bg-gray-50 rounded-full -mr-px text-gray-600 w-7 h-7 p-1.5 hover:p-1 hover:text-gray-900 transition-all max-sm:!p-1 max-sm:!w-6 max-sm:!h-6', {
-            'opacity-60 cursor-default !text-gray-900 !p-1.5': index >= images.length - 1
+          <IoIosArrowForward className={cn('text-gray-600 w-7 h-7 p-1 hover:p-0.5 hover:text-gray-900 transition-all max-sm:!w-6 max-sm:!h-6', {
+            'opacity-60 cursor-default !text-gray-900 !p-1': index >= images.length - 1
           })} />
         </button>
       </div>

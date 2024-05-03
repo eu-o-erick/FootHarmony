@@ -12,7 +12,7 @@ interface Props{
 export default function Buttons({}: Props) {
 
   return (
-    <div className='flex gap-4'>
+    <div className='flex gap-4 my-4'>
 
       <button className="
         uppercase w-full h-10 flex-center gap-2 bg-gray-950 text-gray-200

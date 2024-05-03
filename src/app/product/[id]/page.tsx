@@ -1,16 +1,18 @@
 'use client';
 
-import BreadcrumbComponent, { BreadCrumbElement } from '@/components/breadcrumb';
-import Footer from '@/components/footer';
-import Generes from '@/components/home/generes';
-import Navbar from '@/components/navbar';
-import ContentProduct from '@/components/product/content';
-import ImagesProduct from '@/components/product/images';
-import { Brand, Variation } from '@/payload-types';
+import { useState, useEffect } from 'react';
 import { trpc } from '@/trpc/client';
 import { useSearchParams } from 'next/navigation';
 import { useParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { Brand, Variation } from '@/payload-types';
+
+import BreadcrumbComponent, { BreadCrumbElement } from '@/components/breadcrumb';
+import Navbar from '@/components/navbar';
+import Generes from '@/components/home/generes';
+import ImagesProduct from '@/components/product/images';
+import ContentProduct from '@/components/product/content';
+import Similar from '@/components/product/similar';
+import Footer from '@/components/footer';
 
 
 
@@ -70,12 +72,13 @@ export default function Product() {
           <BreadcrumbComponent elements={elements} />
         </div>
 
-        <div className="grid grid-cols-2 gap-10 max-w-[1278px] mx-auto px-14">
+        <div className="relative flex justify-between items-start max-w-[1278px] mx-auto px-14">
           <ImagesProduct images={variation.images} />
 
           <ContentProduct product={product} variations={variations} variationIndex={variationIndex} setVariationIndex={setVariationIndex} />
         </div>
-        
+
+        <Similar product={product} />
         <Footer />
       </div>
     );

@@ -14,11 +14,11 @@ export default function Price({product, variation}: Props) {
 
 
   return (
-    <div className='flex items-center gap-2 text-lg font-bold my-4'>
+    <div className='flex items-center gap-2 text-xl'>
       { priceOffer && <span className="">{ formatPrice(priceOffer) }</span> }
 
       <span className={cn("", {
-        'text-base text-gray-600 !line-through': priceOffer
+        'text-base text-gray-600 !line-through font-semibold': priceOffer
       })}>
         { formatPrice(priceDefault) }
       </span>

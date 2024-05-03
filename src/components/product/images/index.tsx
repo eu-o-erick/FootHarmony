@@ -77,7 +77,7 @@ export default function ImagesProduct({images}: Props) {
           onSlideChange={handleSwiperUpdate}
           thumbs={{ swiper: thumbsSwiper }}
           modules={[FreeMode, Thumbs]}
-          className='bg-white shadow-mad'>
+          className='bg-white'>
 
           { filenames.map((filename, i) => (
             <SwiperSlide key={i} className="w-full aspect-[4/3] p-14">
@@ -92,22 +92,22 @@ export default function ImagesProduct({images}: Props) {
 
       <Swiper
         onSwiper={setThumbsSwiper}
-        spaceBetween={0}
         slidesPerView={4}
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Thumbs]}
-        className='bg-white border-t border-gray-950'>
+        className='bg-white !pb-10'>
 
           { filenames.map((filename, i) => (
-            <SwiperSlide key={i} className='relative aspect-[4/3] p-4 shadow-amd'>
-              <div className="relative w-full h-full">
-                <Image src={'/media/'+filename} layout='fill' objectFit='contain' alt="" />
-              </div>
+            <SwiperSlide key={i} className='!p-3'>
+              <div className={cn('relative aspect-[4/3] p-4 shadow-md border hover:p-3.5 transition-all', {
+                'border-gray-950 border-b-2': i === index,
+              })}>
 
-              <div className={cn("absolute bottom-0 left-0 w-full h-0 bg-gray-950 transition-all", {
-                'h-px': i === index,
-              })} />
+                <div className="relative w-full h-full">
+                  <Image src={'/media/'+filename} layout='fill' objectFit='contain' alt="" />
+                </div>
+              </div>
             </SwiperSlide>
           )) }
       </Swiper>

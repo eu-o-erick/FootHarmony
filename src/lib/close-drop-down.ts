@@ -11,7 +11,7 @@ export function closeDropDowns(e: MouseEvent) {
 
     if( !el.contains(elem) ) {
 
-      const currentTarget = elem.parentElement?.getElementsByTagName('div')[0];
+      const currentTarget = elem.parentElement?.parentElement?.getElementsByTagName('div')[0];
 
       if(currentTarget === el) return;
 

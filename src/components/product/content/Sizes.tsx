@@ -1,10 +1,7 @@
-'use client';
-
 import { sizes } from '@/constants/sizes';
 import { cn } from '@/lib/utils';
 import { Variation } from '@/payload-types';
-import { useEffect, useState } from 'react';
-
+import { useState } from 'react';
 
 interface Props{
   variation: Variation;

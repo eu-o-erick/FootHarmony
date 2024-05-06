@@ -35,9 +35,9 @@ export default function OfferComponent({product, variation}: Props) {
   if(!offer) return <></>;
 
   return (
-    <div className='mt-5 py-3 !px-4 bg-gray-50 rounded-md shadow-inset'>
-      <h3 className="font-semibold text-gray-600">{offer.name}</h3>
-      <p className="text-sm text-gray-500">offer qualquer coisa que vem na minha cabeça my mama call,</p>
+    <div className='mt-5 py-3 !px-4 bg-gray-100 rounded-md shadow-inset'>
+      <h3 className="font-semibold text-gray-500">{offer.name}</h3>
+      <p className="text-sm text-gray-400">offer qualquer coisa que vem na minha cabeça my mama called</p>
     </div>
   );
 };

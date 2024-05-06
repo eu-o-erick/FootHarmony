@@ -5,6 +5,7 @@ import { trpc } from '@/trpc/client';
 import { useSearchParams } from 'next/navigation';
 import { useParams } from 'next/navigation';
 import { Brand, Variation } from '@/payload-types';
+import { closeDropDowns } from '@/lib/close-drop-down';
 
 import BreadcrumbComponent, { BreadCrumbElement } from '@/components/breadcrumb';
 import Navbar from '@/components/navbar';
@@ -26,6 +27,15 @@ export default function Product() {
 
   const [variationIndex, setVariationIndex] = useState(0);
 
+
+
+  useEffect(() => {
+    document.body.addEventListener('click', closeDropDowns);
+
+    return () => document.body.removeEventListener('click', closeDropDowns);
+  }, []);
+
+
   useEffect(() => {
     if(!product || !product.variations?.length) return setVariationIndex(0);
 
@@ -36,11 +46,15 @@ export default function Product() {
   }, [product, variationId])
 
 
+
+
   if(status !== 'success' || !product) {
 
     return(
       <>num tem, ou carregano</>
     );
+
+
 
   } else {
     const variations = product.variations as Variation[] | null;

@@ -10,12 +10,12 @@ export interface Config {
   collections: {
     product: Product;
     variation: Variation;
+    size: Size;
     brand: Brand;
     category: Category;
     tag: Tag;
     offer: Offer;
     coupon: Coupon;
-    carousel: Carousel;
     modal: Modal;
     message: Message;
     featured: Featured;
@@ -127,6 +127,7 @@ export interface Variation {
     amount: number;
     id?: string | null;
   }[];
+  sizes: string | Size;
   sold: number;
   updatedAt: string;
   createdAt: string;
@@ -155,8 +156,6 @@ export interface Offer {
   id: string;
   name: string;
   page_title: string;
-  banner?: string | Media | null;
-  detail_banner?: string | Media | null;
   items?:
     | {
         item_type: 'product' | 'variation';
@@ -175,6 +174,35 @@ export interface Offer {
   with_coupon: boolean;
   enable: boolean;
   expiration: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "size".
+ */
+export interface Size {
+  id: string;
+  name: string;
+  size5?: string | null;
+  size5_5?: string | null;
+  size6?: string | null;
+  size6_5?: string | null;
+  size7?: string | null;
+  size7_5?: string | null;
+  size8?: string | null;
+  size8_5?: string | null;
+  size9?: string | null;
+  size9_5?: string | null;
+  size10?: string | null;
+  size10_5?: string | null;
+  size11?: string | null;
+  size11_5?: string | null;
+  size12?: string | null;
+  size12_5?: string | null;
+  size13?: string | null;
+  size13_5?: string | null;
+  size14?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -275,26 +303,6 @@ export interface Modal {
   buttonLabel?: string | null;
   active: boolean;
   expiryDate?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "carousel".
- */
-export interface Carousel {
-  id: string;
-  name: string;
-  image_desktop: string | Media;
-  image_mobile: string | Media;
-  type: 'Link' | 'Modal';
-  type_link?: ('Product' | 'Variation' | 'Brand' | 'Category' | 'Offer') | null;
-  product?: (string | null) | Product;
-  variation?: (string | null) | Variation;
-  brand?: (string | null) | Brand;
-  category?: (string | null) | Category;
-  offer?: (string | null) | Offer;
-  modal?: (string | null) | Modal;
   updatedAt: string;
   createdAt: string;
 }

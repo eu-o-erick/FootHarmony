@@ -179,6 +179,16 @@ export const Variations: CollectionConfig = {
       required: true,
     },
 
+    // ref sizes
+    {
+      name: 'sizes',
+      label: 'Length of Sizes',
+      type: 'relationship',
+      relationTo: 'size',
+      hasMany: false,
+      required: true
+    },
+
     // sold
     {
       name: 'sold',

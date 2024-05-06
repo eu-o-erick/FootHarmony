@@ -9,11 +9,12 @@ interface Props{
   classNames?: string;
   label: string;
   right?: boolean;
-  using: boolean;
+  using?: boolean;
+  button?: React.ReactNode;
 };
 
 
-export default function ItemFilter({children, classNames, label, right, using}: Props) {
+export default function ItemFilter({children, classNames, label, right, using, button}: Props) {
 
   const ref = useRef<null | HTMLDivElement>(null);
 
@@ -59,19 +60,23 @@ export default function ItemFilter({children, classNames, label, right, using}: 
         { children }
 
       </div>
-    
-      <button className={`
-        relative shadow-sm button-dropdown flex-center gap-2 border border-gray-950 px-3 py-1.5
-        font-semibold text-xs uppercase hover:bg-gray-200 transition-all
-      `}
-      onClick={toggleOpenDropDown}>
 
-        <div className={cn("w-2 h-full absolute top-0 right-0 bg-gray-950 hidden", {
-          'block': using
-        })} />
 
-        {label}
-        <ChevronDown className="pointer-events-none w-4 h-4 transition-all" />
+      <button className="relative flex-center uppercase text-xs" onClick={toggleOpenDropDown}>
+          
+        { button ??
+
+          <span className='flex-center button-dropdown gap-2 font-semibold transition-all shadow-sm border border-gray-950 px-3 py-1.5 hover:bg-gray-200'>
+            
+            <div className={cn("w-2 h-full absolute top-0 right-0 bg-gray-950 hidden", {
+              'block': using
+            })} />
+
+            {label}
+            
+            <ChevronDown className="pointer-events-none w-4 h-4 transition-all" />
+          </span>
+        }
       </button>
 
     </div>

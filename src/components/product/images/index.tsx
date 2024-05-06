@@ -53,7 +53,7 @@ export default function ImagesProduct({images}: Props) {
 
 
   return (
-    <div className='border bg-white w-[58%]'>
+    <div className='bg-white border w-[58%]'>
 
       <div className="relative">
 

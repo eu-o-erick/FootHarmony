@@ -8,7 +8,7 @@ import Buttons from './Buttons';
 import Price from './Price';
 import VariationsImages from './Variations';
 import Quantity from './Quantity';
-import { Methods } from './Methods';
+import Accordions from './Accordions';
 import OfferComponent from './Offer';
 
 
@@ -38,7 +38,7 @@ export default function ContentProduct({product, variations, variationIndex, set
 
 
   return (
-    <section className='relative flex flex-col px-10 py-12 bg-white border w-[40%]'>
+    <section className='relative flex flex-col px-10 w-[40%]'>
       <span className="absolute top-11 right-10 flex-center w-16 h-7 bg-gray-950 text-gray-200 text-xs mb-2">NEW</span>
       <Info product={product} />
       <VariationsImages product={product} variations={variations} variationIndex={variationIndex} />
@@ -52,7 +52,7 @@ export default function ContentProduct({product, variations, variationIndex, set
 
       <OfferComponent product={product} variation={variations[variationIndex]} />
 
-      <Methods product={product} />
+      <Accordions product={product} variation={variations[variationIndex]}  />
     </section>
   );
 }

@@ -6,11 +6,11 @@ import { mongooseAdapter } from "@payloadcms/db-mongodb";
 
 import { Products } from "./collections/Products";
 import { Variations } from "./collections/Variations";
+import { Sizes } from "./collections/Sizes";
 import { Brands } from "./collections/Brands";
 import { Category } from "./collections/Categories";
 import { Tags } from "./collections/Tags";
 import { Media } from "./collections/Media";
-import { Carousel } from "./collections/Carousel";
 import { Modal } from "./collections/Modal";
 import { Messages } from "./collections/Message";
 import { Featured } from "./collections/Featured";
@@ -28,7 +28,7 @@ dotenv.config({
 
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
-  collections: [Products, Variations, Brands, Category, Tags,  Offers, Coupons, Carousel, Modal, Messages, Featured, Media, Orders],
+  collections: [Products, Variations, Sizes, Brands, Category, Tags,  Offers, Coupons, Modal, Messages, Featured, Media, Orders],
   routes: {
     admin: '/admin',
   },

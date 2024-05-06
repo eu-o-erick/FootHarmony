@@ -37,7 +37,7 @@
     --tw-text-opacity: 1;
     color: rgb(229 231 235 / var(--tw-text-opacity));
     --tw-bg-opacity: 1;
-    background-color: rgb(3 7 18 / var(--tw-bg-opacity)) !important;
+    background-color: rgb(3 7 18 / var(--tw-bg-opacity));
   }
 
   .show-dropdown ~ .button-dropdown > svg {
@@ -55,7 +55,7 @@
   }
 
   .shadow-inset{
-    box-shadow: inset 0px 0px 4px #0001 !important;
+    box-shadow: inset 0px 0px 10px #00000006 !important;
   }
 
 

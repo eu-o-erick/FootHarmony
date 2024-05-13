@@ -53,7 +53,7 @@ export default function ImagesProduct({images}: Props) {
 
 
   return (
-    <div className='bg-white border w-[58%]'>
+    <div className='w-[58%] bg-white border border-gray-950 select-none'>
 
       <div className="relative">
 
@@ -99,8 +99,8 @@ export default function ImagesProduct({images}: Props) {
 
           { filenames.map((filename, i) => (
             <SwiperSlide key={i} className='!px-3'>
-              <div className={cn('relative aspect-[4/3] p-5 shadow-md hover:p-4 transition-all border border-gray-100', {
-                'border-gray-400 !border-b-2 !p-2': i === index,
+              <div className={cn('relative aspect-[4/3] p-5 shadow-md hover:p-4 transition-all border border-gray-700', {
+                'border-gray-950 !border-y-2 !p-2': i === index,
               })}>
 
                 <div className="relative w-full h-full">

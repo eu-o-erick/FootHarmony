@@ -1,10 +1,10 @@
+
 FRONT
 funcionalidade no "new" do produto
+adicionar algo descrevendo a cor dda variation na pagina do produto
 
 
 
 BACKEND
-receber paginação nos produtos
 quando atualiza um produto de uma oferta e nao altera o valor, ou o id, ele n faz nada
 não repetir a escolha nos destacados, filtro nas relações
-esconder as tamnhas que ja foram colocados

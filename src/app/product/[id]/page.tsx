@@ -5,7 +5,6 @@ import { trpc } from '@/trpc/client';
 import { useSearchParams } from 'next/navigation';
 import { useParams } from 'next/navigation';
 import { Brand, Variation } from '@/payload-types';
-import { closeDropDowns } from '@/lib/close-drop-down';
 
 import BreadcrumbComponent, { BreadCrumbElement } from '@/components/breadcrumb';
 import Navbar from '@/components/navbar';
@@ -28,14 +27,6 @@ export default function Product() {
   const [variationIndex, setVariationIndex] = useState(0);
 
 
-
-  useEffect(() => {
-    document.body.addEventListener('click', closeDropDowns);
-
-    return () => document.body.removeEventListener('click', closeDropDowns);
-  }, []);
-
-
   useEffect(() => {
     if(!product || !product.variations?.length) return setVariationIndex(0);
 
@@ -47,7 +38,6 @@ export default function Product() {
 
 
 
-
   if(status !== 'success' || !product) {
 
     return(
@@ -55,8 +45,8 @@ export default function Product() {
     );
 
 
-
   } else {
+    
     const variations = product.variations as Variation[] | null;
     const variation = variations?.[variationIndex] as Variation | null;
 
@@ -78,7 +68,7 @@ export default function Product() {
     ];
 
     return (
-      <div className='min-h-svh w-full '>
+      <div className='min-h-svh w-full'>
         <Navbar />
         <Generes />
 
@@ -89,7 +79,7 @@ export default function Product() {
         <div className="relative flex justify-between items-start max-w-[1278px] mx-auto px-14">
           <ImagesProduct images={variation.images} />
 
-          <ContentProduct product={product} variations={variations} variationIndex={variationIndex} setVariationIndex={setVariationIndex} />
+          <ContentProduct product={product} variation={variation} variations={variations} variationIndex={variationIndex}  />
         </div>
 
         <Similar product={product} />

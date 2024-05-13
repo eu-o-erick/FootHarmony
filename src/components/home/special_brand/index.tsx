@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/ui/MyButton";
 import Image from "next/legacy/image";
 import Link from "next/link";
 import { Fragment, useEffect, useState } from "react";
@@ -76,9 +77,9 @@ export default function SpecialBrand() {
               you take is a stride in fashion-forward confidfence.
             </p>
 
-            <Link href={'/products?category=running'} className="w-36 h-12 bg-gray-950 max-sm:h-10 max-sm:w-32 max-sm:text-sm flex-center text-gray-200 shadow-md hover:bg-gray-900 hover:text-gray-50 hover:shadow-lg transition-all">
-              Shop Now! 
-            </Link>
+            <Button href="/products?category=running" className="!text-base h-12 w-36 max-sm:h-10 max-sm:w-32 max-sm:my-10 ">
+              SHOP NOW
+            </Button>
 
           </div>
         </div>

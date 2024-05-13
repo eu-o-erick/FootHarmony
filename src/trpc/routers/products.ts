@@ -177,7 +177,7 @@ export const getProductsRouter = publicProcedure
       collection: 'product',
       where,
       depth: 3,
-      limit: 24,
+      limit: 1,
       sort: SORT.includes(sort ?? '') ? sort : undefined,
       page: isNaN(page) ? 1 : page,
 

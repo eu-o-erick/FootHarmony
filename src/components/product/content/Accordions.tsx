@@ -16,6 +16,8 @@ interface SizeProps {
 };
 
 
+const PAYMENTS = ['mastercard', 'stripe', 'paypal', 'gpay'];
+
 export default function Accordions({product, variation}: Props) {
 
   const [sizeGuide, setSizeGuide] = useState<SizeProps[]>([]);
@@ -98,9 +100,19 @@ export default function Accordions({product, variation}: Props) {
             ensuring seamless and secure exchanges of value. Here&apos;s a list of common payment methods:
           </p>
 
-          <div className="relative w-full h-32 p-10">
-            <Image src="/payment-methods.jpg" objectFit="contain" layout="fill" alt="mastercard, payoneer, apple ply, stripe, paypal, visa, skrill, google pay" />
-          </div>
+          <ul className="flex justify-between">
+
+            { PAYMENTS.map((payment, i) => (
+              <li className="flex-center bg-white w-[22%] aspect-[4/2] shadow-sm rounded-sm py-2" key={i}>
+
+                <div className="relative w-full h-full">
+                  <Image src={"/payments/"+payment+'.png'} objectFit="contain" layout="fill" alt={payment} />
+                </div>
+              </li>
+            )) }
+
+          </ul>
+
         </AccordionContent>
       </AccordionItem>
       

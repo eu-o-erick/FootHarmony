@@ -1,5 +1,6 @@
 import CardProduct from "@/components/card_product"
 import SkeletonCardProduct from "@/components/card_product/Skeleton";
+import Button from "@/components/ui/MyButton";
 import { Product } from "@/payload-types"
 import Link from "next/link";
 
@@ -32,9 +33,9 @@ export default function ProductsFeatured({products}: Props) {
         </ul>
       }
 
-      <Link href={'/products'} className="bg-gray-950 h-12 w-52 mx-auto my-20 text-gray-200 shadow-md flex-center hover:shadow-lg hover:bg-gray-900 transition-all max-sm:my-16">
-        See All Products
-      </Link>
+      <Button href="/products" className="!text-base h-12 w-52 mx-auto my-20 max-sm:my-16">
+        SEE ALL PRODUCTS
+      </Button>
     </section>
   );
 };

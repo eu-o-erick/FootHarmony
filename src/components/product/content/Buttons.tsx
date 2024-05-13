@@ -1,34 +1,25 @@
-'use client';
-
+import Button from '@/components/ui/MyButton';
 import { ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
 
 
-interface Props{
+interface Props {
+  addProduct: () => void;
+}
 
-};
-
-export default function Buttons({}: Props) {
+export default function Buttons({addProduct}: Props) {
 
   return (
-    <div className='flex gap-4 my-4'>
+    <div className='flex gap-3 my-4'>
 
-      <button className="
-        uppercase w-full h-10 flex-center gap-2 bg-gray-950 text-gray-200
-        border-2 border-gray-950 hover:bg-gray-900 transition-all
-      ">
-        <ShoppingCart className='w-4 h-4 ' />
+      <Button handler={addProduct} className='w-full h-10 gap-2'>
+        <ShoppingCart className='w-4 h-4' />
         Add to cart
-      </button>
+      </Button>
 
-      <Link className="
-        uppercase !w-[30%] h-10 flex-center gap-2
-        border border-gray-950 bg-gray-100 
-        hover:bg-white transition-all
-      " href={'/'}>
-        buy
-      </Link>
+      <Button href={'/'} className='w-full max-w-[25%] h-10 text-gray-950 !border !bg-gray-100 hover:!bg-white hover:!border-2 hover:font-semibold'>
+        BUY
+      </Button>
 
     </div>
   );

@@ -1,3 +1,4 @@
+import Button from '@/components/ui/MyButton';
 import ItemFilter from './Item';
 import { createURLQueries } from '@/lib/utils';
 import { Minus } from 'lucide-react';
@@ -107,9 +108,9 @@ export default function PriceFilter({query, min_price, max_price}: Props) {
 
 
         <div className="flex justify-end mt-4">
-          <Link href={ createURLQueries(query, { min_price: String(stateMin), max_price: String(stateMax) })} className="text-xs px-4 py-2 shadow-md bg-gray-950 text-gray-200 hover:bg-gray-900 transition-all">
+          <Button href={createURLQueries(query, { min_price: String(stateMin), max_price: String(stateMax) })} className="text-xs px-4 py-1.5">
             APPLY
-          </Link>
+          </Button>
         </div>
 
       </div>

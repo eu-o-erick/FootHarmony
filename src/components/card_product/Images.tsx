@@ -49,7 +49,7 @@ export default function CarouselImages({available, variation}: Props) {
 
 
   return (
-    <div className="relative aspect-[4/3] bg-white overflow-hidden">
+    <div className="relative aspect-[4/3] bg-white overflow-hidden select-none">
 
       <div className={cn("absolute top-2/4 -translate-y-2/4 flex justify-between w-full px-1 z-20 opacity-0 transition-all group-hover:opacity-100", {
         '!opacity-100': isMobileDevice
@@ -75,7 +75,7 @@ export default function CarouselImages({available, variation}: Props) {
       
         { images.map((_, i) => (
           <div key={i} className={cn("w-full h-0 bg-gray-950 transition-all", {
-            'h-0.5': i == index
+            'h-px': i == index
           })} />
         )) }
       </div>

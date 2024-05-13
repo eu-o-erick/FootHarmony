@@ -1,9 +1,8 @@
-import { Brand, Media, Product, Variation } from '@/payload-types';
+import { Brand, Product, Variation } from '@/payload-types';
 import { useEffect, useState } from 'react';
 import VariantIcon from '../VariantIcon';
 import Link from 'next/link';
 import { cn, formatPrice } from '@/lib/utils';
-import Image from "next/legacy/image";
 import CarouselImages from './Images';
 
 
@@ -71,9 +70,9 @@ export default function CardProduct({product, offer, color}: Props) {
   }, [variations]);
 
 
-  if(!variations?.length) return <></>;
+  const variation = variations?.[variationIndex];
 
-  const variation = variations[variationIndex];
+  if(!variation) return <></>;
 
   const priceDefault = variation?.standard_price ?? product.standard_price;
   const priceOffer = variation?.offer?.offer_price ?? product.offer?.offer_price;
@@ -104,8 +103,6 @@ export default function CardProduct({product, offer, color}: Props) {
 
       </div>
         
-
-
 
       <div className="flex">
         <div className="flex items-center px-[5%] py-[3%] bg-gray-300 w-2/4 max-md:px-1">

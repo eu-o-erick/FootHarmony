@@ -1,3 +1,4 @@
+import Button from "@/components/ui/MyButton";
 import Image from "next/legacy/image";
 import Link from "next/link";
 
@@ -72,9 +73,9 @@ export default function Categories() {
 
           </h4>
 
-          <Link href={item.link} className="z-50 py-1.5 w-36 bg-gray-900 text-gray-200 flex-center max-[500px]:text-sm max-[500px]:w-28">
-            See More
-          </Link>
+          <Button href={item.link} className="z-50 py-1.5 w-36 max-[500px]:text-sm max-[500px]:w-28">
+            SEE MORE
+          </Button>
 
         </div>
       ))}

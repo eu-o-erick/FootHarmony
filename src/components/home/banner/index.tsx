@@ -1,5 +1,6 @@
 'use client';
 
+import Button from "@/components/ui/MyButton";
 import Image from "next/legacy/image";
 import Link from 'next/link';
 
@@ -23,9 +24,10 @@ export default function Banner() {
             fashion, ensuring every step you take is a statement. Elevate your footwear game
           </p>
 
-          <Link href={'/products'} className="bg-gray-950 h-12 w-36 flex-center text-gray-200 shadow-md hover:shadow-lg hover:bg-gray-900 transition-all max-sm:my-10">
-            Shop Now!
-          </Link>
+          <Button href="/products" className="!text-base h-12 w-36 max-sm:my-10 ">
+            SHOP NOW
+          </Button>
+
         </article>
 
         <div className="relative flex justify-end items-center gap-20 w-2/4 max-2xl:gap-5 max-lg:gap-0 max-md:w-full max-md:px-4 max-md:gap-5">

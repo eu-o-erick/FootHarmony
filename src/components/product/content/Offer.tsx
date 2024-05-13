@@ -8,29 +8,16 @@ interface Props{
 
 export default function OfferComponent({product, variation}: Props) {
 
-  const [relatedTo, setRelatedTo] = useState<'product' | 'variation' | undefined>(undefined);
   const [offer, setOffer] = useState<Offer | undefined>(undefined);
 
 
   useEffect(() => {
-    const productOffer = product.offer?.relationTo as Offer | undefined;
-    const variationOffer = variation.offer?.relationTo as Offer | undefined;
+    const productOffer = product.offer?.relationTo as Offer | undefined ?? variation.offer?.relationTo as Offer | undefined;
 
-    if(variationOffer) {
-      setOffer(variationOffer);
-      setRelatedTo('variation');
-    
-    } else if(productOffer){
-      setOffer(productOffer);
-      setRelatedTo('product');
-
-    } else {
-      setOffer(undefined);
-      setRelatedTo(undefined);
-
-    };
+    setOffer(productOffer);
 
   }, [variation]);
+
 
   if(!offer) return <></>;
 

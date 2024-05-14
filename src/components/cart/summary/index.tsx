@@ -1,17 +1,17 @@
 import { useState } from "react";
 import PromoCode from "./PromoCode";
 import { CartItem } from "@/hooks/use-cart";
-import { Product } from "@/payload-types";
 import Checkout from "./Checkout";
 import Values from "./Values";
+import { ItemCart } from "..";
 
 interface Props{
   items: CartItem[];
   status: "error" | "success" | "loading";
-  products: Product[] | undefined;
+  itemsCart: ItemCart[];
 };
 
-export default function SummaryCart({ items, status, products }: Props) {
+export default function SummaryCart({ items, status, itemsCart }: Props) {
 
   const [total, setTotal] = useState(0);
 

@@ -15,7 +15,7 @@ export default function Button({children, className, handler, href}: Props) {
     return(
       <button onClick={handler} className={`
         flex-center text-sm !uppercase shadow-md transition-all 
-        border-2 border-gray-950 bg-gray-950 text-gray-200 hover:bg-zinc-900
+        border-2 border-gray-950 bg-gray-950 text-gray-200 hover:!bg-zinc-900
         ${className}
       `}>
         {children}
@@ -27,7 +27,7 @@ export default function Button({children, className, handler, href}: Props) {
     return(
       <Link href={href} className={`
         flex-center text-sm shadow-md transition-all 
-        border-2 border-gray-950 bg-gray-950 text-gray-200 hover:bg-zinc-900
+        border-2 border-gray-950 bg-gray-950 text-gray-200 hover:!bg-zinc-900
         ${className}
       `}>
         {children}

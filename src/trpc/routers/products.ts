@@ -24,15 +24,22 @@ export const getProductsRouter = publicProcedure
       size: z.optional( z.string() ),
       sort: z.optional( z.string() ),
       page: z.optional( z.string() ),
+      ids: z.optional( z.string() ),
     })
   )
   .query( async ({input}) => {
-    const { search, category, brand, color, genere, offer, size, sort } = input;
+    const { search, category, brand, color, genere, offer, size, sort, ids } = input;
     const min_price = Number(input.min_price);
     const max_price = Number(input.max_price);
     const page = Number(input.page);
 
     const where = {
+
+      ...(ids && {
+        'id': {
+          in: ids
+        }
+      }),
 
       ...(brand && {
         'details.brand.name': {
@@ -177,7 +184,7 @@ export const getProductsRouter = publicProcedure
       collection: 'product',
       where,
       depth: 3,
-      limit: 1,
+      limit: 24,
       sort: SORT.includes(sort ?? '') ? sort : undefined,
       page: isNaN(page) ? 1 : page,
 

@@ -55,13 +55,13 @@ export default function SpecialBrand() {
   return (
     <section className='flex flex-col w-full max-w-[2000px] mx-auto'>
 
-      <article className="flex bg-gray-200 max-md:flex-col">
+      <article className="flex bg-gray-100 max-md:flex-col">
 
-        <div className="w-2/4 max-md:w-full">
+        <div className="w-2/4 flex max-md:w-full">
           <Image src={'/category.jpg'} alt='IMAGE' width={widthImage} height={widthHeight} objectFit="cover" />
         </div>
 
-        <div className="relative w-2/4 max-md:w-full">
+        <div className="relative w-2/4 flex max-md:w-full">
 
           <div className="w-full opacity-20 blur-sm">
             <Image src={'/category.jpg'} alt='' width={widthImage} height={widthHeight} objectFit="cover" />
@@ -71,7 +71,7 @@ export default function SpecialBrand() {
 
             <h3 className="text-4xl font-semibold max-xl:text-2xl max-md:text-4xl max-sm:text-2xl">FootHarmony: Stride in <br></br>Style Comfortably</h3>
 
-            <p className="text-lg max-xl:text-base max-xl:mb-4 max-lg:text-sm max-md:text-base  max-sm:mb-2">
+            <p className="text-lg max-xl:text-base max-xl:mb-4 max-lg:text-sm max-md:text-base max-sm:mb-2">
               At FootHarmony, we&apos;re more than just a shoe resellling brand;<br></br>
               we&apos;re curators of style and quality. With a parssion for footwear, we handpick each pair, ensuring every step
               you take is a stride in fashion-forward confidfence.
@@ -85,14 +85,14 @@ export default function SpecialBrand() {
         </div>
       </article>
 
-      <ul className="flex justify-around items-center py-5 px-10 my-4 border-y-2 border-y-gray-500 max-lg:px-2">
+      <ul className="flex justify-around items-center py-5 px-10 mt-6 border-y-2 border-y-gray-950 max-lg:px-2">
 
         { manyTimes.map(i => (
           <Fragment key={i}>
-            <li className="text-3xl font-semibold opacity-70 max-2xl:text-xl max-md:text-lg">FOOTHARMONY</li>
+            <li className="text-3xl font-semibold max-2xl:text-xl max-md:text-lg">FOOTHARMONY</li>
 
             { i + 1 < manyTimes.length &&
-              <li className="w-3 h-3 bg-gray-500 max-md:w-2 max-md:h-2" />
+              <li className="w-3 h-3 bg-gray-950 max-md:w-2 max-md:h-2" />
             
             }
           </Fragment>

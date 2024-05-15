@@ -26,7 +26,7 @@ export default function Cart() {
     <div className='min-h-svh w-full'>
       <Navbar />
       <Generes />
-      <main className="flex flex-col w-full max-w-5xl px-14 mx-auto my-10">
+      <main className="flex flex-col w-full max-w-6xl px-14 mx-auto my-10">
         <BreadcrumbComponent elements={elements} />
 
         <h1 className="text-2xl font-semibold mt-2">SHOPPING CART</h1>

@@ -16,7 +16,7 @@ export default function SummaryCart({ items, status, itemsCart }: Props) {
   const [total, setTotal] = useState(0);
 
   return (
-    <div className='w-[34%] flex flex-col bg-white shadow-md border border-gray-400'>
+    <div className='w-[30%] flex flex-col bg-white shadow-md border border-gray-400'>
 
       <h2 className="p-4 mb-4 text-lg font-semibold bg-gray-950 text-gray-200">SUMMARY</h2>
 

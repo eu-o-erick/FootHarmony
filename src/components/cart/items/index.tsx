@@ -12,18 +12,18 @@ export default function ItemsCart({ status, itemsCart }: Props) {
 
 
   return (
-    <div className='bg-white shadow-md w-[63%] flex flex-col gap-2'>
-      <h2 className="p-4 mb-4 text-lg font-semibold bg-gray-950 text-gray-200">ORDER</h2>
+    <div className='bg-white shadow-md w-[68%] flex flex-col gap-2'>
+      <h2 className="p-4 text-lg font-semibold bg-gray-950 text-gray-200">ORDER</h2>
 
-      <div className="px-4">
+      <div className="px-6">
 
         <Table>
           <TableHeader>
             <TableRow className="hover:bg-white">
               <TableHead className="max-w-2/4">Product Details</TableHead>
-              <TableHead>Quantity</TableHead>
-              <TableHead>Price</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
+              <TableHead className="text-center">Quantity</TableHead>
+              <TableHead className="text-center">Price</TableHead>
+              <TableHead className="text-end">Amount</TableHead>
             </TableRow>
           </TableHeader>
 
@@ -46,37 +46,10 @@ export default function ItemsCart({ status, itemsCart }: Props) {
         </Table>
       </div>
   
-      <Link href={'/products'} className="font-semibold text-xs text-gray-400 hover:underline m-5 mb-10">
+      <Link href={'/products'} className="font-semibold text-xs text-gray-400 hover:underline m-6 mb-10">
         CONTINUE SHOPPING
       </Link>
 
     </div>
   );
 };
-
-
-
-
-
-
-{/*
-<TableCaption>A list of your recent invoices.</TableCaption>
-<TableFooter>
-  <TableRow>
-    <TableCell colSpan={3}>Total</TableCell>
-    <TableCell className="text-right">$2,500.00</TableCell>
-  </TableRow>
-</TableFooter>
-<ul className="">
-{ itemsCart.map(({product, variation, size, quantity}, i) => {
-  return(
-    <li key={i} className="flex p-4">
-      <Link href={`/product/${product.id}?variation=${variation.id}`} className="block relative w-24 aspect-[4/3]">
-        <Image src={'/media/'+(variation.images[0].image as Media).filename} alt="COVER" objectFit="contain" layout="fill"  />
-      </Link>
-      {product.name}
-    </li>
-  );
-})}
-</ul>
- */}

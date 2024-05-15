@@ -16,7 +16,7 @@ export default function Checkout(props: Props) {
       <Button href="alou" className="py-2 mb-2">CHECKOUT</Button>
       
       <p className="font-light text-sm text-gray-500">
-        By continuing to Checkoput, you are agreeing to our
+        By continuing to Checkout, you are agreeing to our
         <Link href="#" className="underline mx-1 text-gray-950">Terms of Use</Link>
         and
         <Link href="#" className="underline mx-1 text-gray-950">Privacy Policy</Link>

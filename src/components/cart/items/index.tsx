@@ -1,72 +1,52 @@
-import { CartItem } from "@/hooks/use-cart";
-import { ItemCart } from "..";
 import Link from "next/link";
-import Image from "next/legacy/image";
-import { Media } from "@/payload-types";
-
-
-import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-
-
+import { ItemCart } from "..";
+import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import ItemCartComponent from "./Item";
 
 interface Props{
-  items: CartItem[];
   status: "error" | "success" | "loading";
   itemsCart: ItemCart[];
 };
 
-export default function ItemsCart({ items, status, itemsCart }: Props) {
+export default function ItemsCart({ status, itemsCart }: Props) {
+
 
   return (
-    <div className='bg-white shadow-md w-[63%] flex flex-col gap-2 px-5 pt-6\\\'>
+    <div className='bg-white shadow-md w-[63%] flex flex-col gap-2'>
+      <h2 className="p-4 mb-4 text-lg font-semibold bg-gray-950 text-gray-200">ORDER</h2>
 
-      { status !== "success" ?
-        <>carregano</>  
-      :
-        itemsCart?.length ?
+      <div className="px-4">
 
-          <Table>
+        <Table>
+          <TableHeader>
+            <TableRow className="hover:bg-white">
+              <TableHead className="max-w-2/4">Product Details</TableHead>
+              <TableHead>Quantity</TableHead>
+              <TableHead>Price</TableHead>
+              <TableHead className="text-right">Amount</TableHead>
+            </TableRow>
+          </TableHeader>
 
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-2/4">PRODUCT DETAILS</TableHead>
-                <TableHead>QUANTITY</TableHead>
-                <TableHead>PRICE</TableHead>
-                <TableHead className="text-right">TOTAL</TableHead>
-              </TableRow>
-            </TableHeader>
+          <TableBody>
+            { status !== "success" ?
+              // <>carregano</>
+              undefined  
+            :
+              itemsCart?.length ?
+            
+                itemsCart.map((item, i) =>
+                  <ItemCartComponent key={i} item={item} />
+                )
+              :
+              undefined
+              // <>não tem nenhum item</>
+          }
+          </TableBody>
 
-            <TableBody>
-
-              { itemsCart.map(({product, variation, size, quantity}, i) => {
-
-                return(
-                  <TableRow key={i} className="hover:bg-white">
-                    <TableCell className="flex">
-                      <Link href={`/product/${product.id}?variation=${variation.id}`} className="relative w-24 aspect-[4/3] group bg-white overflow-hidden">
-                        <Image src={'/media/'+(variation.images[0].image as Media).filename} alt="COVER" objectFit="contain" layout="fill" className="group-hover:scale-110 transition-all" />
-                      </Link>
-
-                      <div className=""></div>
-
-                    </TableCell>
-                    
-                    <TableCell>vvvvv</TableCell>
-                    <TableCell>cccccc</TableCell>
-                    <TableCell>llll</TableCell>
-                  </TableRow>
-                );
-              })}
-
-            </TableBody>
-
-          </Table>
-
-          :
-          <>não tem nenhum item</>
-      }
-
-      <Link href={'/products'} className="font-semibold text-xs text-gray-400 hover:underline my-5">
+        </Table>
+      </div>
+  
+      <Link href={'/products'} className="font-semibold text-xs text-gray-400 hover:underline m-5 mb-10">
         CONTINUE SHOPPING
       </Link>
 

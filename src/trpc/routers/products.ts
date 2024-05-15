@@ -33,9 +33,11 @@ export const getProductsRouter = publicProcedure
     const max_price = Number(input.max_price);
     const page = Number(input.page);
 
+    if(ids === '') return { products: undefined, totalPages: 0 };
+
     const where = {
 
-      ...(ids && {
+      ...( ids && {
         'id': {
           in: ids
         }

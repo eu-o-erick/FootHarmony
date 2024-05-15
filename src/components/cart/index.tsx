@@ -17,34 +17,39 @@ export interface ItemCart {
 export default function CartContent() {
   const { items } = useCart();
 
-  const { data, status } = trpc.products.useQuery({ ids: items.map(item => item.productId).join(',') });
+  const ids = items.map(item => item.productId).join(',');
+
+  const { data, status } = trpc.products.useQuery({ ids });
 
   const [itemsCart, setItemsCart] = useState<ItemCart[]>([]);
 
   useEffect(() => {
-    if(!data?.products || !data.products.length) return setItemsCart([]);
+    const products = data?.products;
 
-    console.log('data: ', data)
+    if(!products || !products.length) return setItemsCart([]);
 
     const arr: ItemCart[] = [];
 
-    data.products.forEach((product) => {
+    
+    for( const item of items) {
 
-      const item = items.find(item => item.productId === product.id) as CartItem;
+      item.variations.forEach(({variationId, size, quantity}) => {
 
-      const variations = product.variations as Variation[] | undefined;
-      
-      const variation = variations?.find(variation => variation.id === item.variationId);
+        const product = products.find(({id}) => id === item.productId);
+        const variation = (product?.variations as Variation[] | undefined)?.find(({id}) => id === variationId);
 
-      if(!variation) return undefined;
+        if(!product || !variation) return;
 
-      arr.push({
-        product,
-        variation,
-        size: item.size,
-        quantity: item.quantity,
-      })
-    });
+        arr.push({
+          product,
+          variation,
+          size,
+          quantity,
+        });
+      });
+
+    };
+
 
     setItemsCart(arr);
   
@@ -53,7 +58,7 @@ export default function CartContent() {
 
   return (
     <section className="flex items-start justify-between mt-10">
-      <ItemsCart items={items} status={status} itemsCart={itemsCart} />
+      <ItemsCart status={status} itemsCart={itemsCart} />
 
       <SummaryCart items={items} status={status} itemsCart={itemsCart} />
     </section>

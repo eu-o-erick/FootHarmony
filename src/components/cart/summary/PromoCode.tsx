@@ -1,6 +1,5 @@
+import Error from "@/components/Error";
 import Button from "@/components/ui/MyButton";
-import { cn } from "@/lib/utils";
-import { Info } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 interface Props{
@@ -13,16 +12,6 @@ export default function PromoCode(props: Props) {
 
   const refInput = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    if(!isError) return;
-
-    setTimeout(() => {
-      setIsError(false);
-
-    }, 2000)
-
-  }, [isError])
-
   function handler() {
     if(!refInput.current) return;
 
@@ -30,6 +19,7 @@ export default function PromoCode(props: Props) {
 
     refInput.current.value = '';
   };
+
 
   return (
     <div className="relative p-4 flex flex-col items-start">
@@ -49,18 +39,14 @@ export default function PromoCode(props: Props) {
           "
           placeholder="CODE"
           maxLength={10}
-          autoComplete="off"/>
+          autoComplete="off"
+          onKeyDown={(e) => e.code === 'Enter' && handler() }/>
 
         <Button handler={handler} className="min-w-24 h-9 !border !bg-gray-100 text-gray-950 hover:text-gray-200">APPLY</Button>
       </div>
 
 
-      <div className={cn("fixed top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 scale-75 opacity-0 flex items-center gap-2 text-red-400 bg-red-100 px-3 py-2 mt-2 rounded-sm transition-all ", {
-        'opacity-100 scale-100': isError
-      })}>
-        <Info className="w-4 h-4" />
-        <span className="text-sm whitespace-nowrap">Promotion code invalid</span>
-      </div>
+      <Error isError={isError} setIsError={setIsError} label={'Promotion code invalid'} />
 
     </div>
   );

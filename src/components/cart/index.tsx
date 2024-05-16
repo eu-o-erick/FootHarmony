@@ -25,13 +25,19 @@ export default function CartContent() {
   const [itemsCart, setItemsCart] = useState<ItemCart[]>([]);
 
   useEffect(() => {
+    getProducts();
+  
+  }, [data]);
+
+
+
+  function getProducts() {
     const products = data?.products;
 
     if(!products || !products.length) return setItemsCart([]);
 
     const arr: ItemCart[] = [];
 
-    
     for( const item of items) {
 
       item.variations.forEach(({variationId, size, quantity}) => {
@@ -51,42 +57,15 @@ export default function CartContent() {
 
     };
 
-
     setItemsCart(arr);
-  
-  }, [data]);
+  };
 
 
   return (
-    <section className="mt-10">
-      <div className="flex items-start justify-between ">
-        <ItemsCart status={status} itemsCart={itemsCart} />
+    <section className="mt-10 flex items-start justify-between ">
+      <ItemsCart status={status} itemsCart={itemsCart} getProducts={getProducts} />
 
-        <SummaryCart items={items} status={status} itemsCart={itemsCart} />
-      </div>
-
-      <Separator className="mt-40 mb-10" />
-
-      <div className="py-8 px-10 bg-zinc-950 shadow-lg flex flex-col gap-2">
-        <h5 className="text-gray-300 text-xl font-semibold ml-2 mb-2">RETURN TERMS</h5>
-
-        <p className="text-gray-500">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo animi sequi quibusdam
-          voluptatem fugiat ratione ipsam et consequuntur, aperiam qui minus voluptatum sunt id 
-          amet eius veniam mollitia necessitatibus repellat.
-        </p>
-
-        <p className="text-gray-500">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, aliquid cupiditate.
-          Tempora error nostrum libero blanditiis tenetur. Accusamus repellat molestias blanditiis
-          praesentium id natus deleniti fuga, rerum molestiae soluta corrupti.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid laudantium accusamus saepe
-          dolor vitae eaque veritatis sint quisquam voluptates! Voluptas at ut commodi aliquid quae
-          placeat mollitia quidem excepturi nemo.
-        </p>
-
-      </div>
-
+      <SummaryCart items={items} status={status} itemsCart={itemsCart} />
     </section>
   );
 }

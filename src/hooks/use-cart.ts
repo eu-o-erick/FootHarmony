@@ -120,10 +120,22 @@ export const useCart = create<CartState>()(
 
       removeItem: (productId, variationId) => {
         set((state) => {
-          const items = [...state.items];
-
-
           
+          const items = state.items.map((item) => {
+            if(item.productId !== productId) return item;
+
+            const variations = item.variations.filter(variation => variation.variationId !== variationId);
+
+            if(!variations.length) return null;
+
+            return {
+              ...item,
+              variations
+            };
+            
+          }).filter(item => item !== null);
+
+
           return { items };
         })
       },

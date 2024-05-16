@@ -11,10 +11,11 @@ import { cn, formatPrice } from "@/lib/utils";
 
 interface Props{
   item: ItemCart;
+  getProducts: () => void;
 };
 
 
-export default function ItemCartComponent({item}: Props) {
+export default function ItemCartComponent({item, getProducts}: Props) {
   const { product, variation, size } = item;
 
   const priceDefault = variation.standard_price ?? product.standard_price;
@@ -34,6 +35,7 @@ export default function ItemCartComponent({item}: Props) {
 
   function remove() {
     removeItem(product.id, variation.id);
+    getProducts();
 
   };
 

@@ -11,6 +11,8 @@ import Quantity from './Quantity';
 import Accordions from './Accordions';
 import OfferComponent from './Offer';
 import { useCart } from '@/hooks/use-cart';
+import { sizes } from '@/constants/sizes';
+import Error from '@/components/Error';
 
 
 interface Props{
@@ -22,11 +24,12 @@ interface Props{
 
 export default function ContentProduct({product, variation, variations, variationIndex}: Props) {
 
+  const [isError, setIsError] = useState(false);
   const [size, setSize] = useState<number | undefined>(undefined);
   const [quantity, setQuantity] = useState(1);
   const [outOfStock, setOutOfStock] = useState(false);
   
-  const cart = useCart();
+  const { addItem } = useCart();
 
 
   useEffect(() => {
@@ -41,8 +44,9 @@ export default function ContentProduct({product, variation, variations, variatio
 
 
   function addProduct() {
-    cart.addItem( product.id, variations[variationIndex].id, variation.stock[size ?? 0].size, quantity );
+    if(!size) return setIsError(true);
 
+    addItem( product.id, variations[variationIndex].id, sizes[size], quantity );
   };
 
 
@@ -51,18 +55,21 @@ export default function ContentProduct({product, variation, variations, variatio
       <span className="absolute top-0 right-0 flex-center w-16 h-7 bg-gray-950 text-gray-200 text-xs mb-2">NEW</span>
       <Info product={product} />
       <VariationsImages product={product} variations={variations} variationIndex={variationIndex} />
-      <Sizes outOfStock={outOfStock} variation={variation} size={size} setSize={setSize} />
+      <Sizes outOfStock={outOfStock} variation={variation} size={size} setSize={setSize} isError={isError} />
 
       <div className="flex justify-between items-center my-6">
         <Quantity outOfStock={outOfStock} quantity={quantity} setQuantity={setQuantity} />
         <Price outOfStock={outOfStock} product={product} variation={variation} />
       </div>
 
-      <Buttons addProduct={addProduct} />
+      <Buttons addProduct={addProduct} outOfStock={outOfStock} />
 
       <OfferComponent product={product} variation={variation} />
 
       <Accordions product={product} variation={variation}  />
+
+      <Error isError={isError} setIsError={setIsError} label={'Sizes is empty'} />
+
     </section>
   );
 };

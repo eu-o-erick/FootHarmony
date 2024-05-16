@@ -8,10 +8,11 @@ interface Props{
   size: number | undefined;
   setSize: React.Dispatch<React.SetStateAction<number | undefined>>;
   outOfStock: boolean;
+  isError: boolean;
 };
 
 
-export default function Sizes({variation, size: sizeState, setSize, outOfStock}: Props) {
+export default function Sizes({variation, size: sizeState, setSize, outOfStock, isError}: Props) {
   
   const [remaining, setRemaining] = useState<number | undefined>(undefined);
 
@@ -29,8 +30,9 @@ export default function Sizes({variation, size: sizeState, setSize, outOfStock}:
             <li key={i}>
               <button className={cn("flex-center w-9 h-8 border rounded-sm bg-white border-gray-950 font-bold text-sm transition-all", {
                   'cursor-default shadow-inset opacity-50 border-transparent': !available,
-                  'bg-gray-950 text-gray-200': actived,
+                  'bg-gray-950 text-gray-200 !border-gray-950': actived,
                   '!opacity-20': outOfStock,
+                  'border-2 border-red-300': isError
                 })}
                 onClick={ () => {
                   if(!available) return;

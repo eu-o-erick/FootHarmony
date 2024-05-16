@@ -11,11 +11,10 @@ import { cn, formatPrice } from "@/lib/utils";
 
 interface Props{
   item: ItemCart;
-  getProducts: () => void;
 };
 
 
-export default function ItemCartComponent({item, getProducts}: Props) {
+export default function ItemCartComponent({item}: Props) {
   const { product, variation, size } = item;
 
   const priceDefault = variation.standard_price ?? product.standard_price;
@@ -34,12 +33,11 @@ export default function ItemCartComponent({item, getProducts}: Props) {
 
 
   function remove() {
-    removeItem(product.id, variation.id);
-    getProducts();
+    removeItem(product.id, variation.id, size);
 
   };
 
-
+  const href = `/product/${product.id}?variation=${variation.id}`
 
 
   return (
@@ -50,17 +48,19 @@ export default function ItemCartComponent({item, getProducts}: Props) {
 
       <TableCell className="flex gap-2 px-0">
       
-        <Link href={`/product/${product.id}?variation=${variation.id}`} className="relative w-24 aspect-[4/3] group bg-white overflow-hidden">
+        <Link href={href} className="relative w-24 aspect-[4/3] group bg-white overflow-hidden">
           { invalid && <span className="z-10 absolute-center px-2 py-1 text-[10px] bg-gray-950 text-gray-200 whitespace-nowrap">OUT OF STOCK</span>  }
 
           <Image src={'/media/'+(variation.images[0].image as Media).filename} alt="COVER" objectFit="contain" layout="fill" className="group-hover:scale-105 transition-all" />
         </Link>
 
-        <div className="flex flex-col gap-1">
-          <h4 className="text-sm font-semibold text-gray-600 uppercase mb-1 truncate w-44">{product.name}feaf aef aef aeffae</h4>
+        <div className="flex flex-col gap-1" style={{maxWidth: 'calc(100% - 1px)'}}>
+          <Link href={href} className="text-sm font-semibold text-gray-600 uppercase mb-1 truncate max-w-60">
+            {product.name}
+          </Link>
           
-          <div className="text-xs mr-1">
-            <span className="text-gray-400">SIZE:</span>
+          <div className="text-xs">
+            <span className="text-gray-400 mr-1">SIZE:</span>
             <span className="text-gray-600 font-semibold"> {size}</span>
           </div>
 

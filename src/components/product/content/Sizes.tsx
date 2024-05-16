@@ -56,4 +56,4 @@ export default function Sizes({variation, size: sizeState, setSize, outOfStock, 
       </span>
     </div>
   );
-}
+};

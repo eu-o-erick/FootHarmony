@@ -16,7 +16,7 @@ type CartState = {
   items: CartItem[];
   addItem: (productId: string, variationId: string, size: string, quantity: number) => void;
   updateQuantity: (productId: string, variationId: string, quantity: number) => void;
-  removeItem: (productId: string, variationId: string) => void;
+  removeItem: (productId: string, variationId: string, size: string) => void;
   clearCart: () => void;
 };
 
@@ -35,11 +35,11 @@ export const useCart = create<CartState>()(
 
           if( items.find(item => item.productId === productId ) ) {
 
-            const arr = items.map((item) => {
+            items.map((item) => {
               
               if(item.productId !== productId) return item;
 
-              const variation = item.variations.find(variation => variation.variationId === variationId );
+              const variation = item.variations.find(variation => variation.variationId === variationId && variation.size === size );
 
               if(!variation) {
 
@@ -53,11 +53,10 @@ export const useCart = create<CartState>()(
 
                 const variations = item.variations.map((variation => {
                   
-                  if(variation.variationId !== variationId) return variation;
+                  if(variation.variationId !== variationId || variation.size !== size) return variation;
 
                   return {
-                    variationId,
-                    size,
+                    ...variation,
                     quantity,
                   };
 
@@ -70,7 +69,6 @@ export const useCart = create<CartState>()(
 
             });
 
-            console.log('arr: ', arr)
 
           } else {
 
@@ -85,8 +83,6 @@ export const useCart = create<CartState>()(
               ]
             });
           };
-
-          console.log('items: ', items)
 
           return { items };
         })
@@ -118,13 +114,13 @@ export const useCart = create<CartState>()(
         })
       },
 
-      removeItem: (productId, variationId) => {
+      removeItem: (productId, variationId, size) => {
         set((state) => {
           
           const items = state.items.map((item) => {
             if(item.productId !== productId) return item;
 
-            const variations = item.variations.filter(variation => variation.variationId !== variationId);
+            const variations = item.variations.filter(variation => (variation.variationId !== variationId || variation.size !== size ));
 
             if(!variations.length) return null;
 

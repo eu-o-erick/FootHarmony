@@ -6,10 +6,9 @@ import ItemCartComponent from "./Item";
 interface Props{
   status: "error" | "success" | "loading";
   itemsCart: ItemCart[];
-  getProducts: () => void;
 };
 
-export default function ItemsCart({ status, itemsCart, getProducts }: Props) {
+export default function ItemsCart({ status, itemsCart }: Props) {
 
 
   return (
@@ -21,7 +20,7 @@ export default function ItemsCart({ status, itemsCart, getProducts }: Props) {
         <Table>
           <TableHeader>
             <TableRow className="hover:bg-white">
-              <TableHead className="max-w-2/4">Product Details</TableHead>
+              <TableHead className="w-2/5">Product Details</TableHead>
               <TableHead className="text-center">Quantity</TableHead>
               <TableHead className="text-center">Price</TableHead>
               <TableHead className="text-end">Amount</TableHead>
@@ -36,7 +35,7 @@ export default function ItemsCart({ status, itemsCart, getProducts }: Props) {
               itemsCart?.length ?
             
                 itemsCart.map((item, i) =>
-                  <ItemCartComponent key={i} item={item} getProducts={getProducts} />
+                  <ItemCartComponent key={i} item={item} />
                 )
               :
               undefined

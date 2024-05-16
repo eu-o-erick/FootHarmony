@@ -62,7 +62,7 @@ export default function ContentProduct({product, variation, variations, variatio
         <Price outOfStock={outOfStock} product={product} variation={variation} />
       </div>
 
-      <Buttons addProduct={addProduct} outOfStock={outOfStock} />
+      <Buttons addProduct={addProduct} outOfStock={outOfStock} size={size} />
 
       <OfferComponent product={product} variation={variation} />
 

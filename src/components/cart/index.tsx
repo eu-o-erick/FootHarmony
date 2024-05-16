@@ -25,13 +25,6 @@ export default function CartContent() {
   const [itemsCart, setItemsCart] = useState<ItemCart[]>([]);
 
   useEffect(() => {
-    getProducts();
-  
-  }, [data]);
-
-
-
-  function getProducts() {
     const products = data?.products;
 
     if(!products || !products.length) return setItemsCart([]);
@@ -58,12 +51,13 @@ export default function CartContent() {
     };
 
     setItemsCart(arr);
-  };
+  
+  }, [data, items]);
 
 
   return (
     <section className="mt-10 flex items-start justify-between ">
-      <ItemsCart status={status} itemsCart={itemsCart} getProducts={getProducts} />
+      <ItemsCart status={status} itemsCart={itemsCart} />
 
       <SummaryCart items={items} status={status} itemsCart={itemsCart} />
     </section>

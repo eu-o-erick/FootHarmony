@@ -42,7 +42,7 @@ export default function PromoCode(props: Props) {
           autoComplete="off"
           onKeyDown={(e) => e.code === 'Enter' && handler() }/>
 
-        <Button handler={handler} className="min-w-24 h-9 !border !bg-gray-100 text-gray-950 hover:text-gray-200">APPLY</Button>
+        <Button handler={handler} className="min-w-24 h-9">APPLY</Button>
       </div>
 
 

@@ -21,12 +21,12 @@ export default function Buttons({addProduct, outOfStock, size}: Props) {
     setTimeout(() => {
       setState('added');
 
-    }, 500)
+    }, 100)
 
     setTimeout(() => {
       setState('none');
 
-    }, 3000)
+    }, 2000)
 
   }, [state]);
 
@@ -39,9 +39,11 @@ export default function Buttons({addProduct, outOfStock, size}: Props) {
 
 
   function handler() {
+    if(state !== 'none') return;
+
     addProduct();
 
-    if(state !== 'none' || !size) return;
+    if(!size) return;
 
     setState('load');
   };

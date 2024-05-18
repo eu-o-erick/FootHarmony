@@ -1,10 +1,9 @@
-import { CartItem, useCart } from "@/hooks/use-cart";
+import { useCart } from "@/hooks/use-cart";
 import ItemsCart from "./items";
 import SummaryCart from "./summary";
 import { useEffect, useState } from "react";
 import { Product, Variation } from "@/payload-types";
 import { trpc } from "@/trpc/client";
-import { Separator } from "../ui/separator";
 
 
 export interface ItemCart {

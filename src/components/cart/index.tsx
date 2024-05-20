@@ -4,6 +4,7 @@ import SummaryCart from "./summary";
 import { useEffect, useState } from "react";
 import { Product, Variation } from "@/payload-types";
 import { trpc } from "@/trpc/client";
+import { useSearchParams } from "next/navigation";
 
 
 export interface ItemCart {
@@ -18,40 +19,65 @@ export default function CartContent() {
   const { items } = useCart();
 
   const ids = items.map(item => item.productId).join(',');
+  const query = useSearchParams().get('product');
+  const json = JSON.parse(query ?? '{}');
 
-  const { data, status } = trpc.products.useQuery({ ids });
+  const { data, status } = trpc.products.useQuery({ ids: json?.product ? json.product : ids });
 
   const [itemsCart, setItemsCart] = useState<ItemCart[]>([]);
+
+
 
   useEffect(() => {
     const products = data?.products;
 
-    if(!products || !products.length) return setItemsCart([]);
+    if(!products?.length) return setItemsCart([]);
 
-    const arr: ItemCart[] = [];
+    if( Object.keys(json).length > 0 ) {
 
-    for( const item of items) {
+      const product = products[0];
 
-      item.variations.forEach(({variationId, size, quantity}) => {
+      const variation = (product.variations as Variation[])?.find(({id}) => id === (json.variation ?? '') );
 
-        const product = products.find(({id}) => id === item.productId);
-        const variation = (product?.variations as Variation[] | undefined)?.find(({id}) => id === variationId);
+      if(!variation) return setItemsCart([]);
 
-        if(!product || !variation) return;
 
-        arr.push({
-          product,
-          variation,
-          size,
-          quantity,
+      setItemsCart([{
+        product,
+        variation,
+        size: json.size,
+        quantity: json.quantity,
+      }]);
+
+
+    } else {
+
+      const arr: ItemCart[] = [];
+
+      for( const item of items) {
+
+        item.variations.forEach(({variationId, size, quantity}) => {
+
+          const product = products.find(({id}) => id === item.productId);
+          const variation = (product?.variations as Variation[] | undefined)?.find(({id}) => id === variationId);
+
+          if(!product || !variation) return;
+
+          arr.push({
+            product,
+            variation,
+            size,
+            quantity,
+          });
         });
-      });
+      };
 
+      setItemsCart(arr);
+    
     };
 
-    setItemsCart(arr);
-  
-  }, [data, items]);
+  }, [data, items, query]);
+
 
 
   return (

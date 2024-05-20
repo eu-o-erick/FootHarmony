@@ -10,7 +10,7 @@ interface PropsInput {
 export default function AutoCompleteAddress({ value, isLoading }: PropsInput) {
 
   return(
-    <p className="w-full h-10 py-2 pl-3 pr-9 border text-gray-500 uppercase font-semibold">
+    <p className="w-full h-10 py-2 pl-3 pr-9 border text-gray-900 uppercase font-semibold">
       { isLoading ?
         <PulseLoader color="#ccc" size={5} />
         :

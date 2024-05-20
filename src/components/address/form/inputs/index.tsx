@@ -3,6 +3,7 @@ import InputEmailAddress from "./Email";
 import AutoCompleteAddress from "./AutoComplete";
 import InputTextareaAddress from "./Textarea";
 import InputZipAddress from "./Zip";
+import InputPhoneAddress from "./Phone";
 
 interface PropsComponentInput {
   type: 'text' | 'email' | 'phone' | 'zip' | 'autocomplete' | 'textarea';
@@ -31,7 +32,7 @@ export default function ComponentInputAddress({ id, label, placeholder, classNam
 
   return(
     <div className={"flex flex-col gap-1.5 "+ className}>
-      <span className='font-semibold text-gray-600 uppercase text-sm mx-1'>{label}</span>
+      <span className='text-gray-600 uppercase text-sm mx-1'>{label}</span>
 
       { type === 'text' &&
         <InputTextAddress id={id!} placeholder={placeholder!} handlerKeyDown={handlerKeyDown} />
@@ -40,7 +41,15 @@ export default function ComponentInputAddress({ id, label, placeholder, classNam
       { type === 'email' &&
         <InputEmailAddress handlerKeyDown={handlerKeyDown} />
       }
+
+      { type === 'zip' &&
+        <InputZipAddress setState={setState!} handlerKeyDown={handlerKeyDown} />
+      }
       
+      { type === 'phone' &&
+        <InputPhoneAddress handlerKeyDown={handlerKeyDown} />
+      }
+
       { type === 'autocomplete' &&
         <AutoCompleteAddress value={value} isLoading={isLoading!} />
       }
@@ -48,13 +57,6 @@ export default function ComponentInputAddress({ id, label, placeholder, classNam
       { type === 'textarea' &&
         <InputTextareaAddress handlerKeyDown={handlerKeyDown} />
       }
-
-      { type === 'zip' &&
-        <InputZipAddress setState={setState!} handlerKeyDown={handlerKeyDown} />
-      }
-
-
-
 
     </div>
   );

@@ -22,7 +22,6 @@ export default function FormAddress({}: Props) {
 
   const handleZipCodeSubmit = async () => {
     if(zipCode.length !== 5) {
-      console.log('limpol');
       setCity('');
       setState('');
 

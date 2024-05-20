@@ -6,6 +6,7 @@ import BreadcrumbComponent from '@/components/breadcrumb';
 
 import Footer from '@/components/footer';
 import FormAddress from '@/components/address/form';
+import SummaryAddress from '@/components/address/summary';
 
 
 
@@ -38,6 +39,8 @@ export default function Cart() {
 
         <div className="flex items-start justify-between mt-12">
           <FormAddress />
+
+          <SummaryAddress />
         </div>
 
       </main>

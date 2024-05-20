@@ -4,12 +4,12 @@ import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components
 import ItemCartComponent from "./Item";
 import SkeletonCartItem from "./Skeleton";
 import Image from "next/legacy/image";
-import Button from "@/components/ui/MyButton";
 
 interface Props{
   status: "error" | "success" | "loading";
   itemsCart: ItemCart[];
 };
+
 
 export default function ItemsCart({ status, itemsCart }: Props) {
 

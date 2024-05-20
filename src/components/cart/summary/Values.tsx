@@ -47,11 +47,11 @@ export default function Values({itemsCart}: Props) {
       <Item label={'savings'} value={subtotal - amount} className='text-sm opacity-80' />
 
       <div className="bg-gray-100 flex flex-col gap-2 px-3 py-2 mb-2">
-        <Item label={'discount'} value={subtotal - amount} className='text-xs opacity-80' line='bg-gray-300' />
-        <Item label={'code'} value={0} className='text-xs opacity-80' line='bg-gray-300' />
+        <Item label={'discount'} value={subtotal - amount} className='text-xs opacity-80' />
+        <Item label={'code'} value={0} className='text-xs opacity-80' />
       </div>
 
-      <Item label={'AMOUNT'} value={amount} className='border-b py-3' line='' />
+      <Item label={'AMOUNT'} value={amount} className='border-b py-3' />
 
     </div>
   );
@@ -60,19 +60,17 @@ export default function Values({itemsCart}: Props) {
 
 
 function Item({
-  label, value, className, line = 'bg-gray-200'
+  label, value, className
 }: {
   label: string;
   value?: string | number;
   className?: string;
-  line?: string;
 }) {
 
   return(
-    <div className={"flex items-center gap-2 font-semibold "+className}>
+    <div className={"flex items-center justify-between gap-2 font-semibold "+className}>
       <h4 className=" text-gray-800 whitespace-nowrap">{label}</h4>
 
-      <div className={"w-full h-px !bg-white" + line}></div>
 
       { value !== undefined ? 
         <span className="text-gray-950 whitespace-nowrap">{typeof value === 'string' ? value : formatPrice(value) }</span>

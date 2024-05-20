@@ -42,6 +42,12 @@ export default function ContentProduct({product, variation, variations, variatio
 
   }, [variationIndex]);
 
+  
+  useEffect(() => {
+    setQuantity(1);
+
+  }, [size]);
+
 
   function addProduct() {
     if(!size) return setIsError(true);
@@ -62,7 +68,7 @@ export default function ContentProduct({product, variation, variations, variatio
         <Price outOfStock={outOfStock} product={product} variation={variation} />
       </div>
 
-      <Buttons addProduct={addProduct} outOfStock={outOfStock} size={size} />
+      <Buttons addProduct={addProduct} outOfStock={outOfStock} product={product.id} variation={variation.id} size={size} quantity={quantity} setIsError={setIsError} />
 
       <OfferComponent product={product} variation={variation} />
 

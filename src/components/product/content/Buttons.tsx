@@ -1,6 +1,7 @@
 import Button from '@/components/ui/MyButton';
+import { sizes } from '@/constants/sizes';
 import { ShoppingCart } from 'lucide-react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Fragment, useEffect, useState } from 'react';
 import ClipLoader from "react-spinners/ClipLoader";
 
@@ -8,10 +9,16 @@ import ClipLoader from "react-spinners/ClipLoader";
 interface Props {
   addProduct: () => void;
   outOfStock: boolean;
+  product: string;
+  variation: string;
   size: number | undefined;
-}
+  quantity: number;
+  setIsError: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-export default function Buttons({addProduct, outOfStock, size}: Props) {
+export default function Buttons({addProduct, outOfStock, product, variation, size, quantity, setIsError}: Props) {
+
+  const router = useRouter();
 
   const [state, setState] = useState<'none' | 'load' | 'added'>('none');
 
@@ -49,6 +56,20 @@ export default function Buttons({addProduct, outOfStock, size}: Props) {
   };
 
 
+  function handlerBuy() {
+    if(typeof size !== 'number') return setIsError(true);
+
+    const json = {
+      product,
+      variation,
+      size: encodeURIComponent(sizes[size]),
+      quantity
+    }
+
+    router.push(`/cart?product=${JSON.stringify(json)}`)
+  };
+
+
   return (
     <div className='flex gap-3 my-4'>
 
@@ -71,11 +92,13 @@ export default function Buttons({addProduct, outOfStock, size}: Props) {
             </Fragment>
           </Button>
 
-          <Link href={'/'} className='
+          <button className='
             flex-center w-full max-w-[25%] h-10 shadow-md font-bold bg-white text-gray-950
-            border-2 border-gray-700 opacity-70 hover:opacity-100 transition-all'>
+            border-2 border-gray-700 opacity-70 hover:opacity-100 transition-all'
+            onClick={handlerBuy}>
+
             BUY
-          </Link>
+          </button>
         </Fragment>
       :
         <p className="font-bold text-gray-300 flex-center bg-gray-100  w-full h-10">OUT OF STOCK</p>

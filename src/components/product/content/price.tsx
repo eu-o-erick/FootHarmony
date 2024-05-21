@@ -1,4 +1,4 @@
-import { cn, formatPrice } from '@/lib/utils';
+import { cn, formatPrice, getPriceOffer } from '@/lib/utils';
 import { Product, Variation } from '@/payload-types';
 
 interface Props{
@@ -11,8 +11,8 @@ interface Props{
 export default function Price({product, variation, outOfStock}: Props) {
 
   const priceDefault = variation?.standard_price ?? product.standard_price;
-  const priceOffer = variation?.offer?.offer_price ?? product.offer?.offer_price;
-
+  const priceOffer = getPriceOffer(variation, product);
+  
 
   return (
     <div className={cn('flex items-center gap-2 text-xl', {

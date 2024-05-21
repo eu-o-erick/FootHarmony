@@ -5,10 +5,11 @@ interface Props{
   quantity: number;
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
   outOfStock?: boolean;
+  amount: number;
   size?: 'sm' | 'md';
 };
 
-export default function Quantity({quantity, setQuantity, outOfStock, size = 'md'}: Props) {
+export default function Quantity({quantity, setQuantity, outOfStock, amount, size = 'md'}: Props) {
   
   function decrease() {
     if(quantity <= 1 || outOfStock) return;
@@ -17,7 +18,7 @@ export default function Quantity({quantity, setQuantity, outOfStock, size = 'md'
   };
 
   function increase() {
-    if(quantity >= 10 || outOfStock) return;
+    if(quantity >= 10 || outOfStock || quantity >= amount) return;
     
     setQuantity(quantity + 1);
   };
@@ -44,7 +45,7 @@ export default function Quantity({quantity, setQuantity, outOfStock, size = 'md'
       <span className="select-none">{outOfStock ? 0 : quantity}</span>
       
       <button className={cn("flex-center bg-gray-950 shadow-md text-gray-200 transition-all rounded-full", {
-        'bg-white cursor-default text-gray-700': quantity >= 10 || outOfStock,
+        'bg-white cursor-default text-gray-700': quantity >= 10 || outOfStock || quantity >= amount,
         'w-10 h-6 ': size === 'md',
         'w-7 h-5': size === 'sm'
 

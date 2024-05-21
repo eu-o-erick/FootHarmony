@@ -1,4 +1,4 @@
-import { formatPrice } from '@/lib/utils';
+import { formatPrice, getPriceOffer } from '@/lib/utils';
 import { useState, useEffect } from 'react';
 import { ItemCart } from '..';
 
@@ -24,7 +24,7 @@ export default function Values({itemsCart}: Props) {
 
     const valueAmount = itemsCart.reduce((acc, item) => {
       const priceDefault = item.variation.standard_price ?? item.product.standard_price;
-      const priceOffer = item.variation.offer?.offer_price ?? item.product.offer?.offer_price;
+      const priceOffer = getPriceOffer(item.variation, item.product);
 
       const value = acc + (priceOffer ?? priceDefault) * item.quantity;
 

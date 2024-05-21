@@ -6,38 +6,77 @@ import { ItemCart } from "..";
 import { useEffect, useState } from "react";
 import Quantity from "@/components/product/content/Quantity";
 import { useCart } from "@/hooks/use-cart";
-import { cn, formatPrice } from "@/lib/utils";
+import { cn, formatPrice, getPriceOffer } from "@/lib/utils";
 
 
 interface Props{
   item: ItemCart;
+  isBuyMethod: boolean;
+  itemsCart: ItemCart[];
+  setItemsCart: React.Dispatch<React.SetStateAction<ItemCart[]>>; 
 };
 
 
-export default function ItemCartComponent({item}: Props) {
+export default function ItemCartComponent({item, isBuyMethod, itemsCart, setItemsCart}: Props) {
   const { product, variation, size } = item;
 
   const priceDefault = variation.standard_price ?? product.standard_price;
-  const priceOffer = variation.offer?.offer_price ?? product.offer?.offer_price;
+  const priceOffer = getPriceOffer(variation, product);
+
   const invalid = !variation.stock.find( (stock) => stock.size === size && stock.amount > 0 );
 
   const { updateQuantity, removeItem } = useCart();
 
   const [quantity, setQuantity] = useState(invalid ? 0 : item.quantity );
+  const [amount, setAmount] = useState(0);
 
 
   useEffect(() => {
-    updateQuantity(product.id, variation.id, quantity)
+
+    const stock = variation.stock.find((value) => value.size === size )?.amount;
+
+    setAmount(stock ?? 0)
+
+  }, [item]);
+
+
+  useEffect(() => {
+
+    if(isBuyMethod) {
+      const items = itemsCart.map((itemCart) => {
+        if(itemCart !== item) return itemCart;
+
+        return {
+          ...itemCart,
+          quantity
+        };
+
+      });
+
+      setItemsCart(items);
+
+    } else {
+      updateQuantity(product.id, variation.id, quantity)
+
+    }
   
   }, [quantity]);
 
 
   function remove() {
-    removeItem(product.id, variation.id, size);
+    if(isBuyMethod) {
+      setItemsCart([]);
+
+    } else {
+      removeItem(product.id, variation.id, size);
+    
+    };
 
   };
 
+
   const href = `/product/${product.id}?variation=${variation.id}`
+
 
 
   return (
@@ -78,7 +117,7 @@ export default function ItemCartComponent({item}: Props) {
       
       <TableCell className="px-0 bg-read-500">
         <div className="flex-center flex-col gap-2">
-          <Quantity quantity={quantity} setQuantity={setQuantity} outOfStock={invalid} size="sm" />
+          <Quantity quantity={quantity} setQuantity={setQuantity} outOfStock={invalid} amount={amount} size="sm" />
 
           <button className="text-gray-500 hover:underline text-xs" onClick={remove}>
             remove

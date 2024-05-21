@@ -8,10 +8,12 @@ import Image from "next/legacy/image";
 interface Props{
   status: "error" | "success" | "loading";
   itemsCart: ItemCart[];
+  setItemsCart: React.Dispatch<React.SetStateAction<ItemCart[]>>; 
+  isBuyMethod: boolean;
 };
 
 
-export default function ItemsCart({ status, itemsCart }: Props) {
+export default function ItemsCart({ status, itemsCart, isBuyMethod, setItemsCart }: Props) {
 
 
   return (
@@ -33,7 +35,7 @@ export default function ItemsCart({ status, itemsCart }: Props) {
           <TableBody>
             { (status === "success" && itemsCart?.length) ? 
               itemsCart.map((item, i) =>
-                <ItemCartComponent key={i} item={item} />
+                <ItemCartComponent key={i} item={item} isBuyMethod={isBuyMethod} itemsCart={itemsCart} setItemsCart={setItemsCart} />
               )
               :
               undefined

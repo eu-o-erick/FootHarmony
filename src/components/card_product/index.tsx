@@ -2,7 +2,7 @@ import { Brand, Product, Variation } from '@/payload-types';
 import { useEffect, useState } from 'react';
 import VariantIcon from '../VariantIcon';
 import Link from 'next/link';
-import { cn, formatPrice } from '@/lib/utils';
+import { cn, formatPrice, getPriceOffer } from '@/lib/utils';
 import CarouselImages from './Images';
 
 
@@ -75,7 +75,8 @@ export default function CardProduct({product, offer, color}: Props) {
   if(!variation) return <></>;
 
   const priceDefault = variation?.standard_price ?? product.standard_price;
-  const priceOffer = variation?.offer?.offer_price ?? product.offer?.offer_price;
+  const priceOffer = getPriceOffer(variation, product);
+
   const available = !variation?.stock.find( (stock) => stock.amount > 0 );
 
   return (

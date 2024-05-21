@@ -21,6 +21,7 @@ export default function CartContent() {
   const ids = items.map(item => item.productId).join(',');
   const query = useSearchParams().get('product');
   const json = JSON.parse(query ?? '{}');
+  const [isBuyMethod, setIsBuyMethod] = useState( Object.keys(json).length > 0 );
 
   const { data, status } = trpc.products.useQuery({ ids: json?.product ? json.product : ids });
 
@@ -31,9 +32,10 @@ export default function CartContent() {
   useEffect(() => {
     const products = data?.products;
 
-    if(!products?.length) return setItemsCart([]);
+    if(!products?.length) {
+      setItemsCart([]);
 
-    if( Object.keys(json).length > 0 ) {
+    } else if( isBuyMethod ) {
 
       const product = products[0];
 
@@ -82,9 +84,9 @@ export default function CartContent() {
 
   return (
     <section className="mt-10 flex items-start justify-between ">
-      <ItemsCart status={status} itemsCart={itemsCart} />
+      <ItemsCart status={status} itemsCart={itemsCart} setItemsCart={setItemsCart} isBuyMethod={isBuyMethod} />
 
-      <SummaryCart items={items} status={status} itemsCart={itemsCart} />
+      <SummaryCart itemsCart={itemsCart} />
     </section>
   );
 }

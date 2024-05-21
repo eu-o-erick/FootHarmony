@@ -1,4 +1,4 @@
-import { Offer } from "@/payload-types";
+import { Offer, Product, Variation } from "@/payload-types";
 import { type ClassValue, clsx } from "clsx"
 import { FilterOptions } from "payload/types";
 import { twMerge } from "tailwind-merge"
@@ -79,3 +79,30 @@ export function createURLQueries(queries: string, obj: { [k: string]: string | u
 
   return `/products?${keys_values.filter(str => str.trim() !== "").join('&')}`;
 };
+
+
+export function getPriceOffer(variation: Variation | undefined, product: Product | undefined) {
+  
+  function validDate(date: string | undefined) {
+    if(!date) return;
+  
+    const currentDate = new Date();
+    const expirationDate = new Date(date);
+  
+    return currentDate < expirationDate;
+  };
+
+
+  const variationOffer = variation?.offer?.relationTo as Offer | undefined;
+  const productOffer = product?.offer?.relationTo as Offer | undefined;
+
+  if(variationOffer?.enable && validDate(variationOffer.expiration) && variation?.offer?.offer_price) {
+    return variation.offer.offer_price;
+
+  } else if(productOffer?.enable && validDate(productOffer.expiration) && product?.offer?.offer_price) {
+    return product.offer.offer_price;
+
+  };
+};
+
+

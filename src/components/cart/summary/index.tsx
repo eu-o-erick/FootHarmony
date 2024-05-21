@@ -5,12 +5,10 @@ import Values from "./Values";
 import { ItemCart } from "..";
 
 interface Props{
-  items: CartItem[];
-  status: "error" | "success" | "loading";
   itemsCart: ItemCart[];
 };
 
-export default function SummaryCart({ items, status, itemsCart }: Props) {
+export default function SummaryCart({ itemsCart }: Props) {
 
 
   return (

@@ -1,15 +1,37 @@
-import { formatPrice } from '@/lib/utils';
+import { ItemCart } from '@/components/cart';
+import { formatPrice, getPriceOffer } from '@/lib/utils';
 import { useState, useEffect } from 'react';
 
 
 interface Props{
+  itemsCart: ItemCart[];
 };
 
-export default function Values({}: Props) {
+export default function Values({itemsCart}: Props) {
 
-  const [amount, setAmount] = useState(253);
-  const [total, setTotal] = useState(253);
+  const [amount, setAmount] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [delivery, setDelivery] = useState(0);
 
+
+  useEffect(() => {
+
+    const valueAmount = itemsCart.reduce((acc, item) => {
+      const priceDefault = item.variation.standard_price ?? item.product.standard_price;
+      const priceOffer = getPriceOffer(item.variation, item.product);
+
+      const value = acc + (priceOffer ?? priceDefault) * item.quantity;
+
+      return value;
+
+    }, 0);
+
+
+
+    setTotal(valueAmount + delivery);
+    setAmount(valueAmount);
+
+  }, [itemsCart]);
 
 
   return (

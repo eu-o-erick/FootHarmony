@@ -76,7 +76,10 @@ export default function ContentProduct({product, variation, variations, variatio
 
 
   return (
-    <section className='relative flex flex-col w-[38%] px-5'>
+    <section className='
+      relative flex flex-col w-[38%] px-5
+      max-[1000px]:px-2 max-[800px]:w-full
+    '>
       
       { isNew && <span className="absolute top-0 right-0 flex-center w-16 h-7 bg-gray-950 text-gray-200 text-xs mb-2">NEW</span> }
 

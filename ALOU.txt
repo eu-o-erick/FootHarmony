@@ -1,4 +1,12 @@
+FRONT
+  redimencionar paginas
+    cart
+    address
+
+  loading
+    page product
+
 
 BACKEND
-quando atualiza um produto de uma oferta e nao altera o valor, ou o id, ele n faz nada
-não repetir a escolha nos destacados, filtro nas relações
+  quando atualiza um produto de uma oferta e nao altera o valor, ou o id, ele n faz nada
+  não repetir a escolha nos destacados, filtro nas relações

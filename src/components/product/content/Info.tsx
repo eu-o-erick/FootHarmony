@@ -27,7 +27,7 @@ export default function Info({product}: Props) {
         ))}
       </h6>
 
-      <h1 className="text-3xl font-bold uppercase my-2 break-words">{product.name}</h1>
+      <h1 className="text-3xl font-bold uppercase my-2 break-words max-[600px]:text-2xl">{product.name}</h1>
 
     </div>
   );

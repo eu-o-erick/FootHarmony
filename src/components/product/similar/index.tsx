@@ -21,14 +21,26 @@ export default function Similar({ product }: Props) {
   });
 
 
-
+// max-[1000px]:px-8 max-[800px]:px-20 max-[600px]:px-5 max-[500px]:px-3
   return (
-    <section className="relative max-w-[1278px] mx-auto px-14 mt-20">
+    <section className="
+      relative max-w-[1278px] mx-auto px-14 mt-20
+      max-[1000px]:px-8 max-[800px]:px-20 max-[600px]:px-5 max-[500px]:px-3
+    ">
+      
       <h3 className="font-semibold text-2xl uppercase">explore more product</h3>
 
       <Swiper
         spaceBetween={20}
-        slidesPerView={4}
+        slidesPerView={2}
+        breakpoints={{
+          800: {
+            slidesPerView: 3,
+          },
+          1000: {
+            slidesPerView: 4,
+          },
+        }}
         className='w-full !py-6'>
 
         { !products || !products.length ?

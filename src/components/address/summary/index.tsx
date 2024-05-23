@@ -1,10 +1,14 @@
-import Checkout from "./Checkout";
+import { ItemCart } from "@/components/cart";
+import ListProducts from "./Product";
 import Values from "./Values";
+import Checkout from "./Checkout";
 
 interface Props{
+  itemsCart: ItemCart[];
+  status: "success" | "loading" | "error";
 };
 
-export default function SummaryAddress({}: Props) {
+export default function SummaryAddress({ itemsCart, status }: Props) {
 
 
   return (
@@ -12,7 +16,9 @@ export default function SummaryAddress({}: Props) {
 
       <h2 className="p-4 mb-4 text-lg font-semibold bg-gray-950 text-gray-200">SUMMARY</h2>
 
-      <Values />
+      <ListProducts itemsCart={itemsCart} status={status} />
+
+      <Values itemsCart={itemsCart} />
 
       <Checkout />
 

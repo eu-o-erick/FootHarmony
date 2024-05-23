@@ -9,7 +9,7 @@ interface PropsInput {
 
 
 
-export default function InputZipAddress({ setState }: PropsInput) {
+export default function InputZipAddress({ setState, handlerKeyDown }: PropsInput) {
 
   const refInput = useRef<null | HTMLInputElement>(null);
 
@@ -52,6 +52,7 @@ export default function InputZipAddress({ setState }: PropsInput) {
         placeholder="XXXXX"
         autoComplete="off"
         maxLength={5}
+        onKeyDown={handlerKeyDown}
         onChange={handlerChange}/>
 
 

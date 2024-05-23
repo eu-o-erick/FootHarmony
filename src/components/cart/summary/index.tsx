@@ -21,7 +21,7 @@ export default function SummaryCart({ itemsCart, query }: Props) {
 
       <PromoCode />
 
-      <Checkout query={query} />
+      <Checkout query={query} itemsCart={itemsCart} />
     </div>
   );
 };

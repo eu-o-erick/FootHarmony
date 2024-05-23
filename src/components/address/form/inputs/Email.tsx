@@ -44,6 +44,7 @@ export default function InputEmailAddress({ handlerKeyDown }: Props) {
         className="w-full py-2 pl-3 pr-9 border focus:outline-none"
         placeholder="your@email.com"
         autoComplete='off'
+        onKeyDown={handlerKeyDown}
         onChange={handlerChange}/>
 
 

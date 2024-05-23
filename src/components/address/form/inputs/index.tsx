@@ -22,10 +22,38 @@ export default function ComponentInputAddress({ id, label, placeholder, classNam
 
   function handlerKeyDown(e: React.KeyboardEvent<any>) {
     if(e.code !== 'Enter') return;
-
+    
     e.preventDefault();
 
+    const id = (e.target as any).id as string;
 
+    let idFocus = '';
+
+    switch (id) {
+      case 'full_name':
+        idFocus = 'email';
+        break;
+      
+      case 'email':
+        idFocus = 'zip_code';
+        break;
+      
+      case 'zip_code':
+        idFocus = 'phone_number';
+        break;
+        
+      case 'phone_number':
+        idFocus = 'street';
+        break;
+
+      case 'street':
+        idFocus = 'textarea_address';
+        break;
+
+    };
+
+
+    idFocus && document.getElementById(idFocus)?.focus();
 
   };
 
@@ -55,7 +83,7 @@ export default function ComponentInputAddress({ id, label, placeholder, classNam
       }
       
       { type === 'textarea' &&
-        <InputTextareaAddress handlerKeyDown={handlerKeyDown} />
+        <InputTextareaAddress />
       }
 
     </div>

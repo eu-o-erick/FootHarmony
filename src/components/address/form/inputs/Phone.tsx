@@ -34,11 +34,6 @@ export default function InputPhoneAddress({ handlerKeyDown }: PropsInput) {
   };
 
 
-  useEffect(() => {
-    console.log('phone: ', phone)
-
-  }, [phone])
-
 
   return(
     <div className="relative">

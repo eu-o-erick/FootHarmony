@@ -72,11 +72,15 @@ export default function Product() {
         <Navbar />
         <Generes />
 
-        <div className="max-w-[1278px] mx-auto px-14 mt-20 mb-4">
+        <div className="max-w-[1278px] mx-auto px-14 mt-20 mb-4 max-[1000px]:px-8 max-[800px]:px-20 max-[600px]:px-5 max-[500px]:px-3">
           <BreadcrumbComponent elements={elements} />
         </div>
 
-        <div className="relative flex justify-between items-start max-w-[1278px] mx-auto px-14">
+        <div className="
+          relative flex justify-between items-start max-w-[1278px] mx-auto px-14
+          max-[1000px]:px-8 max-[800px]:flex-col max-[800px]:gap-20 max-[800px]:px-20 max-[600px]:px-5 max-[600px]:gap-14 max-[500px]:gap-10 max-[500px]:px-3
+        ">
+
           <ImagesProduct images={variation.images} />
 
           <ContentProduct product={product} variation={variation} variations={variations} variationIndex={variationIndex}  />

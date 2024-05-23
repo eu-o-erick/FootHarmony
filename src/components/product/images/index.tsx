@@ -53,7 +53,7 @@ export default function ImagesProduct({images}: Props) {
 
 
   return (
-    <div className='w-[58%] bg-white border select-none'>
+    <div className='w-[58%] bg-white border select-none max-[800px]:w-full'>
 
       <div className="relative">
 
@@ -91,14 +91,22 @@ export default function ImagesProduct({images}: Props) {
       <Swiper
         onSwiper={setThumbsSwiper}
         slidesPerView={3}
+        breakpoints={{
+          500: {
+            slidesPerView: 4,
+          },
+          800: {
+            slidesPerView: 3,
+          },
+        }}
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Thumbs]}
-        className='!py-6 !px-2'>
+        className='!py-6 !px-2 max-[800px]:!py-4'>
 
           { filenames.map((filename, i) => (
-            <SwiperSlide key={i} className='!px-3'>
-              <div className={cn('relative aspect-[4/3] p-5 shadow-md hover:p-4 transition-all border', {
+            <SwiperSlide key={i} className='!px-3 max-[800px]:!px-1.5'> 
+              <div className={cn('relative aspect-[4/3] p-5 shadow-md hover:p-4 transition-all border max-[1000px]:p-4 max-[1000px]:hover:p-3  max-[700px]:!p-2', {
                 'border-gray-700 !border-y-2 !p-2': i === index,
               })}>
 

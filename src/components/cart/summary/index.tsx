@@ -1,14 +1,15 @@
 import PromoCode from "./PromoCode";
-import { CartItem } from "@/hooks/use-cart";
+import { CartItem } from "@/hooks/useCart";
 import Checkout from "./Checkout";
 import Values from "./Values";
 import { ItemCart } from "..";
 
 interface Props{
   itemsCart: ItemCart[];
+  query: string | null;
 };
 
-export default function SummaryCart({ itemsCart }: Props) {
+export default function SummaryCart({ itemsCart, query }: Props) {
 
 
   return (
@@ -20,7 +21,7 @@ export default function SummaryCart({ itemsCart }: Props) {
 
       <PromoCode />
 
-      <Checkout />
+      <Checkout query={query} />
     </div>
   );
 };

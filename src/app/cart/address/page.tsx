@@ -3,10 +3,8 @@
 import Navbar from '@/components/navbar';
 import Generes from '@/components/home/generes';
 import BreadcrumbComponent from '@/components/breadcrumb';
-
+import AddressContent from '@/components/address';
 import Footer from '@/components/footer';
-import FormAddress from '@/components/address/form';
-import SummaryAddress from '@/components/address/summary';
 
 
 
@@ -37,11 +35,7 @@ export default function Cart() {
 
         <h1 className="text-2xl font-semibold mt-2">SHOPPING ADDRESS</h1>
 
-        <div className="flex items-start justify-between mt-12">
-          <FormAddress />
-
-          <SummaryAddress />
-        </div>
+        <AddressContent />
 
       </main>
       <Footer />

@@ -50,6 +50,7 @@ export default function InputZipAddress({ setState }: PropsInput) {
         name='zip_code'
         className="w-full py-2 pl-3 pr-9 border focus:outline-none"
         placeholder="XXXXX"
+        autoComplete="off"
         maxLength={5}
         onChange={handlerChange}/>
 

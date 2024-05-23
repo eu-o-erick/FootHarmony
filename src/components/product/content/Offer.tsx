@@ -25,7 +25,7 @@ export default function OfferComponent({product, variation}: Props) {
 
     const date = new Date(offer.expiration);
 
-    setExpirationDate( `${MONTH[date.getMonth()]} ${date.getDay()}` )
+    setExpirationDate( `${MONTH[date.getMonth()]} ${date.getDate()}` )
 
   }, [offer])
 

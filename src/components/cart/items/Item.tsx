@@ -5,7 +5,7 @@ import {TableCell, TableRow } from "@/components/ui/table";
 import { ItemCart } from "..";
 import { useEffect, useState } from "react";
 import Quantity from "@/components/product/content/Quantity";
-import { useCart } from "@/hooks/use-cart";
+import { useCart } from "@/hooks/useCart";
 import { cn, formatPrice, getPriceOffer } from "@/lib/utils";
 
 
@@ -19,6 +19,7 @@ interface Props{
 
 export default function ItemCartComponent({item, isBuyMethod, itemsCart, setItemsCart}: Props) {
   const { product, variation, size } = item;
+
 
   const priceDefault = variation.standard_price ?? product.standard_price;
   const priceOffer = getPriceOffer(variation, product);
@@ -36,6 +37,7 @@ export default function ItemCartComponent({item, isBuyMethod, itemsCart, setItem
     const stock = variation.stock.find((value) => value.size === size )?.amount;
 
     setAmount(stock ?? 0)
+    setQuantity(invalid ? 0 : item.quantity)
 
   }, [item]);
 

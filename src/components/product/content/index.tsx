@@ -10,7 +10,7 @@ import VariationsImages from './Variations';
 import Quantity from './Quantity';
 import Accordions from './Accordions';
 import OfferComponent from './Offer';
-import { useCart } from '@/hooks/use-cart';
+import { useCart } from '@/hooks/useCart';
 import { sizes } from '@/constants/sizes';
 import Error from '@/components/Error';
 

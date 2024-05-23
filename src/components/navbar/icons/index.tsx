@@ -3,7 +3,7 @@ import NavigationMobile from "../navigation/Mobile";
 import Messages from "./message";
 import SearchNavbar from "./search";
 import { ShoppingCart } from "lucide-react";
-import { useCart } from "@/hooks/use-cart";
+import { useCart } from "@/hooks/useCart";
 import { useEffect, useState } from "react";
 
 

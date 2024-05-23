@@ -4,16 +4,16 @@ import Link from "next/link";
 
 
 interface Props{
-
+  query: string | null;
 };
 
 
 
-export default function Checkout(props: Props) {
+export default function Checkout({ query }: Props) {
 
   return (
     <div className="m-4 mb-6">
-      <Button href="/cart/address" className="py-2 mb-2">CHECKOUT</Button>
+      <Button href={`/cart/address${query ? `?product=${query}` : ''}`} className="py-2 mb-2">CHECKOUT</Button>
       
       <p className="font-light text-sm text-gray-500">
         By continuing to Checkout, you are agreeing to our

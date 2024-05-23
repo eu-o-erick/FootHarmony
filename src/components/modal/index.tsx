@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Media } from "@/payload-types";
 import { clearId } from "@/store/reducers/modal";
 import { trpc } from "@/trpc/client";
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/legacy/image";
 import RichTextFormater from "../RichText";
@@ -23,6 +23,8 @@ export default function ModalComponent() {
 
   const { status, data: modal } = trpc.modal.useQuery({modalId});
 
+  const [expirationDate, setExpirationDate] = useState('');
+
 
   useEffect(() => {
     if(!modalId) return;
@@ -30,6 +32,17 @@ export default function ModalComponent() {
     (refTrigger.current as HTMLButtonElement | null)?.click();
 
   }, [modalId]);
+
+
+  useEffect(() => {
+    if(!modal || !modal.expiryDate) return setExpirationDate('');
+
+    const date = new Date(modal.expiryDate);
+
+    setExpirationDate( `${MONTH[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}` )
+
+  }, [modal])
+
 
   function handlerClose(open: boolean) {
     !open && dispatch( clearId() );
@@ -58,14 +71,7 @@ export default function ModalComponent() {
             { modal.expiryDate && (
               <p className="text-right font-semibold opacity-60 text-sm">
                 Expires on
-                <span className="ml-1 font-bold">
-                  { (() => {
-                    const date = modal.expiryDate.split('T')[0].split('-');
-                    const mount = MONTH[Number( (date[1] as any) - 1)];
-
-                    return `${mount} ${date[2]}, ${date[0]}`
-                  })() }
-                </span>
+                <span className="ml-1 font-bold">{expirationDate}</span>
               </p>
             )}
 

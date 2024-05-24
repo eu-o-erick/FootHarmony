@@ -34,6 +34,10 @@ export default function Values({itemsCart}: Props) {
   }, [itemsCart]);
 
 
+
+  
+
+
   return (
     <div className='mx-5 my-2 flex flex-col gap-4'>
 
@@ -45,6 +49,8 @@ export default function Values({itemsCart}: Props) {
     </div>
   );
 };
+
+
 
 
 

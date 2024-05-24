@@ -10,6 +10,7 @@ import { getCategoriesRouter } from "./routers/categories";
 import { searchRouter } from "./routers/search";
 import { getProductRouter } from "./routers/product";
 import { getSimilarRouter } from "./routers/similar";
+import { getCalculateShipping } from "./routers/calculate_shipping";
 
 
 export const appRouter = router({
@@ -24,6 +25,8 @@ export const appRouter = router({
   brands: getBrandsRouter,
   category: getCategoriesRouter,
   featured: getFeaturedsRouter,
+  calculateShipping: getCalculateShipping,
+
 });
 
 

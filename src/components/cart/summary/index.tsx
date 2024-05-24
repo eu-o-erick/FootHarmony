@@ -6,10 +6,10 @@ import { ItemCart } from "..";
 
 interface Props{
   itemsCart: ItemCart[];
-  query: string | null;
+  isBuyMethod: boolean;
 };
 
-export default function SummaryCart({ itemsCart, query }: Props) {
+export default function SummaryCart({ itemsCart, isBuyMethod }: Props) {
 
 
   return (
@@ -21,7 +21,7 @@ export default function SummaryCart({ itemsCart, query }: Props) {
 
       <PromoCode />
 
-      <Checkout query={query} itemsCart={itemsCart} />
+      <Checkout isBuyMethod={isBuyMethod} itemsCart={itemsCart} />
     </div>
   );
 };

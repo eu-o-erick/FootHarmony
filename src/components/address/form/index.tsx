@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import ComponentInputAddress from './inputs';
 import axios from 'axios';
+import { trpc } from '@/trpc/client';
 
 interface Props{
 
@@ -13,6 +14,10 @@ export default function FormAddress({}: Props) {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
 
+  const { data, status } = trpc.calculateShipping.useQuery({zipCode});
+
+  console.log('status: ', status)
+  console.log('data: ', data)
 
   useEffect(() => {
     handleZipCodeSubmit()

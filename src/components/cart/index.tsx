@@ -39,7 +39,7 @@ export default function CartContent() {
     <section className="mt-10 flex items-start justify-between ">
       <ItemsCart status={status} itemsCart={itemsCart} setItemsCart={setItemsCart} isBuyMethod={isBuyMethod} />
 
-      <SummaryCart itemsCart={itemsCart} query={query} />
+      <SummaryCart itemsCart={itemsCart} isBuyMethod={isBuyMethod} />
     </section>
   );
 }

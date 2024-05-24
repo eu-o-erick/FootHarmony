@@ -7,13 +7,13 @@ import Error from "@/components/Error";
 
 
 interface Props{
-  query: string | null;
+  isBuyMethod: boolean;
   itemsCart: ItemCart[];
 };
 
 
 
-export default function Checkout({ query, itemsCart }: Props) {
+export default function Checkout({ isBuyMethod, itemsCart }: Props) {
 
   const router = useRouter();
 
@@ -22,19 +22,27 @@ export default function Checkout({ query, itemsCart }: Props) {
 
   function redirect() {
     
-    if(query) {
-      router.push(`/cart/address?product=${query}`)
+    if(!itemsCart.length) return setIsError(true);
+
+
+    if(isBuyMethod) {
+      const { product, variation, size, quantity } = itemsCart[0];
+
+      router.push(`/cart/address?product=${
+        JSON.stringify({
+          product: product.id,
+          variation: variation.id,
+          size,
+          quantity
+        })
+      }`);
+
       return;
     
     };
 
-    if(itemsCart.length) {
-      router.push('/cart/address')
-      return;
-
-    };
-
-    setIsError(true);
+    router.push('/cart/address');
+    
   };
 
   return (
